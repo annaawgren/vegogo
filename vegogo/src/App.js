@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Helloworld from "./helloworld"
+import Signup from "./signup"
 
 
 class App extends Component {
@@ -12,8 +13,10 @@ class App extends Component {
         <Helloworld />
 
         <p className="App-intro">
-          Hello vegan
+          Hello Hola Hej Vegan + World!
         </p>
+
+        <Signup />
       </div>
     );
   }
