@@ -13,26 +13,10 @@ var Place = new keystone.List("Place", {
 
 Place.add({
 	name: { type: String, required: true },
-	location: {
-		type: Types.Location,
-		country: "Sweden"
-	},
-	budget: {
+	state: {
 		type: Types.Select,
-		options: "budget, midrange, luxury",
-		default: "midrange",
-		index: true
-	},
-	foodTime: {
-		type: Types.Select,
-		options: "breakfast, brunch, dinner",
-		default: "midrange",
-		index: true
-	},
-	foodType: {
-		type: Types.Select,
-		options: "indian, pizza, burger",
-		default: "midrange",
+		options: "draft, published, archived",
+		default: "draft",
 		index: true
 	},
 	publishedDate: {
@@ -40,25 +24,54 @@ Place.add({
 		index: true,
 		dependsOn: { state: "published" }
 	},
+	location: {
+		type: Types.Location,
+		country: "Sweden"
+	},
+	homepage: {
+		type: Types.Url
+	},
+	phone: {
+		type: String
+	},
+	budget: {
+		type: Types.Select,
+		options: "budget, midrange, luxury",
+		default: "midrange",
+		index: true
+	},
+	foodTimes: {
+		type: Types.Relationship,
+		ref: "FoodTimeCategory",
+		many: true,
+		index: true
+	},
+	foodTypes: {
+		type: Types.Relationship,
+		ref: "FoodTypeCategory",
+		many: true,
+		index: true
+	},
 	content: {
 		brief: { type: Types.Html, wysiwyg: true, height: 100 },
 		extended: { type: Types.Html, wysiwyg: true, height: 200 }
 	},
-	categories: { type: Types.Relationship, ref: "PostCategory", many: true },
 	image: { type: Types.CloudinaryImage }
-	/*
-	Area:
-		Stockholm
-		Södermalm
-				Sofo
-			Hornstull
-			Medis
-	*/
 });
+
+/*
+Area:
+	Stockholm
+	Södermalm
+			Sofo
+		Hornstull
+		Medis
+*/
 
 Place.schema.virtual("content.full").get(function() {
 	return this.content.extended || this.content.brief;
 });
 
-Place.defaultColumns = "name, state|20%, author|20%, publishedDate|20%";
+Place.defaultColumns =
+	"name, state, content.brief, publishedDate, budget, foodTimes, foodTypes";
 Place.register();

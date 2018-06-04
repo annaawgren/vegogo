@@ -43,8 +43,9 @@ keystone.set("routes", require("./routes"));
 
 // Configure the navigation bar in Keystone's Admin UI
 keystone.set("nav", {
+	places: ["places", "food-type-categories", "food-time-categories"],
 	posts: ["posts", "post-categories"],
-	enquiries: "enquiries",
+	// enquiries: "enquiries",
 	users: "users"
 });
 
