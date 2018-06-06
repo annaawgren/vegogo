@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import "normalize.css";
 import "./App.css";
-import MailchimpSignup from "./components/MailchimpSignup";
-import PlacesListing from "./components/PlacesListing";
+import Home from "./components/Home";
+import Components from "./components/Components";
 import { API_URL } from "./api-config";
 
 class App extends Component {
@@ -31,11 +31,15 @@ class App extends Component {
     let { places } = this.state;
 
     return (
-      <div className="App">
-        <PlacesListing places={places} headline="Härliga ställen" />
-
-        <MailchimpSignup />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <Route exact path="/" component={Home} />
+          <Route
+            path="/components"
+            render={props => <Components places={places} />}
+          />
+        </div>
+      </BrowserRouter>
     );
   }
 }
