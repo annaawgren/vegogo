@@ -24,6 +24,7 @@ Place.add({
 		index: true,
 		dependsOn: { state: "published" }
 	},
+	createdAt: { type: Date, default: Date.now },
 	location: {
 		type: Types.Location,
 		country: "Sweden"
