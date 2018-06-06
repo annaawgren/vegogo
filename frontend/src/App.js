@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import "normalize.css";
 import "./App.css";
 import Home from "./components/Home";
-import Components from "./components/Components";
+import ExampleComponents from "./components/ExampleComponents";
 import { API_URL } from "./api-config";
 
 class App extends Component {
@@ -36,7 +36,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route
             path="/components"
-            render={props => <Components places={places} />}
+            render={props => <ExampleComponents places={places} />}
           />
         </div>
       </BrowserRouter>

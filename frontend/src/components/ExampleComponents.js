@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MailchimpSignup from "./MailchimpSignup";
 import PlacesListing from "./PlacesListing";
 
-class Components extends Component {
+class ExampleComponents extends Component {
   render() {
     let { places } = this.props;
 
@@ -24,4 +24,4 @@ class Components extends Component {
   }
 }
 
-export default Components;
+export default ExampleComponents;
