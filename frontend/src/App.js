@@ -1,26 +1,40 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import "normalize.css";
 import "./App.css";
-
-import Helloworld from "./helloworld";
-import Signup from "./signup";
+import MailchimpSignup from "./components/MailchimpSignup";
+import PlacesListing from "./components/PlacesListing";
 import { API_URL } from "./api-config";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      places: []
+    };
+  }
+  /**
+   * Load places when component is mounted.
+   */
   componentDidMount() {
-    // hej
-    let placesApiUrl = `${API_URL}/places`;
-    console.log("placesApiUrl", placesApiUrl);
+    let placesApiUrl = `${API_URL}/place/list`;
+    fetch(placesApiUrl)
+      .then(data => {
+        return data.json();
+      })
+      .then(data => {
+        this.setState({ places: data.places });
+      });
   }
 
   render() {
+    let { places } = this.state;
+
     return (
       <div className="App">
-        <Helloworld />
+        <PlacesListing places={places} headline="Härliga ställen" />
 
-        <p className="App-intro">Hello Hola Hej Vegan + World</p>
-
-        <Signup />
+        <MailchimpSignup />
       </div>
     );
   }
