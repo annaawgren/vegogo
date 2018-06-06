@@ -5,9 +5,8 @@ import "./App.css";
 import Home from "./components/Home";
 import ExampleComponents from "./components/ExampleComponents";
 import { API_URL } from "./api-config";
-require("dotenv").config();
 
-console.log(process.env.REACT_APP_GOOGLE_MAPS_KEY);
+// console.log(process.env.REACT_APP_GOOGLE_MAPS_KEY);
 
 class App extends Component {
   constructor(props) {
