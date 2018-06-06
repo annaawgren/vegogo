@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { StaticGoogleMap, Marker, Path } from "react-static-google-map";
+import { StaticGoogleMap, Marker } from "react-static-google-map";
 
 class PlacesListing extends Component {
   render() {
