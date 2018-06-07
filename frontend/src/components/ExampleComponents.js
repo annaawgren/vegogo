@@ -10,10 +10,10 @@ class ExampleComponents extends Component {
 
     return (
       <div>
+        <SiteHeader />
+
         <h1>Components</h1>
         <p>This page lists all the components that we have.</p>
-
-        <SiteHeader />
 
         <PlacesListing places={places} headline="Härliga ställen" />
 
