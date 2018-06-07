@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
 import { GOOGLE_MAPS_API_KEY } from "../api-config";
 import pinImg from "../images/pin.png";
+import "./PlacesListing.css";
 
 class PlacesListing extends Component {
   render() {
-    let { headline, places } = this.props;
+    let { headline, teaser, places } = this.props;
     let placesItems;
 
     if (places) {
@@ -32,12 +33,12 @@ class PlacesListing extends Component {
         }
 
         return (
-          <li key={slug}>
+          <li key={slug} className="PlacesListing-placeItem">
             <Link to={slug}>{name}</Link>
             <p>{budget}</p>
             {types}
             {times}
-            {location && <p>location.street1</p>}
+            {location && <p>{location.street1}</p>}
             {location &&
               location.geo && (
                 <div>
@@ -45,9 +46,10 @@ class PlacesListing extends Component {
                   <p>{location.geo[1]}</p>
                   {/* https://www.npmjs.com/package/react-static-google-map */}
                   <StaticGoogleMap
-                    size="400x250"
+                    size="300x200"
                     zoom="15"
                     apiKey={GOOGLE_MAPS_API_KEY}
+                    className="PlacesListing-placeItem-mapImage"
                   >
                     <Marker
                       location={{ lat: location.geo[1], lng: location.geo[0] }}
@@ -67,12 +69,13 @@ class PlacesListing extends Component {
         );
       });
 
-      placesItems = <ul>{placesItems}</ul>;
+      placesItems = <ul className="PlacesListing-placeItems">{placesItems}</ul>;
     }
 
     return (
       <div className="PlacesListing">
         <h2>{headline}</h2>
+        <div>{teaser}</div>
         {placesItems}
       </div>
     );

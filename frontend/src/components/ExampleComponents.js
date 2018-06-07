@@ -15,7 +15,11 @@ class ExampleComponents extends Component {
         <h1>Components</h1>
         <p>This page lists all the components that we have.</p>
 
-        <PlacesListing places={places} headline="Härliga ställen" />
+        <PlacesListing
+          places={places}
+          headline="Härliga ställen"
+          teaser="En massa goa ställen är detta en listning på."
+        />
 
         <MailchimpSignup />
 
