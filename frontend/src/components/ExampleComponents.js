@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MailchimpSignup from "./MailchimpSignup";
 import PlacesListing from "./PlacesListing";
 import SiteHeader from "./SiteHeader";
+import SiteFooter from "./SiteFooter";
 
 class ExampleComponents extends Component {
   render() {
@@ -12,20 +13,13 @@ class ExampleComponents extends Component {
         <h1>Components</h1>
         <p>This page lists all the components that we have.</p>
 
-        <h2>
-          <code>Header</code>
-        </h2>
         <SiteHeader />
 
-        <h2>
-          <code>Placeslisting</code>
-        </h2>
         <PlacesListing places={places} headline="Härliga ställen" />
 
-        <h2>
-          <code>MailchimpSignup</code>
-        </h2>
         <MailchimpSignup />
+
+        <SiteFooter />
       </div>
     );
   }
