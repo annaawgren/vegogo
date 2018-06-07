@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
+import { GOOGLE_MAPS_API_KEY } from "../api-config";
+import pinImg from "../images/pin.png";
 
 class PlacesListing extends Component {
   render() {
@@ -42,11 +44,16 @@ class PlacesListing extends Component {
                   <p>{location.geo[0]}</p>
                   <p>{location.geo[1]}</p>
                   {/* https://www.npmjs.com/package/react-static-google-map */}
-                  <StaticGoogleMap size="400x250" zoom="15">
+                  <StaticGoogleMap
+                    size="400x250"
+                    zoom="15"
+                    apiKey={GOOGLE_MAPS_API_KEY}
+                  >
                     <Marker
                       location={{ lat: location.geo[1], lng: location.geo[0] }}
                       color="green"
                       label="V"
+                      iconURL={document.location.origin + pinImg}
                     />
                   </StaticGoogleMap>
                 </div>
