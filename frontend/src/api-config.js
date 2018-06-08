@@ -10,7 +10,7 @@ if (hostname === "localhost") {
   apiUrl = "http://localhost:3131/api";
   googleMapPublicApiKey = "AIzaSyCYCr0ilOmynS4WcS-OSOPTcdDWfDpSMw8";
 } else if (hostname === "beta.vegogo.se") {
-  apiUrl = "http://beta.vegogo.se:3131/api";
+  apiUrl = "https://beta-admin.vegogo.se/api";
   googleMapPublicApiKey = "AIzaSyCYCr0ilOmynS4WcS-OSOPTcdDWfDpSMw8";
 }
 
