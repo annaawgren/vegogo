@@ -1,5 +1,23 @@
 var keystone = require("keystone");
 var Types = keystone.Field.Types;
+let moment = require("moment");
+
+var s3Storage = new keystone.Storage({
+	adapter: require("keystone-storage-adapter-s3"),
+	s3: {
+		path: "/places",
+		region: "eu-west-1",
+		headers: {
+			"x-amz-acl": "public-read"
+		},
+		generateFilename: function(file) {
+			let filename = moment().format("YYYYMMDD-HHmm") + "-" + file.originalname;
+			return filename;
+		}
+	}
+});
+
+console.log(s3Storage);
 
 /**
  * Place Model
@@ -57,7 +75,10 @@ Place.add({
 		brief: { type: Types.Html, wysiwyg: true, height: 100 },
 		extended: { type: Types.Html, wysiwyg: true, height: 200 }
 	},
-	image: { type: Types.CloudinaryImage }
+	image: {
+		type: Types.File,
+		storage: s3Storage
+	}
 });
 
 /*
