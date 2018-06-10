@@ -4,6 +4,7 @@ import "normalize.css";
 import "./App.css";
 import Home from "./components/Home";
 import ExampleComponents from "./components/ExampleComponents";
+import Place from "./components/Place";
 import { API_URL } from "./api-config";
 import ReactGA from "react-ga";
 
@@ -55,6 +56,11 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Route exact path="/" component={Home} />
+          <Route
+            exact
+            path="/place/:place"
+            render={props => <Place {...props} />}
+          />
           <Route
             path="/components"
             render={props => <ExampleComponents places={places} />}
