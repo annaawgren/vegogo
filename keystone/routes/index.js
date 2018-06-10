@@ -47,10 +47,16 @@ exports = module.exports = function(app) {
 		routes.api.places.list
 	);
 	app.get(
-		"/api/place/get",
+		"/api/place/id/:id",
 		keystone.middleware.cors,
 		keystone.middleware.api,
-		routes.api.places.get
+		routes.api.places.getId
+	);
+	app.get(
+		"/api/place/slug/:slug",
+		keystone.middleware.cors,
+		keystone.middleware.api,
+		routes.api.places.getSlug
 	);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:

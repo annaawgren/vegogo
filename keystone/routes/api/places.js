@@ -4,6 +4,11 @@ var async = require("async"),
 var Place = keystone.list("Place");
 
 /**
+ * Based on code found here:
+ * https://gist.github.com/JedWatson/9741171
+ */
+
+/**
  * List Posts
  */
 exports.list = function(req, res) {
@@ -21,9 +26,25 @@ exports.list = function(req, res) {
 
 /**
  * Get Post by ID
+ * http://localhost:3131/api/place/id/5b158f4b16474ee5772d1113
  */
-exports.get = function(req, res) {
+exports.getId = function(req, res) {
 	Place.model.findById(req.params.id).exec(function(err, item) {
+		if (err) return res.apiError("database error", err);
+		if (!item) return res.apiError("not found");
+
+		res.apiResponse({
+			place: item
+		});
+	});
+};
+
+/**
+ * Get Post by slug
+ * http://localhost:3131/api/place/slug/minh-mat
+ */
+exports.getSlug = function(req, res) {
+	Place.model.findOne({ slug: req.params.slug }).exec(function(err, item) {
 		if (err) return res.apiError("database error", err);
 		if (!item) return res.apiError("not found");
 
