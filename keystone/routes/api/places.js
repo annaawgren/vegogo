@@ -29,14 +29,17 @@ exports.list = function(req, res) {
  * http://localhost:3131/api/place/id/5b158f4b16474ee5772d1113
  */
 exports.getId = function(req, res) {
-	Place.model.findById(req.params.id).exec(function(err, item) {
-		if (err) return res.apiError("database error", err);
-		if (!item) return res.apiError("not found");
+	Place.model
+		.findById(req.params.id)
+		.populate("foodTimes foodTypes")
+		.exec(function(err, item) {
+			if (err) return res.apiError("database error", err);
+			if (!item) return res.apiError("not found");
 
-		res.apiResponse({
-			place: item
+			res.apiResponse({
+				place: item
+			});
 		});
-	});
 };
 
 /**
@@ -44,12 +47,15 @@ exports.getId = function(req, res) {
  * http://localhost:3131/api/place/slug/minh-mat
  */
 exports.getSlug = function(req, res) {
-	Place.model.findOne({ slug: req.params.slug }).exec(function(err, item) {
-		if (err) return res.apiError("database error", err);
-		if (!item) return res.apiError("not found");
+	Place.model
+		.findOne({ slug: req.params.slug })
+		.populate("foodTimes foodTypes")
+		.exec(function(err, item) {
+			if (err) return res.apiError("database error", err);
+			if (!item) return res.apiError("not found");
 
-		res.apiResponse({
-			place: item
+			res.apiResponse({
+				place: item
+			});
 		});
-	});
 };
