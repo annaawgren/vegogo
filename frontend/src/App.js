@@ -5,8 +5,7 @@ import "./App.css";
 import Home from "./components/Home";
 import ExampleComponents from "./components/ExampleComponents";
 import { API_URL } from "./api-config";
-
-// console.log(process.env.REACT_APP_GOOGLE_MAPS_KEY);
+import ReactGA from "react-ga";
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +13,8 @@ class App extends Component {
     this.state = {
       places: []
     };
+
+    this.GATrackingID = "UA-181460-40";
   }
   /**
    * Load places when component is mounted.
@@ -27,6 +28,24 @@ class App extends Component {
       .then(data => {
         this.setState({ places: data.places });
       });
+
+    this.initGA();
+  }
+
+  /**
+   * Docs for GA component used:
+   * https://github.com/react-ga/react-ga
+   */
+  initGA() {
+    ReactGA.initialize(this.GATrackingID, {
+      debug: true,
+      titleCase: false,
+      gaOptions: {
+        anonymizeIp: true
+      }
+    });
+
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
   render() {
