@@ -17,8 +17,6 @@ var s3Storage = new keystone.Storage({
 	}
 });
 
-console.log(s3Storage);
-
 /**
  * Place Model
  * ==========
