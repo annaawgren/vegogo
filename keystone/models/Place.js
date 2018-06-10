@@ -1,6 +1,7 @@
 var keystone = require("keystone");
 var Types = keystone.Field.Types;
 let moment = require("moment");
+var slugify = require("underscore.string/slugify");
 
 var s3Storage = new keystone.Storage({
 	adapter: require("keystone-storage-adapter-s3"),
@@ -12,6 +13,14 @@ var s3Storage = new keystone.Storage({
 		},
 		generateFilename: function(file) {
 			let filename = moment().format("YYYYMMDD-HHmm") + "-" + file.originalname;
+			filename = slugify(filename);
+
+			// Sluggify transforms '.jpg' to '-jpg' so we undo that.
+			filename = filename.replace(/-jpg$/, ".jpg");
+			filename = filename.replace(/-jpeg$/, ".jpeg");
+			filename = filename.replace(/-png$/, ".png");
+			filename = filename.replace(/-gif$/, ".gif");
+
 			return filename;
 		}
 	}
