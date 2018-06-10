@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
-import { GOOGLE_MAPS_API_KEY } from "../api-config";
+import { GOOGLE_MAPS_API_KEY, IMAGES_URL } from "../api-config";
 import pinImg from "../images/pin.png";
 import "./PlacesListing.css";
 
@@ -19,7 +19,8 @@ class PlacesListing extends Component {
           location,
           content,
           foodTypes,
-          foodTimes
+          foodTimes,
+          image
         } = place;
 
         let types = foodTypes.map(type => <li key={type.key}>{type.name}</li>);
@@ -32,9 +33,23 @@ class PlacesListing extends Component {
           times = <ul>{times}</ul>;
         }
 
+        let imageMarkup;
+        if (image) {
+          imageMarkup = (
+            <p>
+              <img
+                src={`${IMAGES_URL}/places/${image.filename}`}
+                alt=""
+                className="PlaceItem-photo-img"
+              />
+            </p>
+          );
+        }
+
         return (
           <li key={slug} className="PlacesListing-placeItem">
             <Link to={slug}>{name}</Link>
+            {imageMarkup}
             <p>{budget}</p>
             {types}
             {times}
