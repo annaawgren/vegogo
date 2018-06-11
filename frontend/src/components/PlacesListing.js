@@ -70,9 +70,7 @@ class PlacesListing extends Component {
                       location={{ lat: location.geo[1], lng: location.geo[0] }}
                       color="green"
                       label="V"
-                      xiconURL={document.location.origin + pinImg}
-                      xxxiconURL="https://goo.gl/1oTJ9Y"
-                      iconURL="http://beta.vegogo.se/static/media/pin.46fd9ba2.png"
+                      iconURL="https://beta.vegogo.se/favicon-32x32.png"
                     />
                   </StaticGoogleMap>
                 </div>
