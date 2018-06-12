@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
-import pinImg from "../images/pin.png";
+// import pinImg from "../images/pin.png";
 import { GOOGLE_MAPS_API_KEY, IMAGES_URL, API_URL } from "../api-config";
 
 class Place extends Component {
@@ -77,12 +77,11 @@ class Place extends Component {
           {location &&
             location.geo && (
               <div>
-                <p>{location.geo[0]}</p>
-                <p>{location.geo[1]}</p>
                 {/* https://www.npmjs.com/package/react-static-google-map */}
                 <StaticGoogleMap
                   size="300x200"
                   zoom="15"
+                  scale="2"
                   apiKey={GOOGLE_MAPS_API_KEY}
                   className="PlacesListing-placeItem-mapImage"
                 >
