@@ -47,7 +47,8 @@ Place.add({
 	publishedDate: {
 		type: Types.Date,
 		index: true,
-		dependsOn: { state: "published" }
+		dependsOn: { state: "published" },
+		default: Date.now
 	},
 	createdAt: { type: Date, default: Date.now },
 	location: {
