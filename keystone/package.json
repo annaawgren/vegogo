@@ -20,6 +20,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "start": "node keystone.js"
+    "start": "node keystone.js",
+    "watch": "nodemon keystone.js"
   }
 }
