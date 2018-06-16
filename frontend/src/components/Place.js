@@ -13,18 +13,32 @@ class Place extends Component {
     };
   }
   componentDidMount() {
-    if (this.props.match) {
-      let placeSlug = this.props.match.params.place;
-      let placesApiUrl = `${API_URL}/place/slug/${placeSlug}`;
+    // If match exists then we are coming here via url.
+    // Other way to get here is just through a component added on another page.
+    let { match, slug } = this.props;
 
-      fetch(placesApiUrl)
-        .then(data => {
-          return data.json();
-        })
-        .then(data => {
-          this.setState({ place: data.place });
-        });
+    console.log("match, slug", match, slug);
+
+    let placeSlug;
+    if (slug) {
+      placeSlug = slug;
+    } else if (match && match.params.place) {
+      placeSlug = match.params.place;
     }
+
+    if (!placeSlug) {
+      console.log("no place found :(");
+    }
+
+    let placesApiUrl = `${API_URL}/place/slug/${placeSlug}`;
+
+    fetch(placesApiUrl)
+      .then(data => {
+        return data.json();
+      })
+      .then(data => {
+        this.setState({ place: data.place });
+      });
   }
 
   render() {

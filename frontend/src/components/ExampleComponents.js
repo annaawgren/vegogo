@@ -8,7 +8,6 @@ import "./ExampleComponents.css";
 
 function ExampleComponent(props) {
   let { title } = props;
-  console.log("title", title);
 
   return (
     <div className="ExampleComponent">
@@ -25,7 +24,7 @@ function ExampleComponent(props) {
 class ExampleComponents extends Component {
   render() {
     let { places } = this.props;
-    let place = places ? places[0] : null;
+    // let place = places ? places[0] : null;
 
     return (
       <div>
@@ -36,16 +35,16 @@ class ExampleComponents extends Component {
         <h1>Components</h1>
         <p>This page lists all the components that we have.</p>
 
+        <ExampleComponent title="<Place>">
+          <Place slug="mahalo" />
+        </ExampleComponent>
+
         <ExampleComponent title="<PlacesListing>">
           <PlacesListing
             places={places}
             headline="Härliga ställen"
             teaser="En massa goa ställen är detta en listning på."
           />
-        </ExampleComponent>
-
-        <ExampleComponent title="<Place>">
-          <Place place={place} />
         </ExampleComponent>
 
         <ExampleComponent title="<MailchimpSignup>">
