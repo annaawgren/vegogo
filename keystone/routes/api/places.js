@@ -12,8 +12,21 @@ var Place = keystone.list("Place");
  * List Posts
  */
 exports.list = function(req, res) {
+	let sortParam = req.query.sort || "published";
+
+	let sort;
+	switch (sortParam) {
+		case "name":
+			sort = { name: 1 };
+			break;
+		case "published":
+		default:
+			sort = { publishedDate: -1 };
+	}
+
 	Place.model
 		.find()
+		.sort(sort)
 		.populate("foodTimes foodTypes")
 		.exec(function(err, items) {
 			if (err) return res.apiError("database error", err);
