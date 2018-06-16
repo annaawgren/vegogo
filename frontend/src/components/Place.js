@@ -13,16 +13,18 @@ class Place extends Component {
     };
   }
   componentDidMount() {
-    let placeSlug = this.props.match.params.place;
-    let placesApiUrl = `${API_URL}/place/slug/${placeSlug}`;
+    if (this.props.match) {
+      let placeSlug = this.props.match.params.place;
+      let placesApiUrl = `${API_URL}/place/slug/${placeSlug}`;
 
-    fetch(placesApiUrl)
-      .then(data => {
-        return data.json();
-      })
-      .then(data => {
-        this.setState({ place: data.place });
-      });
+      fetch(placesApiUrl)
+        .then(data => {
+          return data.json();
+        })
+        .then(data => {
+          this.setState({ place: data.place });
+        });
+    }
   }
 
   render() {
