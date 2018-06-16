@@ -48,7 +48,9 @@ class PlacesListing extends Component {
 
         return (
           <li key={slug} className="PlacesListing-placeItem">
-            <Link to={`/place/${slug}`}>{name}</Link>
+            <h1>
+              <Link to={`/place/${slug}`}>{name}</Link>
+            </h1>
             {imageMarkup}
             <p>{budget}</p>
             {types}
