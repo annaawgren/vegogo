@@ -22,9 +22,10 @@
 
 .PlacesListing-placeItem-mapImage {
     float: left;
+    max-width: 300px;
 }
 
 .PlaceItem-photo-img {
-    max-width: 500px;
+    max-width: 300px;
     height: auto;
 }
