@@ -1,4 +1,21 @@
+.SiteHeader {
+    position: relative;
+}
+    
 .SiteHeader-logo {
-    max-width: 50px;
+    max-width: 110px;
     height: auto;
+}
+
+.SiteHeader-navToggler {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 30px;
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    line-height: 1;
+    cursor: pointer;
 }

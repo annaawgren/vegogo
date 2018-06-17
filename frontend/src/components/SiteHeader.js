@@ -9,11 +9,11 @@ class SiteHeader extends Component {
       <header className="SiteHeader">
         <h1 className="SiteHeader-title">
           <Link to="/">
-            <img src={logoImg} alt="Vegogo logo" className="SiteHeader-logo" />
-            Vegogo
+            <img src={logoImg} alt="Vegogo" className="SiteHeader-logo" />
           </Link>
         </h1>
         <p>The new guide* to vegan eating *curated for you with &lt;3</p>
+        <button className="SiteHeader-navToggler">☰</button>
       </header>
     );
   }

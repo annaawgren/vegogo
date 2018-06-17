@@ -28,15 +28,15 @@ class ExampleComponents extends Component {
 
     return (
       <div>
+        <ExampleComponent title="<SiteHeader>">
+          <SiteHeader />
+        </ExampleComponent>
+
         <ExampleComponent title="<Bubble>">
           <Bubble color="dark" text="Awesome Supertasty Another word" />
           <Bubble color="green" />
           <Bubble color="yellow" text="Good place with nice food" />
           <Bubble color="red" />
-        </ExampleComponent>
-
-        <ExampleComponent title="<SiteHeader>">
-          <SiteHeader />
         </ExampleComponent>
 
         <h1>Components</h1>
