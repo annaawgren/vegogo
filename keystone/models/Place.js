@@ -5,6 +5,9 @@ var slugify = require("underscore.string/slugify");
 
 var s3Storage = new keystone.Storage({
 	adapter: require("keystone-storage-adapter-s3"),
+	schema: {
+		url: true
+	},
 	s3: {
 		path: "/places",
 		region: "eu-west-1",
@@ -83,9 +86,17 @@ Place.add({
 		brief: { type: Types.Html, wysiwyg: true, height: 100 },
 		extended: { type: Types.Html, wysiwyg: true, height: 200 }
 	},
+	/**
+	 * Some notes regarding files and thumbnails:
+	 * - https://github.com/keystonejs/keystone/pull/3397
+	 * - https://github.com/keystonejs/keystone/pull/4509
+	 */
 	image: {
 		type: Types.File,
-		storage: s3Storage
+		storage: s3Storage,
+		showThumbnail: true,
+		thumb: true,
+		url: true
 	}
 });
 
