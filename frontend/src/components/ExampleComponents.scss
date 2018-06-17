@@ -19,19 +19,40 @@ https://fonts.google.com/specimen/Gloria+Hallelujah
     margin-bottom: 20px;
 }
 
+
+.ExampleComponent {
+    margin-top: 6rem;
+}
 .ExampleComponent-meta {
     font-family: 'Gloria Hallelujah';
     position: absolute;
     top: 0;
     left: 0;
-    transform: translateX(-140%) translateY(50%) rotate(-14deg);
+    transform: translateY(-100%) translateY(-20px);
 }
-.ExampleComponent-key {
-    font-size: .8rem;
-    color: #666;
+.ExampleComponent-value {
+    display: inline-block;
 }
 
 .ExampleComponent-arrow {
-    font-size: 20px;
-    text-align: right;
+    display: inline-block;
 }
+.ExampleComponent-arrow::after {
+    content: '⤵';
+}
+
+
+@media (min-width: 768px) {
+    .ExampleComponent-meta {
+        transform: translateX(-140%) translateY(50%) rotate(-14deg);
+    }
+    .ExampleComponent-key {
+    }
+
+    .ExampleComponent-arrow {
+    }
+    .ExampleComponent-arrow::after {
+        content: '⤷';
+    }
+}
+

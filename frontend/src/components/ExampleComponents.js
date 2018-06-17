@@ -15,7 +15,7 @@ function ExampleComponent(props) {
       <div className="ExampleComponent-meta">
         <div className="ExampleComponent-key">Component</div>
         <div className="ExampleComponent-value">{title}</div>
-        <div className="ExampleComponent-arrow">⇢</div>
+        <div className="ExampleComponent-arrow" />
       </div>
       {props.children}
     </div>
