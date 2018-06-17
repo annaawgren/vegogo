@@ -1,11 +1,11 @@
 import React from "react";
-import "./Bubble.css";
+import "./SearchArea.css";
 
 class SearchArea extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: "123"
+      searchText: ""
     };
 
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -20,12 +20,19 @@ class SearchArea extends React.Component {
 
     return (
       <div className="SearchArea">
-        <input
-          type="text"
-          placeholder="Search what where to eat"
-          value={searchText}
-          onChange={this.handleTextChange}
-        />
+        <p>
+          <input
+            type="text"
+            placeholder="Search what where to eat"
+            value={searchText}
+            onChange={this.handleTextChange}
+          />
+        </p>
+
+        <p>
+          Or find out{" "}
+          <button className="SearchArea-nearButton">what's near</button>
+        </p>
       </div>
     );
   }

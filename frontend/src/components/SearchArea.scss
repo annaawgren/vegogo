@@ -1,3 +1,11 @@
 .SearchArea {
-    outline: 1px solid #fab;
+    font-family: 'apercu-mono', sans-serif;
+}
+
+.SearchArea-nearButton {
+    appearance: none;
+    border: none;
+    text-decoration: underline;
+    padding: 0;
+    cursor: pointer;
 }
