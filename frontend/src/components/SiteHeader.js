@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import logoImg from "../images/vegogo-logo.png";
+import logoImg from "../images/vegogo-logo.svg";
 import "./SiteHeader.css";
 
 class SiteHeader extends Component {

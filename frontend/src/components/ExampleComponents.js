@@ -4,6 +4,7 @@ import PlacesListing from "./PlacesListing";
 import Place from "./Place";
 import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
+import Bubble from "./Bubble";
 import "./ExampleComponents.css";
 
 function ExampleComponent(props) {
@@ -27,6 +28,13 @@ class ExampleComponents extends Component {
 
     return (
       <div>
+        <ExampleComponent title="<Bubble>">
+          <Bubble color="dark" text="Awesome Supertasty Another word" />
+          <Bubble color="green" />
+          <Bubble color="yellow" text="Good place with nice food" />
+          <Bubble color="red" />
+        </ExampleComponent>
+
         <ExampleComponent title="<SiteHeader>">
           <SiteHeader />
         </ExampleComponent>
