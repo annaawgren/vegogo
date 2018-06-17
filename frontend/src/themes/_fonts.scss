@@ -1,12 +1,32 @@
 @font-face {
-  font-family: "URWGeometric-Bold.woff";
+  font-family: "URWGeometric-Bold";
   src: url("./fonts/URWGeometric-Bold.woff") format("woff");
 }
 
 @font-face {
-  font-family: "URWGeometric-Regular.woff";
+  font-family: "URWGeometric-Regular";
   src: url("./fonts/URWGeometric-Regular.woff") format("woff");
 }
 
-$custom-font: "URWGeometric-Bold.woff";
-$custom-font-bold: "URWGeometric-Regular.woff";
+@font-face {
+  font-family: "URWGeometric-SemiBold";
+  src: url("./fonts/URWGeometric-SemiBold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "URWGeometric-ExtraBold";
+  src: url("./fonts/URWGeometric-ExtraBold.woff") format("woff");
+}
+
+@font-face {
+  font-family: "apercu-mono";
+  src: url("./fonts/apercu-mono.woff") format("woff");
+}
+
+$custom-font: "URWGeometric-Bold";
+$custom-font-bold: "URWGeometric-Regular";
+
+$vegogo-color-dark: #535257;
+$vegogo-color-yellow: #F0BD00;
+$vegogo-color-green: #4FDB9D;
+$vegogo-color-red: #FD6A64;
