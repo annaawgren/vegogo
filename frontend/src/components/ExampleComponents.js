@@ -24,7 +24,6 @@ function ExampleComponent(props) {
 class ExampleComponents extends Component {
   render() {
     let { places } = this.props;
-    // let place = places ? places[0] : null;
 
     return (
       <div>
