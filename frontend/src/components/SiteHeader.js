@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logoImg from "../images/vegogo-logo.svg";
+import blockcheesenavImg from "../images/icon-blockcheesenav.svg";
+import closeImg from "../images/icon-close.svg";
 import "./SiteHeader.css";
 
 let Navigation = function(props) {
@@ -48,11 +50,25 @@ class SiteHeader extends Component {
           </Link>
         </h1>
         <p>The new guide* to vegan eating *curated for you with &lt;3</p>
+
         <button
           onClick={this.handleNavToggleClick}
           className="SiteHeader-navToggler"
         >
-          ☰
+          {!this.state.navOpen && (
+            <img
+              className="SiteHeader-navToggler-img SiteHeader-navToggler-img--closed"
+              src={blockcheesenavImg}
+              alt="☰"
+            />
+          )}
+          {this.state.navOpen && (
+            <img
+              className="SiteHeader-navToggler-img SiteHeader-navToggler-img--opened"
+              src={closeImg}
+              alt="✕"
+            />
+          )}
         </button>
         {this.state.navOpen && <Navigation />}
       </header>

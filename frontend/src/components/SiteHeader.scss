@@ -11,11 +11,21 @@
     position: absolute;
     top: 0;
     right: 0;
-    font-size: 30px;
     appearance: none;
     margin: 0;
     padding: 0;
     border: 0;
     line-height: 1;
     cursor: pointer;
+}
+
+.SiteHeader-navToggler-img {
+    position: relative;
+    width: 20px;
+    height: auto;;
+}
+
+.SiteHeader-navToggler-img--opened {
+    width: 20px;
+    top: -3px;
 }
