@@ -21,7 +21,7 @@ class SearchArea extends React.Component {
 
     return (
       <div className="SearchArea">
-        <p class="SearchArea-row">
+        <p className="SearchArea-row">
           <input
             className="SearchArea-searchInput"
             type="text"
@@ -31,7 +31,7 @@ class SearchArea extends React.Component {
           />
         </p>
 
-        <p class="SearchArea-row">
+        <p className="SearchArea-row">
           <img className="SearchArea-nearPin" src={pinImg} alt="" />
           or find out{" "}
           <button className="SearchArea-nearButton">what's near</button>
