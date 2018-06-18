@@ -82,6 +82,9 @@ Place.add({
 		many: true,
 		index: true
 	},
+	tagline: {
+		type: Types.Textarea
+	},
 	content: {
 		brief: { type: Types.Html, wysiwyg: true, height: 100 },
 		extended: { type: Types.Html, wysiwyg: true, height: 200 }

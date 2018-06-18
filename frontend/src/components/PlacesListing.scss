@@ -25,7 +25,18 @@
     max-width: 300px;
 }
 
+.PlaceItem-photo {
+    position: relative;
+    margin: 0;
+
+    & .Bubble {
+        position: absolute;
+        bottom: -5px;
+        right: -10px;
+    }
+}
+
 .PlaceItem-photo-img {
-    max-width: 300px;
+    width: 100%;
     height: auto;
 }

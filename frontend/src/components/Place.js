@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import SiteHeader from "./SiteHeader";
-import SiteFooter from "./SiteFooter";
+// import SiteHeader from "./SiteHeader";
+// import SiteFooter from "./SiteFooter";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
 // import pinImg from "../images/pin.png";
+import Bubble from "./Bubble";
 import { GOOGLE_MAPS_API_KEY, IMAGES_URL, API_URL } from "../api-config";
 
 class Place extends Component {
@@ -17,9 +18,8 @@ class Place extends Component {
     // Other way to get here is just through a component added on another page.
     let { match, slug } = this.props;
 
-    console.log("match, slug", match, slug);
-
     let placeSlug;
+
     if (slug) {
       placeSlug = slug;
     } else if (match && match.params.place) {
@@ -50,7 +50,8 @@ class Place extends Component {
       content,
       foodTypes = [],
       foodTimes = [],
-      image
+      image,
+      tagline
     } = this.state.place;
 
     let types = foodTypes.map(type => <li key={type.key}>{type.name}</li>);
@@ -66,57 +67,48 @@ class Place extends Component {
     let imageMarkup;
     if (image) {
       imageMarkup = (
-        <p>
+        <p className="PlaceItem-photo">
           <img
             src={`${IMAGES_URL}/places/${image.filename}`}
             alt=""
             className="PlaceItem-photo-img"
           />
+          {tagline && <Bubble text={tagline} color="yellow" />}
         </p>
       );
     }
 
     return (
-      <div>
-        <SiteHeader />
+      <article key={slug} className="PlacesListing-placeItem">
+        {imageMarkup}
 
-        <h1>Place</h1>
-        <p>This page shows a single place.</p>
-
-        <article key={slug} className="PlacesListing-placeItem">
-          <h1>{name}</h1>
-          {imageMarkup}
-          <p>{budget}</p>
-          {types}
-          {times}
-          {location && <p>{location.street1}</p>}
-          {location &&
-            location.geo && (
-              <div>
-                {/* https://www.npmjs.com/package/react-static-google-map */}
-                <StaticGoogleMap
-                  size="300x200"
-                  zoom="15"
-                  scale="2"
-                  apiKey={GOOGLE_MAPS_API_KEY}
-                  className="PlacesListing-placeItem-mapImage"
-                >
-                  <Marker
-                    location={{ lat: location.geo[1], lng: location.geo[0] }}
-                    color="green"
-                    label="V"
-                    iconURL="https://beta.vegogo.se/favicon-32x32.png"
-                  />
-                </StaticGoogleMap>
-              </div>
-            )}
-          {content && (
-            <div dangerouslySetInnerHTML={{ __html: content.brief }} />
+        <h1>{name}</h1>
+        <p>{budget}</p>
+        {types}
+        {times}
+        {location && <p>{location.street1}</p>}
+        {location &&
+          location.geo && (
+            <div>
+              {/* https://www.npmjs.com/package/react-static-google-map */}
+              <StaticGoogleMap
+                size="300x200"
+                zoom="15"
+                scale="2"
+                apiKey={GOOGLE_MAPS_API_KEY}
+                className="PlacesListing-placeItem-mapImage"
+              >
+                <Marker
+                  location={{ lat: location.geo[1], lng: location.geo[0] }}
+                  color="green"
+                  label="V"
+                  iconURL="https://beta.vegogo.se/favicon-32x32.png"
+                />
+              </StaticGoogleMap>
+            </div>
           )}
-        </article>
-
-        <SiteFooter />
-      </div>
+        {content && <div dangerouslySetInnerHTML={{ __html: content.brief }} />}
+      </article>
     );
   }
 }
