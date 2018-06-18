@@ -6,6 +6,7 @@ import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import Bubble from "./Bubble";
 import SearchArea from "./SearchArea";
+import AreaIntro from "./AreaIntro";
 import "./ExampleComponents.css";
 
 function ExampleComponent(props) {
@@ -31,6 +32,10 @@ class ExampleComponents extends Component {
       <div>
         <ExampleComponent title="<SiteHeader>">
           <SiteHeader />
+        </ExampleComponent>
+
+        <ExampleComponent title="<AreaIntro>">
+          <AreaIntro />
         </ExampleComponent>
 
         <ExampleComponent title="<SearchArea>">
