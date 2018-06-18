@@ -1,3 +1,4 @@
+@import './_variables.scss';
 @import "./themes/_fonts";
 
 /* apply a natural box layout model to all elements, but allowing components to change */
@@ -13,4 +14,8 @@ body {
   margin: 0 auto;
   width: 80%;
   max-width: 720px;
+}
+
+::selection { 
+  background: $vegogo-color-green; 
 }
