@@ -1,3 +1,5 @@
+@import '../_variables.scss';
+
 .SiteHeader {
     position: relative;
 }
@@ -17,6 +19,7 @@
     border: 0;
     line-height: 1;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .SiteHeader-navToggler-img {
@@ -28,4 +31,12 @@
 .SiteHeader-navToggler-img--opened {
     width: 20px;
     top: -3px;
+}
+
+.SiteNav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    background: $vegogo-color-yellow;
 }

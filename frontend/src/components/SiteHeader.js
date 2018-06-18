@@ -7,22 +7,29 @@ import "./SiteHeader.css";
 
 let Navigation = function(props) {
   return (
-    <nav>
+    <nav className="SiteNav">
       <h3>Vegogo Navigation</h3>
       <ul>
         <li>
-          <a href="#">nav item one</a>
+          <a href="/">nav item one</a>
         </li>
         <li>
-          <a href="#">nav item two</a>
+          <a href="/">nav item two</a>
         </li>
         <li>
-          <a href="#">A short one</a>
+          <a href="/">A short one</a>
         </li>
         <li>
-          <a href="#">And a long one, because everything must work, right?</a>
+          <a href="/">And a long one, because everything must work, right?</a>
         </li>
       </ul>
+      <button onClick={props.handleNavClose} className="SiteHeader-navToggler">
+        <img
+          className="SiteHeader-navToggler-img SiteHeader-navToggler-img--opened"
+          src={closeImg}
+          alt="✕"
+        />
+      </button>
     </nav>
   );
 };
@@ -62,15 +69,10 @@ class SiteHeader extends Component {
               alt="☰"
             />
           )}
-          {this.state.navOpen && (
-            <img
-              className="SiteHeader-navToggler-img SiteHeader-navToggler-img--opened"
-              src={closeImg}
-              alt="✕"
-            />
-          )}
         </button>
-        {this.state.navOpen && <Navigation />}
+        {this.state.navOpen && (
+          <Navigation handleNavClose={this.handleNavToggleClick} />
+        )}
       </header>
     );
   }
