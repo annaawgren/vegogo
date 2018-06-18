@@ -40,3 +40,29 @@
     width: 100%;
     height: auto;
 }
+
+.PlaceItem-head {
+    position: relative;
+}
+
+.PlaceItem-name {
+    font-family: 'URWGeometric-Bold', sans-serif;
+    font-size: 36px;
+    margin: 15px 0;
+    margin-right: 60px;
+}
+
+.PlaceItem-more {
+    position: absolute;
+    top: 6px;
+    right: 0;
+    background: none;
+    appearance: none;
+    font-family: 'URWGeometric-Bold', sans-serif;
+    font-size: 24px;
+    margin: 0 0;
+    padding: 0;
+    border: 0;
+    line-height: 1;
+    text-decoration: underline;
+}

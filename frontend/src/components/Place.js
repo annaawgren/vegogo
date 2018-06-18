@@ -82,7 +82,13 @@ class Place extends Component {
       <article key={slug} className="PlacesListing-placeItem">
         {imageMarkup}
 
-        <h1>{name}</h1>
+        <div className="PlaceItem-head">
+          <h1 className="PlaceItem-name">{name}</h1>
+          <a href="/" className="PlaceItem-more">
+            more
+          </a>
+        </div>
+
         <p>{budget}</p>
         {types}
         {times}
