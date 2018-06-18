@@ -30,6 +30,9 @@ class ExampleComponents extends Component {
 
     return (
       <div>
+        <h1>Components</h1>
+        <p>This page lists all the components that we have.</p>
+
         <ExampleComponent title="<SiteHeader>">
           <SiteHeader />
         </ExampleComponent>
@@ -48,9 +51,6 @@ class ExampleComponents extends Component {
           <Bubble color="yellow" text="Good place with nice food" />
           <Bubble color="red" />
         </ExampleComponent>
-
-        <h1>Components</h1>
-        <p>This page lists all the components that we have.</p>
 
         <ExampleComponent title="<Place>">
           <Place slug="mahalo" />

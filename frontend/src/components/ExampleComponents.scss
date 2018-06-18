@@ -46,6 +46,11 @@ https://fonts.google.com/specimen/Gloria+Hallelujah
 
 
 @media (min-width: 768px) {
+
+    .ExampleComponent {
+        margin-top: 0;
+    }
+    
     .ExampleComponent-meta {
         transform: translateX(-140%) translateY(50%) rotate(-14deg);
     }
