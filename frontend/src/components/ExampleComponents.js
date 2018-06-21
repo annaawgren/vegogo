@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MailchimpSignup from "./MailchimpSignup";
+import NewsletterSignup from "./NewsletterSignup";
 import PlacesListing from "./PlacesListing";
 import Place from "./Place";
 import SiteHeader from "./SiteHeader";
@@ -64,8 +64,8 @@ class ExampleComponents extends Component {
           />
         </ExampleComponent>
 
-        <ExampleComponent title="<MailchimpSignup>">
-          <MailchimpSignup />
+        <ExampleComponent title="<NewsletterSignup>">
+          <NewsletterSignup />
         </ExampleComponent>
 
         <ExampleComponent title="<SiteFooter>">
