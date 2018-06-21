@@ -1,3 +1,4 @@
+@import "./_variables.scss";
 @import "./shared.scss";
 
 .PlacesListing {
@@ -14,15 +15,10 @@
 }
 
 .PlacesListing-placeItem {
-    border-bottom: 1px solid #aaa;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+    // border-bottom: 1px solid #aaa;
+    // margin-bottom: 10px;
+    // padding-bottom: 10px;
     @include clearfix;
-}
-
-.PlacesListing-placeItem-mapImage {
-    float: left;
-    max-width: 300px;
 }
 
 .PlaceItem-photo {
@@ -65,4 +61,51 @@
     border: 0;
     line-height: 1;
     text-decoration: underline;
+}
+
+.PlaceItem-meta-item {
+    margin: .5em 0;
+}
+
+.PlacesListing-placeItem-mapImage {
+    margin-top: 1em;
+    max-width: 200px;
+}
+
+.PlaceItem-features-title {
+    font-family: 'URWGeometric-Bold', sans-serif;
+    font-size: 36px;
+    margin: .5em 0 0 0;
+}
+
+.PlaceItem-features-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    font-family: 'apercu-mono', sans-serif;
+    color: #fff;
+}
+
+.PlaceItem-features-item {
+    span {
+        background-color: $vegogo-color-red;
+        padding: 2px;
+        margin: 4px 4px;
+        display: inline-block;
+    }
+}
+
+.PlaceItem-textcontent {
+    margin-top: 2em;
+    line-height: 1.5;
+    font-size: 18px;
+
+    h1, 
+    h2 {
+        font-family: 'URWGeometric-Bold', sans-serif;
+        font-size: 46px;
+        margin: 0 0;
+        line-height: 1.1;
+    }
 }

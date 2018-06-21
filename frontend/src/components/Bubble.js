@@ -28,7 +28,7 @@ function Bubble(props) {
   return (
     <div className={`Bubble Bubble--${color}`}>
       {img}
-      {text && <p className="Bubble-text">{text}</p>}
+      {text && <div className="Bubble-text">{text}</div>}
     </div>
   );
 }

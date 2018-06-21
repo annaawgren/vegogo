@@ -10,9 +10,18 @@ class Place extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      place: {}
+      place: {},
+      detailsOpen: false
     };
+
+    this.handleMoreClick = this.handleMoreClick.bind(this);
   }
+
+  handleMoreClick(e) {
+    this.setState({ detailsOpen: !this.state.detailsOpen });
+    e.preventDefault();
+  }
+
   componentDidMount() {
     // If match exists then we are coming here via url.
     // Other way to get here is just through a component added on another page.
@@ -45,36 +54,81 @@ class Place extends Component {
     let {
       name,
       slug,
-      budget,
       location,
       content,
       foodTypes = [],
       foodTimes = [],
       image,
-      tagline
+      tagline,
+      phone,
+      homepage
     } = this.state.place;
 
-    let types = foodTypes.map(type => <li key={type.key}>{type.name}</li>);
+    let types = foodTypes.map(type => (
+      <li key={type.key} className="PlaceItem-features-item">
+        <span>{type.name}</span>
+      </li>
+    ));
     if (types) {
-      types = <ul>{types}</ul>;
+      types = (
+        <div className="PlaceItem-features">
+          <h3 className="PlaceItem-features-title">Food to find</h3>
+          <ul className="PlaceItem-features-items">{types}</ul>
+        </div>
+      );
     }
 
-    let times = foodTimes.map(type => <li key={type.key}>{type.name}</li>);
+    let times = foodTimes.map(type => (
+      <li key={type.key} className="PlaceItem-features-item">
+        <span>{type.name}</span>
+      </li>
+    ));
     if (times) {
-      times = <ul>{times}</ul>;
+      times = (
+        <div className="PlaceItem-features">
+          <h3 className="PlaceItem-features-title">Great for</h3>
+          <ul className="PlaceItem-features-items">{times}</ul>
+        </div>
+      );
     }
 
     let imageMarkup;
     if (image) {
       imageMarkup = (
-        <p className="PlaceItem-photo">
+        <div className="PlaceItem-photo">
           <img
             src={`${IMAGES_URL}/places/${image.filename}`}
             alt=""
             className="PlaceItem-photo-img"
           />
           {tagline && <Bubble text={tagline} color="yellow" />}
-        </p>
+        </div>
+      );
+    }
+
+    let locationAndMap;
+    if (location && location.geo) {
+      locationAndMap = (
+        <div className="PlaceItem-meta">
+          <p className="PlaceItem-meta-item">{location.street1}</p>
+          {phone && <p className="PlaceItem-meta-item">{phone}</p>}
+          {homepage && <p className="PlaceItem-meta-item">{homepage}</p>}
+          {/* https://www.npmjs.com/package/react-static-google-map */}
+          <StaticGoogleMap
+            size="300x200"
+            zoom="15"
+            scale="2"
+            apiKey={GOOGLE_MAPS_API_KEY}
+            className="PlaceItem-meta-item PlacesListing-placeItem-mapImage"
+          >
+            <Marker
+              location={{ lat: location.geo[1], lng: location.geo[0] }}
+              color="green"
+              label="V"
+              iconURL="https://beta.vegogo.se/favicon-32x32.png"
+            />
+          </StaticGoogleMap>
+        </div>
       );
     }
 
@@ -84,36 +138,25 @@ class Place extends Component {
 
         <div className="PlaceItem-head">
           <h1 className="PlaceItem-name">{name}</h1>
-          <a href="/" className="PlaceItem-more">
+          <a href="/" className="PlaceItem-more" onClick={this.handleMoreClick}>
             more
           </a>
         </div>
 
-        <p>{budget}</p>
-        {types}
-        {times}
-        {location && <p>{location.street1}</p>}
-        {location &&
-          location.geo && (
-            <div>
-              {/* https://www.npmjs.com/package/react-static-google-map */}
-              <StaticGoogleMap
-                size="300x200"
-                zoom="15"
-                scale="2"
-                apiKey={GOOGLE_MAPS_API_KEY}
-                className="PlacesListing-placeItem-mapImage"
-              >
-                <Marker
-                  location={{ lat: location.geo[1], lng: location.geo[0] }}
-                  color="green"
-                  label="V"
-                  iconURL="https://beta.vegogo.se/favicon-32x32.png"
-                />
-              </StaticGoogleMap>
-            </div>
-          )}
-        {content && <div dangerouslySetInnerHTML={{ __html: content.brief }} />}
+        {/* Details are shown on details page or when "More" link is clicked. */}
+        {this.state.detailsOpen && (
+          <div className="PlaceItem-details">
+            {locationAndMap}
+            {types}
+            {times}
+            {content && (
+              <div
+                className="PlaceItem-textcontent PlaceItem-textcontent--brief"
+                dangerouslySetInnerHTML={{ __html: content.brief }}
+              />
+            )}
+          </div>
+        )}
       </article>
     );
   }
