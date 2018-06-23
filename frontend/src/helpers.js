@@ -2,6 +2,10 @@
  * Misc helper functions.
  */
 
+/**
+ * Return formatted homepage.
+ * @return object
+ */
 export function cleanupHomepage(homepage) {
   let homepagePresentation = null;
   let homepageWithProtocol = null;
@@ -16,11 +20,13 @@ export function cleanupHomepage(homepage) {
   homepagePresentation = homepage.replace(/^https?:\/\//i, "");
   homepagePresentation = homepagePresentation.replace(/^www\./i, "");
   homepagePresentation = homepagePresentation.replace(/\/$/i, "");
+
   // Add http if missing.
   homepageWithProtocol = homepage;
   if (!homepageWithProtocol.match(/^https?:\/\//i)) {
     homepageWithProtocol = `http://${homepageWithProtocol}`;
   }
+
   return {
     homepagePresentation,
     homepageWithProtocol
