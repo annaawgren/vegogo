@@ -97,9 +97,7 @@ Place.add({
 	image: {
 		type: Types.File,
 		storage: s3Storage,
-		showThumbnail: true,
-		thumb: true,
-		url: true
+		thumb: true
 	}
 });
 
