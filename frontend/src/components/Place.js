@@ -31,19 +31,23 @@ class Place extends Component {
     // Other way to get here is just through a component added on another page.
     let { match, slug } = this.props;
 
-    let placeSlug;
+    this.placeSlug = null;
 
     if (slug) {
-      placeSlug = slug;
+      this.placeSlug = slug;
     } else if (match && match.params.place) {
-      placeSlug = match.params.place;
+      this.placeSlug = match.params.place;
     }
 
-    if (!placeSlug) {
+    if (!this.placeSlug) {
       console.log("no place found :(");
     }
 
-    let placesApiUrl = `${API_URL}/place/slug/${placeSlug}`;
+    this.loadPlaceFromApi();
+  }
+
+  loadPlaceFromApi() {
+    let placesApiUrl = `${API_URL}/place/slug/${this.placeSlug}`;
 
     fetch(placesApiUrl)
       .then(data => {
