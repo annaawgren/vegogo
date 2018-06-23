@@ -47,6 +47,11 @@
     margin: 15px 0;
     margin-right: 60px;
     transition: font-size .1s ease-out;
+    word-break: break-word;
+}
+
+.PlaceItem-tease {
+    cursor: pointer;
 }
 
 .PlaceItem--expanded {
