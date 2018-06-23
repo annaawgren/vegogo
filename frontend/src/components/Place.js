@@ -77,7 +77,8 @@ class Place extends Component {
         <span>{type.name}</span>
       </li>
     ));
-    if (types) {
+
+    if (types && types.length) {
       types = (
         <div className="PlaceItem-features">
           <h3 className="PlaceItem-features-title">Food to find</h3>
@@ -91,7 +92,8 @@ class Place extends Component {
         <span>{type.name}</span>
       </li>
     ));
-    if (times) {
+
+    if (times && times.length) {
       times = (
         <div className="PlaceItem-features">
           <h3 className="PlaceItem-features-title">Great for</h3>
