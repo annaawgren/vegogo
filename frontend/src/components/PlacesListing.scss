@@ -46,6 +46,13 @@
     font-size: 36px;
     margin: 15px 0;
     margin-right: 60px;
+    transition: font-size .1s ease-out;
+}
+
+.PlaceItem--expanded {
+    .PlaceItem-name {
+        font-size: 64px;
+    }
 }
 
 .PlaceItem-more {

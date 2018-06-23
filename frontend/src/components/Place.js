@@ -5,6 +5,8 @@ import { StaticGoogleMap, Marker } from "react-static-google-map";
 // import pinImg from "../images/pin.png";
 import Bubble from "./Bubble";
 import { GOOGLE_MAPS_API_KEY, IMAGES_URL, API_URL } from "../api-config";
+import closeImg from "../images/icon-close.svg";
+import classnames from "classnames";
 
 class Place extends Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class Place extends Component {
   }
 
   handleMoreClick(e) {
+    console.log("handleMoreClick");
     this.setState({ detailsOpen: !this.state.detailsOpen });
     e.preventDefault();
   }
@@ -132,15 +135,24 @@ class Place extends Component {
       );
     }
 
-    return (
-      <article key={slug} className="PlacesListing-placeItem">
-        {imageMarkup}
+    let placeClassNames = classnames({
+      placeItem: true,
+      "PlaceItem--expanded": this.state.detailsOpen
+    });
 
-        <div className="PlaceItem-head">
-          <h1 className="PlaceItem-name">{name}</h1>
-          <a href="/" className="PlaceItem-more" onClick={this.handleMoreClick}>
-            more
-          </a>
+    return (
+      <article key={slug} className={placeClassNames}>
+        <div className="PlaceItem-tease" onClick={this.handleMoreClick}>
+          {imageMarkup}
+
+          <div className="PlaceItem-head">
+            <h1 className="PlaceItem-name">{name}</h1>
+            <a href="/" className="PlaceItem-more">
+              {this.state.detailsOpen && <img src={closeImg} alt="✖" />}
+
+              {!this.state.detailsOpen && "more"}
+            </a>
+          </div>
         </div>
 
         {/* Details are shown on details page or when "More" link is clicked. */}
