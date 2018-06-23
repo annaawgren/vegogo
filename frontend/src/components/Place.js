@@ -109,13 +109,36 @@ class Place extends Component {
       );
     }
 
+    let homepageOut;
+    if (homepage) {
+      // Remove any http or https. And some other cleaning to make URL presentable.
+      let homepagePresentation = homepage.replace(/^https?:\/\//i, "");
+      homepagePresentation = homepagePresentation.replace(/^www\./i, "");
+      homepagePresentation = homepagePresentation.replace(/\/$/i, "");
+      // Add http if missing.
+      let homepageWithProtocol = homepage;
+      if (!homepageWithProtocol.match(/^https?:\/\//i)) {
+        homepageWithProtocol = `http://${homepageWithProtocol}`;
+      }
+      console.log("homepage", homepage);
+      console.log("homepagePresentation", homepagePresentation);
+      console.log("homepageWithProtocol", homepageWithProtocol);
+      homepageOut = (
+        <p className="PlaceItem-meta-item">
+          <a target="_blank" rel="noopener" href={homepageWithProtocol}>
+            {homepagePresentation}
+          </a>
+        </p>
+      );
+    }
+
     let locationAndMap;
     if (location && location.geo) {
       locationAndMap = (
         <div className="PlaceItem-meta">
           <p className="PlaceItem-meta-item">{location.street1}</p>
           {phone && <p className="PlaceItem-meta-item">{phone}</p>}
-          {homepage && <p className="PlaceItem-meta-item">{homepage}</p>}
+          {homepageOut}
           {/* https://www.npmjs.com/package/react-static-google-map */}
           <StaticGoogleMap
             size="300x200"
