@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Place from "../components/Place";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import NewsletterSignup from "../components/NewsletterSignup";
 
 class NotFound extends Component {
   render() {
@@ -10,6 +11,8 @@ class NotFound extends Component {
         <SiteHeader />
 
         <Place isSingleView={true} {...this.props.place} />
+
+        <NewsletterSignup />
 
         <SiteFooter />
       </div>

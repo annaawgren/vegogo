@@ -2,6 +2,22 @@ var keystone = require("keystone");
 var Types = keystone.Field.Types;
 let moment = require("moment");
 var slugify = require("underscore.string/slugify");
+var cloudinary = require("cloudinary");
+var apiConfig = require("../api-config");
+
+function getPlaceImage(place) {
+	let imageUrl = `${apiConfig.IMAGES_URL}/places/${place.image.filename}`;
+	let image = cloudinary.url(imageUrl, {
+		type: "fetch",
+		secure: true,
+		width: 320
+		// height: 150,
+		// crop: 'thumb',
+		// gravity: 'face', radius: 20
+	});
+
+	return image;
+}
 
 var s3Storage = new keystone.Storage({
 	adapter: require("keystone-storage-adapter-s3"),
@@ -114,6 +130,15 @@ Place.schema.virtual("content.full").get(function() {
 	return this.content.extended || this.content.brief;
 });
 
+Place.schema.virtual("vImageThumb").get(function() {
+	return getPlaceImage(this);
+});
+
 Place.defaultColumns =
 	"name, state, content.brief, publishedDate, budget, foodTimes, foodTypes";
+
+// Place.schema.set('toJSON', {
+//     virtuals: true
+// });
+
 Place.register();

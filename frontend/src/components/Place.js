@@ -9,6 +9,12 @@ import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
 import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
 
+function getIimageThumbUrl(image, width) {
+  let imageUrl = `${IMAGES_URL}/places/${image.filename}`;
+
+  return `https://res.cloudinary.com/vegogo/image/fetch/w_${width},dpr_2/${imageUrl}`;
+}
+
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
  * or from props match when viewing a place permalink.
@@ -135,10 +141,12 @@ class Place extends Component {
 
     let imageMarkup;
     if (image) {
+      let imageThumbUrl = getIimageThumbUrl(image, 320);
       imageMarkup = (
         <div className="PlaceItem-photo">
           <img
-            src={`${IMAGES_URL}/places/${image.filename}`}
+            xsrc={`${IMAGES_URL}/places/${image.filename}`}
+            src={imageThumbUrl}
             alt=""
             className="PlaceItem-photo-img"
           />
