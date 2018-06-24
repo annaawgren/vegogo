@@ -53,7 +53,7 @@ class ExampleComponents extends Component {
         </ExampleComponent>
 
         <ExampleComponent title="<Place>">
-          <Place slug="mahalo" />
+          <Place slug="mahalo" isSingleView={true} />
         </ExampleComponent>
 
         <ExampleComponent title="<PlacesListing>">

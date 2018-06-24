@@ -50,10 +50,6 @@
     word-break: break-word;
 }
 
-.PlaceItem-tease {
-    cursor: pointer;
-}
-
 .PlaceItem--expanded {
     .PlaceItem-name {
         font-size: 64px;
@@ -113,11 +109,24 @@
     line-height: 1.5;
     font-size: 18px;
 
-    h1, 
+    h1,
     h2 {
         font-family: 'URWGeometric-Bold', sans-serif;
         font-size: 46px;
         margin: 0 0;
         line-height: 1.1;
     }
+}
+
+.PlaceItem--isSingleView {
+}
+
+.PlaceItem--isOverview {
+  .PlaceItem-name {
+  }
+  .PlaceItem-tease {
+    text-decoration: none;
+    cursor: pointer;
+    // text-decoration-color: #E18728;
+  }
 }

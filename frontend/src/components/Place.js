@@ -7,7 +7,7 @@ import Bubble from "./Bubble";
 import { GOOGLE_MAPS_API_KEY, IMAGES_URL, API_URL } from "../api-config";
 import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
-import { cleanupHomepage } from "../helpers.js";
+import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
 
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
@@ -26,14 +26,19 @@ class Place extends Component {
   }
 
   handleMoreClick(e) {
-    this.setState({ detailsOpen: !this.state.detailsOpen });
-    e.preventDefault();
+    // If cmd on mac or ? on windows is pressed then let the browser open the place in new window or tab.
+    // } else if ( event.ctrlKey || event.metaKey ) {
+    if (e.ctrlKey || e.metaKey) {
+    } else {
+      this.setState({ detailsOpen: !this.state.detailsOpen });
+      e.preventDefault();
+    }
   }
 
   componentDidMount() {
     // If match exists then we are coming here via url.
     // Other way to get here is just through a component added on another page.
-    let { match, slug } = this.props;
+    let { match, slug, isSingleView } = this.props;
 
     this.placeSlug = null;
 
@@ -45,6 +50,12 @@ class Place extends Component {
 
     if (!this.placeSlug) {
       console.log("no place found :(");
+    }
+
+    if (isSingleView) {
+      this.setState({
+        detailsOpen: true
+      });
     }
 
     // Check if data needs to be loaded.
@@ -87,6 +98,10 @@ class Place extends Component {
       phone,
       homepage
     } = this.state.place;
+
+    let { isSingleView } = this.props;
+
+    let permalink = getPlacePermalink(this.state.place);
 
     let types = foodTypes.map(type => (
       <li key={type.key} className="PlaceItem-features-item">
@@ -187,24 +202,43 @@ class Place extends Component {
 
     let placeClassNames = classnames({
       placeItem: true,
+      "PlaceItem--isSingleView": isSingleView,
+      "PlaceItem--isOverview": !isSingleView,
       "PlaceItem--expanded": this.state.detailsOpen
     });
 
+    let tease = (
+      <div>
+        {imageMarkup}
+        <div className="PlaceItem-head">
+          <h1 className="PlaceItem-name">{name}</h1>
+          {!isSingleView && (
+            <button href="/" className="PlaceItem-more">
+              {this.state.detailsOpen && <img src={closeImg} alt="✖" />}
+              {!this.state.detailsOpen && "more"}
+            </button>
+          )}
+        </div>
+      </div>
+    );
+
+    if (isSingleView) {
+      tease = <div className="PlaceItem-tease">{tease}</div>;
+    } else {
+      tease = (
+        <a
+          className="PlaceItem-tease"
+          onClick={this.handleMoreClick}
+          href={permalink}
+        >
+          {tease}
+        </a>
+      );
+    }
+
     return (
       <article key={slug} className={placeClassNames}>
-        <div className="PlaceItem-tease" onClick={this.handleMoreClick}>
-          {imageMarkup}
-
-          <div className="PlaceItem-head">
-            <h1 className="PlaceItem-name">{name}</h1>
-            <a href="/" className="PlaceItem-more">
-              {this.state.detailsOpen && <img src={closeImg} alt="✖" />}
-
-              {!this.state.detailsOpen && "more"}
-            </a>
-          </div>
-        </div>
-
+        {tease}
         {/* Details are shown on details page or when "More" link is clicked. */}
         {this.state.detailsOpen && (
           <div className="PlaceItem-details">

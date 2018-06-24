@@ -32,3 +32,7 @@ export function cleanupHomepage(homepage) {
     homepageWithProtocol
   };
 }
+
+export function getPlacePermalink(place) {
+  return `/place/${place.slug}`;
+}
