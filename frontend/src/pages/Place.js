@@ -4,15 +4,12 @@ import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 
 class NotFound extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div>
         <SiteHeader />
 
-        <Place isSingleView={true} />
+        <Place isSingleView={true} {...this.props.place} />
 
         <SiteFooter />
       </div>

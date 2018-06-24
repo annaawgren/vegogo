@@ -4,7 +4,6 @@ import "normalize.css";
 import "./App.css";
 import Home from "./components/Home";
 import ExampleComponents from "./components/ExampleComponents";
-import Place from "./components/Place";
 import NotFoundPage from "./pages/NotFound";
 import PlacePage from "./pages/Place";
 import { API_URL } from "./api-config";
@@ -62,7 +61,7 @@ class App extends Component {
             <Route
               exact
               path="/place/:place"
-              render={props => <PlacePage {...props} />}
+              render={props => <PlacePage place={props} />}
             />
             <Route
               path="/components"
