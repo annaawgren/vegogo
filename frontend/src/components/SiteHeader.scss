@@ -3,7 +3,7 @@
 .SiteHeader {
     position: relative;
 }
-    
+
 .SiteHeader-logo {
     max-width: 110px;
     height: auto;
@@ -39,4 +39,5 @@
     right: 0;
     width: 70%;
     background: $vegogo-color-yellow;
+    z-index: 10;
 }
