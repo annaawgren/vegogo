@@ -1,8 +1,4 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
-// import { StaticGoogleMap, Marker } from "react-static-google-map";
-// import { GOOGLE_MAPS_API_KEY, IMAGES_URL } from "../api-config";
-// import pinImg from "../images/pin.png";
 import Place from "./Place";
 import "./PlacesListing.css";
 
@@ -17,7 +13,7 @@ class PlacesListing extends Component {
 
         return (
           <li key={slug} className="PlacesListing-placeItem">
-            <Place slug={slug} />
+            <Place {...place} />
           </li>
         );
       });

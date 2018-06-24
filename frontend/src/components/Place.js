@@ -9,9 +9,14 @@ import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
 import { cleanupHomepage } from "../helpers.js";
 
+/**
+ * Place can get what to render from a slug + props with full place object, for example when being used in a listing
+ * or from props match when viewing a place permalink.
+ */
 class Place extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       place: {},
       detailsOpen: false
@@ -21,7 +26,6 @@ class Place extends Component {
   }
 
   handleMoreClick(e) {
-    console.log("handleMoreClick");
     this.setState({ detailsOpen: !this.state.detailsOpen });
     e.preventDefault();
   }
@@ -43,7 +47,19 @@ class Place extends Component {
       console.log("no place found :(");
     }
 
-    this.loadPlaceFromApi();
+    // Check if data needs to be loaded.
+    if (
+      this.props.name &&
+      this.props.slug &&
+      this.props.state &&
+      this.props.location
+    ) {
+      // Seems like the place has some place props, so set state with that.
+      this.setState({ place: this.props });
+    } else {
+      // Needed data not found in props, so load from API.
+      this.loadPlaceFromApi();
+    }
   }
 
   loadPlaceFromApi() {
