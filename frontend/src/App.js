@@ -67,7 +67,7 @@ class App extends Component {
               path="/components"
               render={props => <ExampleComponents places={places} />}
             />
-            <Route component={NotFoundPage} />
+            {/*<Route component={NotFoundPage} />*/}
           </Switch>
         </div>
       </BrowserRouter>

@@ -8,6 +8,7 @@ import Bubble from "./Bubble";
 import SearchArea from "./SearchArea";
 import AreaIntro from "./AreaIntro";
 import "./ExampleComponents.css";
+import { Helmet } from "react-helmet";
 
 function ExampleComponent(props) {
   let { title } = props;
@@ -30,6 +31,10 @@ class ExampleComponents extends Component {
 
     return (
       <div>
+        <Helmet>
+          <title>Example Components – Vegogo</title>
+        </Helmet>
+
         <h1>Components</h1>
         <p>This page lists all the components that we have.</p>
 

@@ -8,6 +8,7 @@ import { GOOGLE_MAPS_API_KEY, IMAGES_URL, API_URL } from "../api-config";
 import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
 import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
+import { Helmet } from "react-helmet";
 
 function getIimageThumbUrl(image, width) {
   let imageUrl = `${IMAGES_URL}/places/${image.filename}`;
@@ -246,6 +247,10 @@ class Place extends Component {
 
     return (
       <article key={slug} className={placeClassNames}>
+        <Helmet>
+          <title>{`${name}`} – Vegogo</title>
+        </Helmet>
+
         {tease}
         {/* Details are shown on details page or when "More" link is clicked. */}
         {this.state.detailsOpen && (
