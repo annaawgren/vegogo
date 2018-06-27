@@ -10,7 +10,7 @@ import classnames from "classnames";
 import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
 
-function getIimageThumbUrl(image, width) {
+function getImageThumbUrl(image, width) {
   let imageUrl = `${IMAGES_URL}/places/${image.filename}`;
 
   return `https://res.cloudinary.com/vegogo/image/fetch/w_${width},dpr_2/${imageUrl}`;
@@ -142,7 +142,7 @@ class Place extends Component {
 
     let imageMarkup;
     if (image) {
-      let imageThumbUrl = getIimageThumbUrl(image, 320);
+      let imageThumbUrl = getImageThumbUrl(image, 320);
       imageMarkup = (
         <div className="PlaceItem-photo">
           <img
