@@ -11,9 +11,6 @@ function getPlaceImage(place) {
 		type: "fetch",
 		secure: true,
 		width: 320
-		// height: 150,
-		// crop: 'thumb',
-		// gravity: 'face', radius: 20
 	});
 
 	return image;
@@ -98,6 +95,12 @@ Place.add({
 		many: true,
 		index: true
 	},
+	placeAreas: {
+		type: Types.Relationship,
+		ref: "Area",
+		many: true,
+		index: true
+	},
 	tagline: {
 		type: Types.Textarea
 	},
@@ -135,7 +138,7 @@ Place.schema.virtual("vImageThumb").get(function() {
 });
 
 Place.defaultColumns =
-	"name, state, content.brief, publishedDate, budget, foodTimes, foodTypes";
+	"name, state, content.brief, publishedDate, budget, foodTimes, foodTypes, placeAreas";
 
 // Place.schema.set('toJSON', {
 //     virtuals: true
