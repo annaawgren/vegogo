@@ -52,9 +52,7 @@ Area.add({
 		extended: { type: Types.Html, wysiwyg: true, height: 200 }
 	},
 	image: {
-		type: Types.File,
-		storage: s3Storage,
-		thumb: true
+		type: Types.CloudinaryImages
 	}
 });
 

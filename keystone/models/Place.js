@@ -114,9 +114,12 @@ Place.add({
 	 * - https://github.com/keystonejs/keystone/pull/4509
 	 */
 	image: {
-		type: Types.File,
-		storage: s3Storage,
+		type: Types.CloudinaryImage,
 		thumb: true
+	},
+	images: {
+		// http://keystonejs.netlify.com/api/field/cloudinaryimages
+		type: Types.CloudinaryImages
 	}
 });
 
