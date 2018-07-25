@@ -4,17 +4,17 @@ import React, { Component } from "react";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
 // import pinImg from "../images/pin.png";
 import Bubble from "./Bubble";
-import { GOOGLE_MAPS_API_KEY, IMAGES_URL, API_URL } from "../api-config";
+import { GOOGLE_MAPS_API_KEY, API_URL } from "../api-config";
 import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
 import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
 
-function getImageThumbUrl(image, width) {
+/*function getImageThumbUrl(image, width) {
   let imageUrl = `${IMAGES_URL}/places/${image.filename}`;
 
   return `https://res.cloudinary.com/vegogo/image/fetch/w_${width},dpr_2/${imageUrl}`;
-}
+}*/
 
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
@@ -101,6 +101,7 @@ class Place extends Component {
       foodTypes = [],
       foodTimes = [],
       imageThumb,
+      imagesThumbs,
       tagline,
       phone,
       homepage
@@ -142,11 +143,28 @@ class Place extends Component {
 
     let imageMarkup;
     if (imageThumb) {
-      // let imageThumbUrl = getImageThumbUrl(image, 320);
       imageMarkup = (
         <div className="PlaceItem-photo">
           <img src={imageThumb} alt="" className="PlaceItem-photo-img" />
           {tagline && <Bubble text={tagline} color="yellow" />}
+        </div>
+      );
+    }
+
+    let imagesMarkup;
+    if (imagesThumbs) {
+      imagesMarkup = (
+        <div className="PlaceItem-photos">
+          {imagesThumbs.map((image, loopNum) => {
+            return (
+              <img
+                src={image}
+                key={image}
+                alt=""
+                className="PlaceItem-photos-img"
+              />
+            );
+          })}
         </div>
       );
     }
@@ -226,6 +244,16 @@ class Place extends Component {
       </div>
     );
 
+    let contentOut;
+    if (content) {
+      contentOut = (
+        <div
+          className="PlaceItem-textcontent PlaceItem-textcontent--brief"
+          dangerouslySetInnerHTML={{ __html: content.brief }}
+        />
+      );
+    }
+
     if (isSingleView) {
       tease = <div className="PlaceItem-tease">{tease}</div>;
     } else {
@@ -253,12 +281,8 @@ class Place extends Component {
             {locationAndMap}
             {types}
             {times}
-            {content && (
-              <div
-                className="PlaceItem-textcontent PlaceItem-textcontent--brief"
-                dangerouslySetInnerHTML={{ __html: content.brief }}
-              />
-            )}
+            {contentOut}
+            {imagesMarkup}
           </div>
         )}
       </article>
