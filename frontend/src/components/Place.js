@@ -100,7 +100,7 @@ class Place extends Component {
       content,
       foodTypes = [],
       foodTimes = [],
-      image,
+      imageThumb,
       tagline,
       phone,
       homepage
@@ -141,16 +141,11 @@ class Place extends Component {
     }
 
     let imageMarkup;
-    if (image) {
-      let imageThumbUrl = getImageThumbUrl(image, 320);
+    if (imageThumb) {
+      // let imageThumbUrl = getImageThumbUrl(image, 320);
       imageMarkup = (
         <div className="PlaceItem-photo">
-          <img
-            xsrc={`${IMAGES_URL}/places/${image.filename}`}
-            src={imageThumbUrl}
-            alt=""
-            className="PlaceItem-photo-img"
-          />
+          <img src={imageThumb} alt="" className="PlaceItem-photo-img" />
           {tagline && <Bubble text={tagline} color="yellow" />}
         </div>
       );
