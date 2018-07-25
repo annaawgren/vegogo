@@ -9,8 +9,8 @@ var apiConfig = require("../../api-config");
  */
 exports.list = function(req, res) {
 	let sortParam = req.query.sort || "published";
-
 	let sort;
+
 	switch (sortParam) {
 		case "name":
 			sort = { name: 1 };
@@ -28,12 +28,18 @@ exports.list = function(req, res) {
 			if (err) return res.apiError("database error", err);
 
 			items = items.map(place => {
-				let imageThumb = place.vImageThumb;
-
 				place = place.toJSON();
-				place.imageThumb = imageThumb;
 
+				// Single image.
+				place.imageThumb = cloudinaryImageToURL(place.image);
 				delete place.image;
+
+				// Multiple images.
+				place.imagesThumbs = [];
+				place.images.forEach(image => {
+					place.imagesThumbs.push(cloudinaryImageToURL(image));
+				});
+				delete place.images;
 
 				return place;
 			});
@@ -44,6 +50,17 @@ exports.list = function(req, res) {
 		});
 };
 
+function cloudinaryImageToURL(image) {
+	if (!image || !image.public_id) {
+		return null;
+	}
+
+	return cloudinary.url(image.public_id, {
+		secure: true,
+		width: 640
+	});
+}
+
 /**
  * Get Place by ID
  * http://localhost:3131/api/place/id/5b158f4b16474ee5772d1113
@@ -52,12 +69,23 @@ exports.getId = function(req, res) {
 	Place.model
 		.findById(req.params.id)
 		.populate("foodTimes foodTypes")
-		.exec(function(err, item) {
+		.exec(function(err, place) {
 			if (err) return res.apiError("database error", err);
-			if (!item) return res.apiError("not found");
+			if (!place) return res.apiError("not found");
+
+			place = place.toJSON();
+
+			place.imageThumb = cloudinaryImageToURL(place.image);
+			delete place.image;
+
+			place.imagesThumbs = [];
+			place.images.forEach(image => {
+				place.imagesThumbs.push(cloudinaryImageToURL(image));
+			});
+			delete place.images;
 
 			res.apiResponse({
-				place: item
+				place
 			});
 		});
 };
@@ -70,14 +98,23 @@ exports.getSlug = function(req, res) {
 	Place.model
 		.findOne({ slug: req.params.slug })
 		.populate("foodTimes foodTypes")
-		.exec(function(err, item) {
+		.exec(function(err, place) {
 			if (err) return res.apiError("database error", err);
-			if (!item) return res.apiError("not found");
+			if (!place) return res.apiError("not found");
 
-			console.log("imageThumb", item.imageThumb);
+			place = place.toJSON();
+
+			place.imageThumb = cloudinaryImageToURL(place.image);
+			delete place.image;
+
+			place.imagesThumbs = [];
+			place.images.forEach(image => {
+				place.imagesThumbs.push(cloudinaryImageToURL(image));
+			});
+			delete place.images;
 
 			res.apiResponse({
-				place: item
+				place
 			});
 		});
 };

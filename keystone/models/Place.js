@@ -8,7 +8,7 @@ var apiConfig = require("../api-config");
 function getPlaceImage(place) {
 	let image = cloudinary.url(place.image.public_id, {
 		secure: true,
-		width: 320
+		width: 640
 	});
 
 	return image;
