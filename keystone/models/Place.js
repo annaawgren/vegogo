@@ -6,9 +6,7 @@ var cloudinary = require("cloudinary");
 var apiConfig = require("../api-config");
 
 function getPlaceImage(place) {
-	let imageUrl = `${apiConfig.IMAGES_URL}/places/${place.image.filename}`;
-	let image = cloudinary.url(imageUrl, {
-		type: "fetch",
+	let image = cloudinary.url(place.image.public_id, {
 		secure: true,
 		width: 320
 	});

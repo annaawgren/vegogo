@@ -5,26 +5,6 @@ var Place = keystone.list("Place");
 var apiConfig = require("../../api-config");
 
 /**
- * Based on code found here:
- * https://gist.github.com/JedWatson/9741171
- */
-
-function getPlaceImage(place) {
-	let imageUrl = `${apiConfig.IMAGES_URL}/places/${place.image.filename}`;
-	let image = cloudinary.url(imageUrl, {
-		type: "fetch",
-		secure: true,
-		width: 150,
-		height: 150,
-		crop: "thumb",
-		gravity: "face",
-		radius: 20
-	});
-
-	return image;
-}
-
-/**
  * List Places
  */
 exports.list = function(req, res) {
@@ -49,8 +29,12 @@ exports.list = function(req, res) {
 
 			items = items.map(place => {
 				let imageThumb = place.vImageThumb;
+
 				place = place.toJSON();
 				place.imageThumb = imageThumb;
+
+				delete place.image;
+
 				return place;
 			});
 
