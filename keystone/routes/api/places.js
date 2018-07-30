@@ -4,6 +4,28 @@ var cloudinary = require("cloudinary");
 var Place = keystone.list("Place");
 var apiConfig = require("../../api-config");
 
+function cloudinaryImageToURL(image) {
+	if (!image || !image.public_id) {
+		return null;
+	}
+
+	return cloudinary.url(image.public_id, {
+		secure: true,
+		width: 640
+	});
+}
+
+function cloudinaryImageToImage(image) {
+	if (!image || !image.public_id) {
+		return null;
+	}
+
+	return cloudinary.image(image.public_id, {
+		secure: true,
+		width: 640
+	});
+}
+
 /**
  * List Places
  */
@@ -53,28 +75,6 @@ exports.list = function(req, res) {
 		});
 };
 
-function cloudinaryImageToURL(image) {
-	if (!image || !image.public_id) {
-		return null;
-	}
-
-	return cloudinary.url(image.public_id, {
-		secure: true,
-		width: 640
-	});
-}
-
-function cloudinaryImageToImage(image) {
-	if (!image || !image.public_id) {
-		return null;
-	}
-
-	return cloudinary.image(image.public_id, {
-		secure: true,
-		width: 640
-	});
-}
-
 /**
  * Get Place by ID
  * http://localhost:3131/api/place/id/5b158f4b16474ee5772d1113
@@ -82,7 +82,7 @@ function cloudinaryImageToImage(image) {
 exports.getId = function(req, res) {
 	Place.model
 		.findById(req.params.id)
-		.populate("foodTimes foodTypes")
+		.populate("foodTimes foodTypes placeAreas")
 		.exec(function(err, place) {
 			if (err) return res.apiError("database error", err);
 			if (!place) return res.apiError("not found");
@@ -111,7 +111,7 @@ exports.getId = function(req, res) {
 exports.getSlug = function(req, res) {
 	Place.model
 		.findOne({ slug: req.params.slug })
-		.populate("foodTimes foodTypes")
+		.populate("foodTimes foodTypes placeAreas")
 		.exec(function(err, place) {
 			if (err) return res.apiError("database error", err);
 			if (!place) return res.apiError("not found");
