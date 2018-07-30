@@ -2,7 +2,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "start": "concurrently \"npm run start-keystone\" \"npm run start-frontend\"",
-    "start-keystone": "cd keystone && node keystone.js",
+    "start-keystone": "cd keystone && npm run watch",
     "start-frontend": "cd frontend && npm start"
   },
   "lint-staged": {
