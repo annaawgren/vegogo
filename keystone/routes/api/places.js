@@ -23,7 +23,7 @@ exports.list = function(req, res) {
 	Place.model
 		.find()
 		.sort(sort)
-		.populate("foodTimes foodTypes")
+		.populate("foodTimes foodTypes placeAreas")
 		.exec(function(err, items) {
 			if (err) return res.apiError("database error", err);
 
@@ -32,6 +32,9 @@ exports.list = function(req, res) {
 
 				// Single image.
 				place.imageThumb = cloudinaryImageToURL(place.image);
+
+				// place.imageImage = cloudinaryImageToImage(place.image);
+
 				delete place.image;
 
 				// Multiple images.
@@ -56,6 +59,17 @@ function cloudinaryImageToURL(image) {
 	}
 
 	return cloudinary.url(image.public_id, {
+		secure: true,
+		width: 640
+	});
+}
+
+function cloudinaryImageToImage(image) {
+	if (!image || !image.public_id) {
+		return null;
+	}
+
+	return cloudinary.image(image.public_id, {
 		secure: true,
 		width: 640
 	});
