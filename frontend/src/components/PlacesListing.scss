@@ -84,9 +84,27 @@
     margin: .5em 0;
 }
 
+.PlaceItem-staticMap {
+
+}
+
 .PlacesListing-placeItem-mapImage {
     margin-top: 1em;
-    max-width: 200px;
+    max-width: 100%;
+}
+
+
+.PlaceItem-featuresWrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.PlaceItem-featuresWrap > * {
+    flex: 0 0 45%;
+}
+
+.PlaceItem-features {
+
 }
 
 .PlaceItem-features-title {

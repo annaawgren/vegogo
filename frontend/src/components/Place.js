@@ -16,6 +16,44 @@ import { Helmet } from "react-helmet";
   return `https://res.cloudinary.com/vegogo/image/fetch/w_${width},dpr_2/${imageUrl}`;
 }*/
 
+function PlaceTypes({ foodTypes }) {
+  let types = foodTypes.map(type => (
+    <li key={type.key} className="PlaceItem-features-item">
+      <span>{type.name}</span>
+    </li>
+  ));
+
+  if (types && types.length) {
+    types = (
+      <div className="PlaceItem-features">
+        <h3 className="PlaceItem-features-title">Food to find</h3>
+        <ul className="PlaceItem-features-items">{types}</ul>
+      </div>
+    );
+  }
+
+  return types;
+}
+
+function PlaceTimes({ foodTimes }) {
+  let times = foodTimes.map(type => (
+    <li key={type.key} className="PlaceItem-features-item">
+      <span>{type.name}</span>
+    </li>
+  ));
+
+  if (times && times.length) {
+    times = (
+      <div className="PlaceItem-features">
+        <h3 className="PlaceItem-features-title">Great for</h3>
+        <ul className="PlaceItem-features-items">{times}</ul>
+      </div>
+    );
+  }
+
+  return times;
+}
+
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
  * or from props match when viewing a place permalink.
@@ -111,36 +149,6 @@ class Place extends Component {
 
     let permalink = getPlacePermalink(this.state.place);
 
-    let types = foodTypes.map(type => (
-      <li key={type.key} className="PlaceItem-features-item">
-        <span>{type.name}</span>
-      </li>
-    ));
-
-    if (types && types.length) {
-      types = (
-        <div className="PlaceItem-features">
-          <h3 className="PlaceItem-features-title">Food to find</h3>
-          <ul className="PlaceItem-features-items">{types}</ul>
-        </div>
-      );
-    }
-
-    let times = foodTimes.map(type => (
-      <li key={type.key} className="PlaceItem-features-item">
-        <span>{type.name}</span>
-      </li>
-    ));
-
-    if (times && times.length) {
-      times = (
-        <div className="PlaceItem-features">
-          <h3 className="PlaceItem-features-title">Great for</h3>
-          <ul className="PlaceItem-features-items">{times}</ul>
-        </div>
-      );
-    }
-
     let imageMarkup;
     if (imageThumb) {
       imageMarkup = (
@@ -188,6 +196,7 @@ class Place extends Component {
       let googleLink = `http://maps.google.com/?q=${name}, ${
         location.street1
       }, ${location.state}, ${location.country}`;
+
       locationAndMap = (
         <div className="PlaceItem-meta">
           <p className="PlaceItem-meta-item">
@@ -202,22 +211,24 @@ class Place extends Component {
           )}
           {homepageOut}
           {/* https://www.npmjs.com/package/react-static-google-map */}
-          <a href={googleLink} target="_blank" rel="noopener">
-            <StaticGoogleMap
-              size="300x200"
-              zoom="15"
-              scale="2"
-              apiKey={GOOGLE_MAPS_API_KEY}
-              className="PlaceItem-meta-item PlacesListing-placeItem-mapImage"
-            >
-              <Marker
-                location={{ lat: location.geo[1], lng: location.geo[0] }}
-                color="green"
-                label="V"
-                iconURL="https://beta.vegogo.se/favicon-32x32.png"
-              />
-            </StaticGoogleMap>
-          </a>
+          <p className="PlaceItem-staticMap">
+            <a href={googleLink} target="_blank" rel="noopener">
+              <StaticGoogleMap
+                size="300x200"
+                zoom="15"
+                scale="2"
+                apiKey={GOOGLE_MAPS_API_KEY}
+                className="PlaceItem-meta-item PlacesListing-placeItem-mapImage"
+              >
+                <Marker
+                  location={{ lat: location.geo[1], lng: location.geo[0] }}
+                  color="green"
+                  label="V"
+                  iconURL="https://beta.vegogo.se/favicon-32x32.png"
+                />
+              </StaticGoogleMap>
+            </a>
+          </p>
         </div>
       );
     }
@@ -278,10 +289,12 @@ class Place extends Component {
         {/* Details are shown on details page or when "More" link is clicked. */}
         {this.state.detailsOpen && (
           <div className="PlaceItem-details">
-            {locationAndMap}
-            {types}
-            {times}
+            <div className="PlaceItem-featuresWrap">
+              <PlaceTypes foodTypes={foodTypes} />
+              <PlaceTimes foodTimes={foodTimes} />
+            </div>
             {contentOut}
+            {locationAndMap}
             {imagesMarkup}
           </div>
         )}
