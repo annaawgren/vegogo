@@ -210,17 +210,21 @@ class Place extends Component {
 
     let imageMarkup;
     if (imageThumb) {
-      imageMarkup = (
-        <div className="PlaceItem-photo">
-          <img src={imageThumb} alt="" className="PlaceItem-photo-img" />
-          {tagline && <Bubble text={tagline} color="yellow" />}
-        </div>
-      );
+      // imageMarkup = (
+      //   <div className="PlaceItem-photo">
+      //     <img src={imageThumb} alt="" className="PlaceItem-photo-img" />
+      //     {tagline && <Bubble text={tagline} color="yellow" />}
+      //   </div>
+      // );
     }
 
     let imagesMarkup;
-    if (imagesThumbs) {
-      let ImageGalleryImages = imagesThumbs.map(image => {
+    if (imageThumb || imagesThumbs) {
+      let galleryImagesThumbs = [];
+      imageThumb && galleryImagesThumbs.push(imageThumb);
+      imagesThumbs && galleryImagesThumbs.push(...imagesThumbs);
+
+      let ImageGalleryImages = galleryImagesThumbs.map(image => {
         return {
           original: image
         };
@@ -244,7 +248,7 @@ class Place extends Component {
             showThumbnails={false}
             showFullscreenButton={false}
             showPlayButton={false}
-            showBullets={true}
+            showBullets={ImageGalleryImages.length > 1}
           />
         </div>
       );
