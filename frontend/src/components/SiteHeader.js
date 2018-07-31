@@ -48,6 +48,7 @@ class SiteHeader extends Component {
   handleNavToggleClick(e) {
     this.setState({ navOpen: !this.state.navOpen });
   }
+
   render() {
     return (
       <header className="SiteHeader">
