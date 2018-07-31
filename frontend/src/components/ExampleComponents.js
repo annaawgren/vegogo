@@ -43,7 +43,7 @@ class ExampleComponents extends Component {
         </ExampleComponent>
 
         <ExampleComponent title="<AreaIntro>">
-          <AreaIntro />
+          <AreaIntro slug="sofo" />
         </ExampleComponent>
 
         <ExampleComponent title="<SearchArea>">
