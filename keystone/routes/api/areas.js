@@ -1,8 +1,7 @@
 var async = require("async");
 var keystone = require("keystone");
-var cloudinary = require("cloudinary");
 var Area = keystone.list("Area");
-var apiConfig = require("../../api-config");
+var { cloudinaryImageToURL } = require("../../functions");
 
 /**
  * Based on code found here:
@@ -28,16 +27,19 @@ exports.list = function(req, res) {
 	Area.model
 		.find()
 		.sort(sort)
-		// .populate("foodTimes foodTypes")
 		.exec(function(err, items) {
 			if (err) return res.apiError("database error", err);
 
-			// items = items.map(place => {
-			// 	let imageThumb = place.vImageThumb;
-			// 	place = place.toJSON();
-			// 	place.imageThumb = imageThumb;
-			// 	return place;
-			// });
+			items = items.map(area => {
+				area = area.toJSON();
+
+				// Single image.
+				area.imageThumb = cloudinaryImageToURL(area.image);
+
+				delete area.image;
+
+				return area;
+			});
 
 			res.apiResponse({
 				areas: items
@@ -57,6 +59,11 @@ exports.getId = function(req, res) {
 			if (err) return res.apiError("database error", err);
 			if (!item) return res.apiError("not found");
 
+			item = item.toJSON();
+
+			item.imageThumb = cloudinaryImageToURL(item.image);
+			delete item.image;
+
 			res.apiResponse({
 				area: item
 			});
@@ -75,7 +82,10 @@ exports.getSlug = function(req, res) {
 			if (err) return res.apiError("database error", err);
 			if (!item) return res.apiError("not found");
 
-			// console.log("imageThumb", item.imageThumb);
+			item = item.toJSON();
+
+			item.imageThumb = cloudinaryImageToURL(item.image);
+			delete item.image;
 
 			res.apiResponse({
 				area: item

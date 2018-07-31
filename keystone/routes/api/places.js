@@ -1,30 +1,8 @@
 var async = require("async");
 var keystone = require("keystone");
-var cloudinary = require("cloudinary");
 var Place = keystone.list("Place");
 var apiConfig = require("../../api-config");
-
-function cloudinaryImageToURL(image) {
-	if (!image || !image.public_id) {
-		return null;
-	}
-
-	return cloudinary.url(image.public_id, {
-		secure: true,
-		width: 640
-	});
-}
-
-function cloudinaryImageToImage(image) {
-	if (!image || !image.public_id) {
-		return null;
-	}
-
-	return cloudinary.image(image.public_id, {
-		secure: true,
-		width: 640
-	});
-}
+var { cloudinaryImageToURL } = require("../../functions");
 
 /**
  * List Places
@@ -54,8 +32,6 @@ exports.list = function(req, res) {
 
 				// Single image.
 				place.imageThumb = cloudinaryImageToURL(place.image);
-
-				// place.imageImage = cloudinaryImageToImage(place.image);
 
 				delete place.image;
 
