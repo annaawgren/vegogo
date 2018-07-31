@@ -1,9 +1,7 @@
 var keystone = require("keystone");
 var Types = keystone.Field.Types;
-let moment = require("moment");
 var slugify = require("underscore.string/slugify");
 var cloudinary = require("cloudinary");
-var apiConfig = require("../api-config");
 
 function getPlaceImage(place) {
 	let image = cloudinary.url(place.image.public_id, {
@@ -13,32 +11,6 @@ function getPlaceImage(place) {
 
 	return image;
 }
-
-var s3Storage = new keystone.Storage({
-	adapter: require("keystone-storage-adapter-s3"),
-	schema: {
-		url: true
-	},
-	s3: {
-		path: "/places",
-		region: "eu-west-1",
-		headers: {
-			"x-amz-acl": "public-read"
-		},
-		generateFilename: function(file) {
-			let filename = moment().format("YYYYMMDD-HHmm") + "-" + file.originalname;
-			filename = slugify(filename);
-
-			// Sluggify transforms '.jpg' to '-jpg' so we undo that.
-			filename = filename.replace(/-jpg$/, ".jpg");
-			filename = filename.replace(/-jpeg$/, ".jpeg");
-			filename = filename.replace(/-png$/, ".png");
-			filename = filename.replace(/-gif$/, ".gif");
-
-			return filename;
-		}
-	}
-});
 
 /**
  * Place Model
