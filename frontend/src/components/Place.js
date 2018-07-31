@@ -9,12 +9,7 @@ import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
 import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
-
-/*function getImageThumbUrl(image, width) {
-  let imageUrl = `${IMAGES_URL}/places/${image.filename}`;
-
-  return `https://res.cloudinary.com/vegogo/image/fetch/w_${width},dpr_2/${imageUrl}`;
-}*/
+import ImageGallery from "react-image-gallery";
 
 function PlaceTypes({ foodTypes }) {
   let types = foodTypes.map(type => (
@@ -225,9 +220,15 @@ class Place extends Component {
 
     let imagesMarkup;
     if (imagesThumbs) {
+      let ImageGalleryImages = imagesThumbs.map(image => {
+        return {
+          original: image
+        };
+      });
+
       imagesMarkup = (
         <div className="PlaceItem-photos">
-          {imagesThumbs.map((image, loopNum) => {
+          {/* {imagesThumbs.map((image) => {
             return (
               <img
                 src={image}
@@ -236,7 +237,15 @@ class Place extends Component {
                 className="PlaceItem-photos-img"
               />
             );
-          })}
+          })} */}
+          <ImageGallery
+            items={ImageGalleryImages}
+            lazyLoad={true}
+            showThumbnails={false}
+            showFullscreenButton={false}
+            showPlayButton={false}
+            showBullets={true}
+          />
         </div>
       );
     }
@@ -294,6 +303,8 @@ class Place extends Component {
         </Helmet>
 
         {tease}
+        {imagesMarkup}
+
         {/* Details are shown on details page or when "More" link is clicked. */}
         {this.state.detailsOpen && (
           <div className="PlaceItem-details">
@@ -303,7 +314,6 @@ class Place extends Component {
             </div>
             {contentOut}
             <PlaceLocation {...{ location, phone, name, homepage }} />
-            {imagesMarkup}
           </div>
         )}
       </article>
