@@ -78,6 +78,11 @@ exports.getSlug = function(req, res) {
 	Area.model
 		.findOne({ slug: req.params.slug })
 		// .populate("foodTimes foodTypes")
+		.populate({
+			path: "parentAreas",
+			populate: { path: "parentAreas" }
+		})
+		//.populate("parentAreas")
 		.exec(function(err, item) {
 			if (err) return res.apiError("database error", err);
 			if (!item) return res.apiError("not found");

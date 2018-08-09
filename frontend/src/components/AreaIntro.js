@@ -2,13 +2,37 @@ import React from "react";
 import "./AreaIntro.css";
 import { API_URL } from "../api-config";
 
+let AreaParent = props => {
+  const { parentAreas } = props;
+
+  return parentAreas.map(area => (
+    <React.Fragment>
+      <AreaParent parentAreas={area.parentAreas} />
+      <li>{area.name}</li>
+    </React.Fragment>
+  ));
+};
+
+let AreaParents = props => {
+  const { parentAreas } = props;
+
+  const parents = <AreaParent parentAreas={parentAreas} />;
+
+  return parents ? (
+    <ul>
+      <AreaParent parentAreas={parentAreas} />
+    </ul>
+  ) : null;
+};
+
 class AreaIntro extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       area: {},
-      isLoading: true
+      isLoading: true,
+      isError: true
     };
   }
 
@@ -30,36 +54,59 @@ class AreaIntro extends React.Component {
         return data.json();
       })
       .then(data => {
-        this.setState({ area: data.area, isLoading: false });
+        if (!data || data.error) {
+          this.setState({ area: {}, isLoading: false, isError: true });
+        } else {
+          this.setState({ area: data.area, isLoading: false, isError: false });
+        }
       });
   }
 
   render() {
-    if (this.state.isLoading) {
+    const { isLoading, isError } = this.state;
+
+    if (isLoading) {
       return <p>Loading area...</p>;
     }
+
+    if (isError) {
+      return <p>Error getting area.</p>;
+    }
+
+    const { name, tagline, imageThumb, content, parentAreas } = this.state.area;
+    const { children } = this.props;
 
     return (
       <div className="AreaIntro">
         <div>
-          {this.state.area.imageThumb && (
-            <img
-              src={this.state.area.imageThumb}
-              alt=""
-              className="AreaIntro-image"
-            />
+          {imageThumb && (
+            <img src={imageThumb} alt="" className="AreaIntro-image" />
           )}
         </div>
-        <h2 className="AreaIntro-title">{this.state.area.name}</h2>
-        <p>{this.state.area.tagline}</p>
-        <div
-          className=""
-          dangerouslySetInnerHTML={{ __html: this.state.area.content.brief }}
-        />
-        <div
-          className=""
-          dangerouslySetInnerHTML={{ __html: this.state.area.content.extended }}
-        />
+
+        <AreaParents parentAreas={parentAreas} />
+
+        <h2 className="AreaIntro-title">{name}</h2>
+
+        {tagline && <p className="AreaIntro-tagline">{tagline}</p>}
+
+        {content &&
+          content.brief && (
+            <div
+              className="AreaIntro-content AreaIntro-content--brief"
+              dangerouslySetInnerHTML={{ __html: content.brief }}
+            />
+          )}
+
+        {content &&
+          content.extended && (
+            <div
+              className="AreaIntro-content AreaIntro-content--extended"
+              dangerouslySetInnerHTML={{ __html: content.extended }}
+            />
+          )}
+
+        {children}
       </div>
     );
   }

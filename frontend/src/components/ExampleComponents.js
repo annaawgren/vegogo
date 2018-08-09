@@ -50,13 +50,6 @@ class ExampleComponents extends Component {
           <SearchArea />
         </ExampleComponent>
 
-        <ExampleComponent title="<Bubble>">
-          <Bubble color="dark" text="Awesome Supertasty Another word" />
-          <Bubble color="green" />
-          <Bubble color="yellow" text="Good place with nice food" />
-          <Bubble color="red" />
-        </ExampleComponent>
-
         <ExampleComponent title="<Place>">
           <Place slug="mahalo" isSingleView={true} />
         </ExampleComponent>
@@ -67,6 +60,13 @@ class ExampleComponents extends Component {
             headline="Härliga ställen"
             teaser="En massa goa ställen är detta en listning på."
           />
+        </ExampleComponent>
+
+        <ExampleComponent title="<Bubble>">
+          <Bubble color="dark" text="Awesome Supertasty Another word" />
+          <Bubble color="green" />
+          <Bubble color="yellow" text="Good place with nice food" />
+          <Bubble color="red" />
         </ExampleComponent>
 
         <ExampleComponent title="<NewsletterSignup>">

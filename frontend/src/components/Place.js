@@ -3,7 +3,7 @@ import React, { Component } from "react";
 // import SiteFooter from "./SiteFooter";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
 // import pinImg from "../images/pin.png";
-import Bubble from "./Bubble";
+// import Bubble from "./Bubble";
 import { GOOGLE_MAPS_API_KEY, API_URL } from "../api-config";
 import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
@@ -199,7 +199,6 @@ class Place extends Component {
       foodTimes = [],
       imageThumb,
       imagesThumbs,
-      tagline,
       phone,
       homepage
     } = this.state.place;
