@@ -9,10 +9,11 @@ import SearchArea from "./SearchArea";
 import AreaIntro from "./AreaIntro";
 import "./ExampleComponents.css";
 import { Helmet } from "react-helmet";
+import { API_URL } from "../api-config";
 
 function ExampleComponent(props) {
   let { title } = props;
-  const titleId = title.replace(/[\<\>]/g, "");
+  const titleId = title.replace(/[<>]/g, "");
 
   return (
     <div className="ExampleComponent" id={titleId}>
@@ -29,18 +30,64 @@ function ExampleComponent(props) {
 }
 
 class DebugAreas extends Component {
+  constructor() {
+    super();
+    this.state = {
+      areas: [],
+      isLoading: false,
+      isError: false
+    };
+  }
   componentDidMount() {
-    // Get areas.
+    this.load();
+  }
+
+  load() {
+    const apiUrl = `${API_URL}/area/list`;
+
+    this.setState({ isLoading: true, isError: false });
+
+    fetch(apiUrl)
+      .then(data => {
+        return data.json();
+      })
+      .then(data => {
+        this.setState({ areas: data.areas, isLoading: false, isError: false });
+      });
   }
 
   render() {
-    return <div>Lista all areas?</div>;
+    const { children } = this.props;
+    const { isLoading, areas } = this.state;
+
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+
+    // console.log('areas', areas);
+
+    return (
+      <div>
+        Lista all areas?
+        {children}
+        <ul>
+          {areas.map(area => {
+            return (
+              <li key={area._id}>
+                {area.name}
+                {area.tagline && `–${area.tagline}`}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
   }
 }
 
 class ExampleComponents extends Component {
   componentDidMount() {
-    console.log("componentDidMount", this);
+    // console.log("componentDidMount", this);
   }
 
   render() {

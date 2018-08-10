@@ -1,9 +1,5 @@
 import React, { Component } from "react";
-// import SiteHeader from "./SiteHeader";
-// import SiteFooter from "./SiteFooter";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
-// import pinImg from "../images/pin.png";
-// import Bubble from "./Bubble";
 import { GOOGLE_MAPS_API_KEY, API_URL } from "../api-config";
 import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
