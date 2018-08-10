@@ -1,5 +1,8 @@
 var keystone = require("keystone");
 var Types = keystone.Field.Types;
+var _ = require("underscore");
+var lodash = require("lodash");
+var { cloudinaryImageToURL } = require("../functions");
 
 /**
  * Area Model
@@ -44,5 +47,45 @@ Area.relationship({
 });
 
 Area.defaultColumns = "name, content.brief";
+
+Area.schema.methods.getPermalink = function() {
+	// console.log(this);
+	// console.log(_.flatten(this));
+	return `/${this.slug}/`;
+};
+
+function getParentAreas(area, returnArr = []) {
+	var parentAreas = area && area.parentAreas ? area.parentAreas : false;
+
+	if (!parentAreas) {
+		return returnArr;
+	}
+
+	parentAreas.forEach(oneParentArea => {
+		returnArr.push(oneParentArea);
+		returnArr = returnArr.concat(getParentAreas(oneParentArea));
+	});
+
+	return returnArr;
+}
+
+Area.schema.methods.getParentAreas = function() {
+	var parentAreas = getParentAreas(this);
+
+	// Make parent areas more simple
+	parentAreas = parentAreas.map(area => {
+		area = {
+			name: area.name,
+			slug: area.slug,
+			tagline: area.tagline,
+			createdAt: area.createdAt,
+			imageThumb: cloudinaryImageToURL(area.image)
+		};
+
+		return area;
+	});
+
+	return parentAreas;
+};
 
 Area.register();

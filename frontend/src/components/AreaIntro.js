@@ -8,7 +8,7 @@ let AreaParent = props => {
   return parentAreas.map(area => (
     <React.Fragment>
       <AreaParent parentAreas={area.parentAreas} />
-      <li>{area.name}</li>
+      <li className="AreaIntro-parentAreasListing-item">{area.name}</li>
     </React.Fragment>
   ));
 };
@@ -19,7 +19,7 @@ let AreaParents = props => {
   const parents = <AreaParent parentAreas={parentAreas} />;
 
   return parents ? (
-    <ul>
+    <ul className="AreaIntro-parentAreasListing">
       <AreaParent parentAreas={parentAreas} />
     </ul>
   ) : null;
@@ -84,9 +84,9 @@ class AreaIntro extends React.Component {
           )}
         </div>
 
-        <AreaParents parentAreas={parentAreas} />
-
         <h2 className="AreaIntro-title">{name}</h2>
+
+        <AreaParents parentAreas={parentAreas} />
 
         {tagline && <p className="AreaIntro-tagline">{tagline}</p>}
 

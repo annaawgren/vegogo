@@ -87,10 +87,17 @@ exports.getSlug = function(req, res) {
 			if (err) return res.apiError("database error", err);
 			if (!item) return res.apiError("not found");
 
+			const permalink = item.getPermalink();
+			const parentAreasFlat = item.getParentAreas();
+
 			item = item.toJSON();
+
+			item.permalink = permalink;
+			item.parentAreasFlat = parentAreasFlat;
 
 			item.imageThumb = cloudinaryImageToURL(item.image);
 			delete item.image;
+			// delete item.parentAreas;
 
 			res.apiResponse({
 				area: item
