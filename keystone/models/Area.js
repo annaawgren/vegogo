@@ -1,7 +1,8 @@
 var keystone = require("keystone");
 var Types = keystone.Field.Types;
-var _ = require("underscore");
-var lodash = require("lodash");
+// var _ = require("underscore");
+// var lodash = require("lodash");
+const { dump } = require("dumper.js");
 var { cloudinaryImageToURL } = require("../functions");
 
 /**
@@ -48,10 +49,23 @@ Area.relationship({
 
 Area.defaultColumns = "name, content.brief";
 
+/**
+ * Return permalink for an area.
+ *
+ * Example:
+ * /stockholm/soedermalm/sofo
+ *
+ * @return string Permalink URL
+ */
 Area.schema.methods.getPermalink = function() {
-	// console.log(this);
-	// console.log(_.flatten(this));
-	return `/${this.slug}/`;
+	let parentAreas = this.getParentAreas();
+	parentAreas = parentAreas.reverse();
+
+	const parentsPath = parentAreas.reduce((acc, curr) => {
+		return `${acc}/${curr.slug}`;
+	}, "");
+
+	return `${parentsPath}/${this.slug}`;
 };
 
 function getParentAreas(area, returnArr = []) {

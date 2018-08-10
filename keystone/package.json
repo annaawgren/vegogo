@@ -6,6 +6,7 @@
     "async": "2.1.4",
     "cloudinary": "^1.11.0",
     "dotenv": "4.0.0",
+    "dumper.js": "^0.1.1",
     "keystone": "4.0.0",
     "keystone-storage-adapter-s3": "^1.1.1",
     "lodash": "^4.17.10",
