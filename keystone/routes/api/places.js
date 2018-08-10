@@ -6,6 +6,7 @@ var { cloudinaryImageToURL } = require("../../functions");
 
 /**
  * List Places
+ * http://localhost:3131/api/area/list
  */
 exports.list = function(req, res) {
 	let sortParam = req.query.sort || "published";
@@ -91,6 +92,8 @@ exports.getSlug = function(req, res) {
 		.exec(function(err, place) {
 			if (err) return res.apiError("database error", err);
 			if (!place) return res.apiError("not found");
+
+			// const parentAreasFlat = place.getParentAreas();
 
 			place = place.toJSON();
 

@@ -6,7 +6,7 @@ let AreaParent = props => {
   const { parentAreas } = props;
 
   return parentAreas.map(area => (
-    <React.Fragment>
+    <React.Fragment key={area.slug}>
       <AreaParent parentAreas={area.parentAreas} />
       <li className="AreaIntro-parentAreasListing-item">{area.name}</li>
     </React.Fragment>

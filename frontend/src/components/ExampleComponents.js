@@ -12,20 +12,37 @@ import { Helmet } from "react-helmet";
 
 function ExampleComponent(props) {
   let { title } = props;
+  const titleId = title.replace(/[\<\>]/g, "");
 
   return (
-    <div className="ExampleComponent">
+    <div className="ExampleComponent" id={titleId}>
       <div className="ExampleComponent-meta">
-        <div className="ExampleComponent-key">Component</div>
-        <div className="ExampleComponent-value">{title}</div>
-        <div className="ExampleComponent-arrow" />
+        <a href={`#${titleId}`}>
+          <div className="ExampleComponent-key">Component</div>
+          <div className="ExampleComponent-value">{title}</div>
+          <div className="ExampleComponent-arrow" />
+        </a>
       </div>
       {props.children}
     </div>
   );
 }
 
+class DebugAreas extends Component {
+  componentDidMount() {
+    // Get areas.
+  }
+
+  render() {
+    return <div>Lista all areas?</div>;
+  }
+}
+
 class ExampleComponents extends Component {
+  componentDidMount() {
+    console.log("componentDidMount", this);
+  }
+
   render() {
     let { places } = this.props;
 
@@ -75,6 +92,10 @@ class ExampleComponents extends Component {
 
         <ExampleComponent title="<SiteFooter>">
           <SiteFooter />
+        </ExampleComponent>
+
+        <ExampleComponent title="<DebugAreas>">
+          <DebugAreas />
         </ExampleComponent>
       </div>
     );

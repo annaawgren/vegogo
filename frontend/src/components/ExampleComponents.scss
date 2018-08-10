@@ -23,6 +23,30 @@ https://fonts.google.com/specimen/Gloria+Hallelujah
 .ExampleComponent {
     margin-top: 6rem;
 }
+
+@keyframes targetShow {
+  0% {
+    outline: 0px solid transparent;
+  }
+
+ 75% {
+   outline: 10px solid #fab;
+ }
+
+ 100% {
+   outline: 2px solid #fab;
+ }
+}
+
+
+.ExampleComponent:target {
+  // transition: outline .5s ease-in-out;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+  animation-name: targetShow;
+}
+
 .ExampleComponent-meta {
     font-family: 'Gloria Hallelujah';
     position: absolute;
@@ -50,7 +74,7 @@ https://fonts.google.com/specimen/Gloria+Hallelujah
     .ExampleComponent {
         margin-top: 0;
     }
-    
+
     .ExampleComponent-meta {
         transform: translateX(-140%) translateY(50%) rotate(-14deg);
     }
@@ -63,4 +87,3 @@ https://fonts.google.com/specimen/Gloria+Hallelujah
         content: '⤷';
     }
 }
-
