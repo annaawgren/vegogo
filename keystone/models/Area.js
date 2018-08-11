@@ -107,8 +107,6 @@ Area.schema.methods.getParentAreas = function() {
  * Recursive get all children to area.
  */
 async function getChildAreas(area) {
-	// console.log('getChildAreas() for area', area);
-	// console.log('getChildAreas() has childAreas', childAreas);
 	let childAreas = [];
 
 	let areaChildAreas = await Area.model.find({
@@ -123,11 +121,7 @@ async function getChildAreas(area) {
 	}
 
 	// Works, we get Södermalm, Kungsholmen, Norrmalm
-	// console.log(`found ${areaChildAreas.length} areaChildAreas`, areaChildAreas);
 	childAreas = areaChildAreas;
-
-	//return childAreas;
-	// return childAreas;
 
 	// Child(s) to area found, loop through and get childs to that areas.
 	// console.log(`found ${areaChildAreas.length} child areas`);
@@ -141,31 +135,13 @@ async function getChildAreas(area) {
 		})
 	);
 
-	console.log("childAreas after map", childAreas);
-	console.log("areaChildAreasPromises after map", areaChildAreasPromises);
 	childAreas = areaChildAreasPromises;
-
-	//areaChildAreas = areaChildAreas.concat8
-
-	// if (areaChildAreasPromises.length) {
-	//console.log('areaChildAreasPromises', areaChildAreasPromises);
-	// childAreas = childAreas.concat(areaChildAreasPromises);
-	//console.log('childAreas', childAreas);
-	// }
-
-	// console.log('areaChildAreasPromises', areaChildAreasPromises);
-	// console.log('after forEach');
 
 	return childAreas;
 }
 
 Area.schema.methods.getChildAreas = async function() {
-	console.log("==============================");
-	console.log("Area.schema.methods.getChildAreas this", this);
 	let childAreas = await getChildAreas(this);
-	//	childAreas.then(childAreasFound => {
-	console.log("method.getChildAreas childAreas found", childAreas);
-	//	});
 	return childAreas;
 };
 

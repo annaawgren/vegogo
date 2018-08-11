@@ -4,6 +4,7 @@ var Area = keystone.list("Area");
 var { cloudinaryImageToURL } = require("../../functions");
 const { dump } = require("dumper.js");
 var ObjectId = require("mongoose").Types.ObjectId;
+var Place = keystone.list("Place");
 
 /**
  * Based on code found here:
@@ -84,13 +85,21 @@ exports.listCities = async function(req, res) {
 			// For each area customize format.
 			itemsPromises = items.map(async area => {
 				// Get child areas to this area.
-				//console.log('get child areas');
 				let childAreas = await area.getChildAreas();
-				console.log("childAreas found", childAreas);
 
 				area = area.toJSON();
 
 				area.childAreas = childAreas;
+
+				// Get places in each area.
+				/*await Promise.all(area.childAreas.map(async childArea => {
+					let placesInArea = await Place.model.find({
+						placeAreas: {
+							$in: [ObjectId(childArea._id)]
+						}
+					});
+					childArea.placesCount = placesInArea.length;
+				}));*/
 
 				// Single image.
 				area.imageThumb = cloudinaryImageToURL(area.image);
