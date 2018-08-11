@@ -46,42 +46,51 @@ class DebugAreas extends Component {
           {areas.map(city => {
             return (
               <li key={city._id} className="DebugAreas-item">
-                <h3 className="DebugAreas-item-title">{city.name}</h3>
-                {city.tagline && (
-                  <p className="DebugAreas-item-tagline">{city.tagline}</p>
-                )}
+                <h3 className="DebugAreas-item-title">
+                  {city.name}
+                  {city.tagline && (
+                    <span className="DebugAreas-item-tagline">
+                      {city.tagline}
+                    </span>
+                  )}
+                </h3>
 
                 {/* Areas within a city, sofo, möllan, and so on */}
                 {city.childAreas && (
-                  <div>
-                    {/* <p>{city.name} has {city.childAreas.length} child areas:</p> */}
-
-                    <ul>
-                      {city.childAreas.map(childArea => {
-                        return (
-                          <li>
+                  <ul className="DebugArea-childAreaList">
+                    {city.childAreas.map(childArea => {
+                      return (
+                        <li>
+                          <p className="DebugArea-childArea-title">
                             {childArea.name}
-                            {childArea.tagline}
-                            {childArea.childAreas && (
-                              <div>
-                                {/* <p>{childArea.name} has {childArea.childAreas.length} child areas:</p> */}
-                                <ul>
-                                  {childArea.childAreas.map(childChildArea => {
-                                    return (
-                                      <li>
-                                        {childChildArea.name}
-                                        {childChildArea.tagline}
-                                      </li>
-                                    );
-                                  })}
-                                </ul>
-                              </div>
+                            {childArea.tagline && (
+                              <span className="DebugArea-childArea-tagline">
+                                {childArea.tagline}
+                              </span>
                             )}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
+                          </p>
+                          {childArea.childAreas && (
+                            <ul class="DebugArea-childChildAreaList">
+                              {childArea.childAreas.map(childChildArea => {
+                                return (
+                                  <li>
+                                    <p className="DebugArea-childArea-title">
+                                      {childChildArea.name}
+                                      {childChildArea.tagline && (
+                                        <span className="DebugArea-childArea-tagline">
+                                          {childChildArea.tagline}
+                                        </span>
+                                      )}
+                                    </p>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 )}
               </li>
             );
