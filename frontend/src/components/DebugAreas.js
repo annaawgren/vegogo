@@ -16,7 +16,7 @@ class DebugAreas extends Component {
   }
 
   load() {
-    const apiUrl = `${API_URL}/area/list`;
+    const apiUrl = `${API_URL}/area/listCities`;
 
     this.setState({ isLoading: true, isError: false });
 
@@ -41,13 +41,47 @@ class DebugAreas extends Component {
       <section className="DebugAreas">
         <h2 className="DebugAreas-title">All areas</h2>
         {children}
+
         <ul class="DebugAreas-items">
-          {areas.map(area => {
+          {areas.map(city => {
             return (
-              <li key={area._id} className="DebugAreas-item">
-                <h3 className="DebugAreas-item-title">{area.name}</h3>
-                {area.tagline && (
-                  <p className="DebugAreas-item-tagline">{area.tagline}</p>
+              <li key={city._id} className="DebugAreas-item">
+                <h3 className="DebugAreas-item-title">{city.name}</h3>
+                {city.tagline && (
+                  <p className="DebugAreas-item-tagline">{city.tagline}</p>
+                )}
+
+                {/* Areas within a city, sofo, möllan, and so on */}
+                {city.childAreas && (
+                  <div>
+                    {/* <p>{city.name} has {city.childAreas.length} child areas:</p> */}
+
+                    <ul>
+                      {city.childAreas.map(childArea => {
+                        return (
+                          <li>
+                            {childArea.name}
+                            {childArea.tagline}
+                            {childArea.childAreas && (
+                              <div>
+                                {/* <p>{childArea.name} has {childArea.childAreas.length} child areas:</p> */}
+                                <ul>
+                                  {childArea.childAreas.map(childChildArea => {
+                                    return (
+                                      <li>
+                                        {childChildArea.name}
+                                        {childChildArea.tagline}
+                                      </li>
+                                    );
+                                  })}
+                                </ul>
+                              </div>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
                 )}
               </li>
             );
