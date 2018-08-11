@@ -2,6 +2,8 @@ var async = require("async");
 var keystone = require("keystone");
 var Area = keystone.list("Area");
 var { cloudinaryImageToURL } = require("../../functions");
+const { dump } = require("dumper.js");
+var ObjectId = require("mongoose").Types.ObjectId;
 
 /**
  * Based on code found here:
@@ -11,7 +13,7 @@ var { cloudinaryImageToURL } = require("../../functions");
 /**
  * List Areas
  */
-exports.list = function(req, res) {
+exports.list = async function(req, res) {
 	let sortParam = req.query.sort || "published";
 
 	let sort;
@@ -24,8 +26,10 @@ exports.list = function(req, res) {
 			sort = { publishedDate: -1 };
 	}
 
+	let findArgs = {};
+
 	Area.model
-		.find()
+		.find(findArgs)
 		.sort(sort)
 		.exec(function(err, items) {
 			if (err) return res.apiError("database error", err);
@@ -43,6 +47,66 @@ exports.list = function(req, res) {
 
 			res.apiResponse({
 				areas: items
+			});
+		});
+};
+
+/**
+ * List cities, i.e. areas that currently have no parent areas.
+ */
+exports.listCities = async function(req, res) {
+	let sortParam = req.query.sort || "published";
+
+	let sort;
+	switch (sortParam) {
+		case "name":
+			sort = { name: 1 };
+			break;
+		case "published":
+		default:
+			sort = { publishedDate: -1 };
+	}
+
+	let findArgs = {};
+
+	// Only include top level, i.e. areas with no parents
+	// Will probably/hopfefully be cities like Stockholm, Berlin
+	Object.assign(findArgs, {
+		$or: [{ parentAreas: [] }, { parentAreas: { $exists: false } }]
+	});
+
+	Area.model
+		.find(findArgs)
+		.sort(sort)
+		.exec(function(err, items) {
+			if (err) return res.apiError("database error", err);
+
+			// For each area customize format.
+			itemsPromises = items.map(async area => {
+				// Get child areas to this area.
+				//console.log('get child areas');
+				let childAreas = await area.getChildAreas();
+				console.log("childAreas found", childAreas);
+
+				area = area.toJSON();
+
+				area.childAreas = childAreas;
+
+				// Single image.
+				area.imageThumb = cloudinaryImageToURL(area.image);
+
+				delete area.image;
+
+				return area;
+			});
+
+			Promise.all(itemsPromises).then(items => {
+				console.log("after map in api");
+				// console.log('itemsPromises', itemsPromises);
+
+				res.apiResponse({
+					areas: items
+				});
 			});
 		});
 };

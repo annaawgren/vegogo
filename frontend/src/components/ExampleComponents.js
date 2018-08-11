@@ -7,9 +7,10 @@ import SiteFooter from "./SiteFooter";
 import Bubble from "./Bubble";
 import SearchArea from "./SearchArea";
 import AreaIntro from "./AreaIntro";
+import DebugAreas from "./DebugAreas";
 import "./ExampleComponents.css";
 import { Helmet } from "react-helmet";
-import { API_URL } from "../api-config";
+// import { API_URL } from "../api-config";
 
 function ExampleComponent(props) {
   let { title } = props;
@@ -27,62 +28,6 @@ function ExampleComponent(props) {
       {props.children}
     </div>
   );
-}
-
-class DebugAreas extends Component {
-  constructor() {
-    super();
-    this.state = {
-      areas: [],
-      isLoading: false,
-      isError: false
-    };
-  }
-  componentDidMount() {
-    this.load();
-  }
-
-  load() {
-    const apiUrl = `${API_URL}/area/list`;
-
-    this.setState({ isLoading: true, isError: false });
-
-    fetch(apiUrl)
-      .then(data => {
-        return data.json();
-      })
-      .then(data => {
-        this.setState({ areas: data.areas, isLoading: false, isError: false });
-      });
-  }
-
-  render() {
-    const { children } = this.props;
-    const { isLoading, areas } = this.state;
-
-    if (isLoading) {
-      return <div>Loading...</div>;
-    }
-
-    // console.log('areas', areas);
-
-    return (
-      <div>
-        Lista all areas?
-        {children}
-        <ul>
-          {areas.map(area => {
-            return (
-              <li key={area._id}>
-                {area.name}
-                {area.tagline && `–${area.tagline}`}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-  }
 }
 
 class ExampleComponents extends Component {

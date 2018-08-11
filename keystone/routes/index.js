@@ -69,6 +69,13 @@ exports = module.exports = function(app) {
 	);
 
 	app.get(
+		"/api/area/listCities",
+		keystone.middleware.cors,
+		keystone.middleware.api,
+		routes.api.areas.listCities
+	);
+
+	app.get(
 		"/api/area/id/:id",
 		keystone.middleware.cors,
 		keystone.middleware.api,
