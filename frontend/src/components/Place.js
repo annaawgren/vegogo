@@ -297,9 +297,11 @@ class Place extends Component {
 
     return (
       <article key={slug} className={placeClassNames}>
-        <Helmet>
-          <title>{`${name}`} – Vegogo</title>
-        </Helmet>
+        {isSingleView && (
+          <Helmet>
+            <title>{`${name}`} – Vegogo</title>
+          </Helmet>
+        )}
 
         {tease}
         {imagesMarkup}
