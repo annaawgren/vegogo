@@ -5,7 +5,8 @@ import "./App.css";
 import Home from "./components/Home";
 import ExampleComponents from "./components/ExampleComponents";
 import NotFoundPage from "./pages/NotFound";
-import PlacePage from "./pages/Place";
+import PlacePage from "./pages/PlacePage";
+import CityPage from "./pages/CityPage";
 import { API_URL } from "./api-config";
 import ReactGA from "react-ga";
 
@@ -58,15 +59,23 @@ class App extends Component {
         <div className="App">
           <Switch>
             <Route exact path="/" component={Home} />
+
             <Route
               exact
-              path="/place/:place"
+              path="/place/:place?"
               render={props => <PlacePage place={props} />}
             />
             <Route
               path="/components"
               render={props => <ExampleComponents places={places} />}
             />
+
+            <Route
+              exact
+              path="/:city"
+              render={props => <CityPage city={props} />}
+            />
+
             <Route component={NotFoundPage} />
           </Switch>
         </div>

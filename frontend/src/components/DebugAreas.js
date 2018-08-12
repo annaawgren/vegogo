@@ -43,7 +43,7 @@ class DebugAreas extends Component {
 
         {children}
 
-        <ul class="DebugAreas-items">
+        <ul className="DebugAreas-items">
           {areas.map(city => {
             return (
               <li key={city._id} className="DebugAreas-item">
@@ -61,7 +61,7 @@ class DebugAreas extends Component {
                   <ul className="DebugArea-childAreaList">
                     {city.childAreas.map(childArea => {
                       return (
-                        <li>
+                        <li key={childArea._id}>
                           <p className="DebugArea-childArea-title">
                             {childArea.name}
                             {childArea.tagline && (
@@ -71,10 +71,10 @@ class DebugAreas extends Component {
                             )}
                           </p>
                           {childArea.childAreas && (
-                            <ul class="DebugArea-childChildAreaList">
+                            <ul className="DebugArea-childChildAreaList">
                               {childArea.childAreas.map(childChildArea => {
                                 return (
-                                  <li>
+                                  <li key={childChildArea._id}>
                                     <p className="DebugArea-childArea-title">
                                       {childChildArea.name}
                                       {childChildArea.tagline && (

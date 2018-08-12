@@ -119,7 +119,8 @@ class Place extends Component {
 
     this.state = {
       place: {},
-      detailsOpen: false
+      detailsOpen: false,
+      isLoading: false
     };
 
     this.handleMoreClick = this.handleMoreClick.bind(this);
@@ -166,7 +167,7 @@ class Place extends Component {
       this.props.location
     ) {
       // Seems like the place has some place props, so set state with that.
-      this.setState({ place: this.props });
+      this.setState({ place: this.props, isLoading: false });
     } else {
       // Needed data not found in props, so load from API.
       this.loadPlaceFromApi();
@@ -175,17 +176,35 @@ class Place extends Component {
 
   loadPlaceFromApi() {
     let placesApiUrl = `${API_URL}/place/slug/${this.placeSlug}`;
+    this.setState({ isLoading: true });
 
     fetch(placesApiUrl)
       .then(data => {
-        return data.json();
+        if (data.ok) {
+          return data.json();
+        } else {
+          throw new Error("Error getting place from API");
+        }
       })
       .then(data => {
-        this.setState({ place: data.place });
+        this.setState({ place: data.place, isLoading: false, isError: false });
+      })
+      .catch(err => {
+        this.setState({ place: {}, isLoading: false, isError: true });
       });
   }
 
   render() {
+    const { isLoading, isError } = this.state;
+
+    if (isLoading) {
+      return <p>Loading...</p>;
+    }
+
+    if (isError) {
+      return <p>Error loading place...</p>;
+    }
+
     let {
       name,
       slug,

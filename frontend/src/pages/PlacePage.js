@@ -4,7 +4,7 @@ import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import NewsletterSignup from "../components/NewsletterSignup";
 
-class NotFound extends Component {
+class PlacePage extends Component {
   render() {
     return (
       <div>
@@ -20,4 +20,4 @@ class NotFound extends Component {
   }
 }
 
-export default NotFound;
+export default PlacePage;
