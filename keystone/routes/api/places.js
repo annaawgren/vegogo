@@ -1,8 +1,10 @@
 var async = require("async");
 var keystone = require("keystone");
 var Place = keystone.list("Place");
+var Area = keystone.list("Area");
 var apiConfig = require("../../api-config");
 var { cloudinaryImageToURL } = require("../../functions");
+var ObjectId = require("mongoose").Types.ObjectId;
 
 /**
  * List Places
@@ -49,6 +51,78 @@ exports.list = function(req, res) {
 			res.apiResponse({
 				places: items
 			});
+		});
+};
+
+/**
+ * Get places in a specific area
+ * http://localhost:3131/api/place/list/area/sofo
+ */
+exports.listArea = function(req, res) {
+	let sortParam = req.query.sort || "published";
+	let areaSlug = req.params.slug;
+	let sort;
+
+	switch (sortParam) {
+		case "name":
+			sort = { name: 1 };
+			break;
+		case "published":
+		default:
+			sort = { publishedDate: -1 };
+	}
+
+	Area.model
+		.findOne({
+			slug: areaSlug
+		})
+		.exec(function(err, item) {
+			if (err || item === null) return res.apiError("database error", err);
+
+			console.log("item yo", err, item);
+
+			// Get places that have our area id.
+			Place.model
+				.find({
+					placeAreas: {
+						$in: [ObjectId(item._id)]
+					}
+				})
+				.exec((err, items) => {
+					if (err || item === null) return res.apiError("database error", err);
+
+					// console.log('items', items);
+
+					res.apiResponse({
+						places: items
+					});
+				});
+
+			// return;
+
+			// if (err) return res.apiError("database error", err);
+
+			// items = items.map(place => {
+			// 	place = place.toJSON();
+			//
+			// 	// Single image.
+			// 	place.imageThumb = cloudinaryImageToURL(place.image);
+			//
+			// 	delete place.image;
+			//
+			// 	// Multiple images.
+			// 	place.imagesThumbs = [];
+			// 	place.images.forEach(image => {
+			// 		place.imagesThumbs.push(cloudinaryImageToURL(image));
+			// 	});
+			// 	delete place.images;
+			//
+			// 	return place;
+			// });
+
+			// res.apiResponse({
+			// 	places: items
+			// });
 		});
 };
 

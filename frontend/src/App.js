@@ -23,6 +23,11 @@ class App extends Component {
    * Load places when component is mounted.
    */
   componentDidMount() {
+    this.getPlaces();
+    this.initGA();
+  }
+
+  getPlaces() {
     let placesApiUrl = `${API_URL}/place/list`;
     fetch(placesApiUrl)
       .then(data => {
@@ -31,8 +36,6 @@ class App extends Component {
       .then(data => {
         this.setState({ places: data.places });
       });
-
-    this.initGA();
   }
 
   /**
@@ -72,7 +75,7 @@ class App extends Component {
 
             <Route
               exact
-              path="/:city"
+              path="/:city/:cityArea1?/:cityArea2?"
               render={props => <CityPage city={props} />}
             />
 
