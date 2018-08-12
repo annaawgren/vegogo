@@ -40,6 +40,7 @@ class DebugAreas extends Component {
     return (
       <section className="DebugAreas">
         <h2 className="DebugAreas-title">All areas</h2>
+
         {children}
 
         <ul class="DebugAreas-items">
