@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "normalize.css";
 import "./App.css";
 import Home from "./components/Home";
 import ExampleComponents from "./components/ExampleComponents";
-import Place from "./components/Place";
+import NotFoundPage from "./pages/NotFound";
+import PlacePage from "./pages/PlacePage";
+import CityPage from "./pages/CityPage";
 import { API_URL } from "./api-config";
 import ReactGA from "react-ga";
 
@@ -21,6 +23,11 @@ class App extends Component {
    * Load places when component is mounted.
    */
   componentDidMount() {
+    this.getPlaces();
+    this.initGA();
+  }
+
+  getPlaces() {
     let placesApiUrl = `${API_URL}/place/list`;
     fetch(placesApiUrl)
       .then(data => {
@@ -29,8 +36,6 @@ class App extends Component {
       .then(data => {
         this.setState({ places: data.places });
       });
-
-    this.initGA();
   }
 
   /**
@@ -55,16 +60,27 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Route exact path="/" component={Home} />
-          <Route
-            exact
-            path="/place/:place"
-            render={props => <Place {...props} />}
-          />
-          <Route
-            path="/components"
-            render={props => <ExampleComponents places={places} />}
-          />
+          <Switch>
+            <Route exact path="/" component={Home} />
+
+            <Route
+              exact
+              path="/place/:place?"
+              render={props => <PlacePage place={props} />}
+            />
+            <Route
+              path="/components"
+              render={props => <ExampleComponents places={places} />}
+            />
+
+            <Route
+              exact
+              path="/:city/:cityArea1?/:cityArea2?"
+              render={props => <CityPage city={props} />}
+            />
+
+            <Route component={NotFoundPage} />
+          </Switch>
         </div>
       </BrowserRouter>
     );

@@ -1,0 +1,32 @@
+.SearchArea {
+    font-family: 'apercu-mono', sans-serif;
+    text-align: center;
+}
+
+.SearchArea-row {
+    margin-top: 2em;
+}
+
+.SearchArea-searchInput {
+    width: 80%;
+    padding: .5em;
+    border: 0;
+    border-bottom: 2px solid #000;
+    background-image: url('../images/icon-search.svg');
+    background-repeat: no-repeat;
+    background-position: right center;
+
+}
+
+.SearchArea-nearPin {
+    display: inline-block;
+    margin-right: 1ex;
+}
+
+.SearchArea-nearButton {
+    appearance: none;
+    border: none;
+    text-decoration: underline;
+    padding: 0;
+    cursor: pointer;
+}

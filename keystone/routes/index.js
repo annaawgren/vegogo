@@ -46,17 +46,54 @@ exports = module.exports = function(app) {
 		keystone.middleware.api,
 		routes.api.places.list
 	);
+
+	app.get(
+		"/api/place/list/area/:slug",
+		keystone.middleware.cors,
+		keystone.middleware.api,
+		routes.api.places.listArea
+	);
+
 	app.get(
 		"/api/place/id/:id",
 		keystone.middleware.cors,
 		keystone.middleware.api,
 		routes.api.places.getId
 	);
+
 	app.get(
 		"/api/place/slug/:slug",
 		keystone.middleware.cors,
 		keystone.middleware.api,
 		routes.api.places.getSlug
+	);
+
+	app.get(
+		"/api/area/list",
+		keystone.middleware.cors,
+		keystone.middleware.api,
+		routes.api.areas.list
+	);
+
+	app.get(
+		"/api/area/listCities",
+		keystone.middleware.cors,
+		keystone.middleware.api,
+		routes.api.areas.listCities
+	);
+
+	app.get(
+		"/api/area/id/:id",
+		keystone.middleware.cors,
+		keystone.middleware.api,
+		routes.api.areas.getId
+	);
+
+	app.get(
+		"/api/area/slug/:slug",
+		keystone.middleware.cors,
+		keystone.middleware.api,
+		routes.api.areas.getSlug
 	);
 
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:

@@ -1,20 +1,19 @@
-var async = require("async"),
-	keystone = require("keystone");
-
+var async = require("async");
+var keystone = require("keystone");
 var Place = keystone.list("Place");
+var Area = keystone.list("Area");
+var apiConfig = require("../../api-config");
+var { cloudinaryImageToURL } = require("../../functions");
+var ObjectId = require("mongoose").Types.ObjectId;
 
 /**
- * Based on code found here:
- * https://gist.github.com/JedWatson/9741171
- */
-
-/**
- * List Posts
+ * List Places
+ * http://localhost:3131/api/area/list
  */
 exports.list = function(req, res) {
 	let sortParam = req.query.sort || "published";
-
 	let sort;
+
 	switch (sortParam) {
 		case "name":
 			sort = { name: 1 };
@@ -27,9 +26,27 @@ exports.list = function(req, res) {
 	Place.model
 		.find()
 		.sort(sort)
-		.populate("foodTimes foodTypes")
+		.populate("foodTimes foodTypes placeAreas")
 		.exec(function(err, items) {
 			if (err) return res.apiError("database error", err);
+
+			items = items.map(place => {
+				place = place.toJSON();
+
+				// Single image.
+				place.imageThumb = cloudinaryImageToURL(place.image);
+
+				delete place.image;
+
+				// Multiple images.
+				place.imagesThumbs = [];
+				place.images.forEach(image => {
+					place.imagesThumbs.push(cloudinaryImageToURL(image));
+				});
+				delete place.images;
+
+				return place;
+			});
 
 			res.apiResponse({
 				places: items
@@ -38,37 +55,133 @@ exports.list = function(req, res) {
 };
 
 /**
- * Get Post by ID
+ * Get places in a specific area
+ * http://localhost:3131/api/place/list/area/sofo
+ */
+exports.listArea = function(req, res) {
+	let sortParam = req.query.sort || "published";
+	let areaSlug = req.params.slug;
+	let sort;
+
+	switch (sortParam) {
+		case "name":
+			sort = { name: 1 };
+			break;
+		case "published":
+		default:
+			sort = { publishedDate: -1 };
+	}
+
+	Area.model
+		.findOne({
+			slug: areaSlug
+		})
+		.exec(function(err, item) {
+			if (err || item === null) return res.apiError("database error", err);
+
+			console.log("item yo", err, item);
+
+			// Get places that have our area id.
+			Place.model
+				.find({
+					placeAreas: {
+						$in: [ObjectId(item._id)]
+					}
+				})
+				.exec((err, items) => {
+					if (err || item === null) return res.apiError("database error", err);
+
+					// console.log('items', items);
+
+					res.apiResponse({
+						places: items
+					});
+				});
+
+			// return;
+
+			// if (err) return res.apiError("database error", err);
+
+			// items = items.map(place => {
+			// 	place = place.toJSON();
+			//
+			// 	// Single image.
+			// 	place.imageThumb = cloudinaryImageToURL(place.image);
+			//
+			// 	delete place.image;
+			//
+			// 	// Multiple images.
+			// 	place.imagesThumbs = [];
+			// 	place.images.forEach(image => {
+			// 		place.imagesThumbs.push(cloudinaryImageToURL(image));
+			// 	});
+			// 	delete place.images;
+			//
+			// 	return place;
+			// });
+
+			// res.apiResponse({
+			// 	places: items
+			// });
+		});
+};
+
+/**
+ * Get Place by ID
  * http://localhost:3131/api/place/id/5b158f4b16474ee5772d1113
  */
 exports.getId = function(req, res) {
 	Place.model
 		.findById(req.params.id)
-		.populate("foodTimes foodTypes")
-		.exec(function(err, item) {
+		.populate("foodTimes foodTypes placeAreas")
+		.exec(function(err, place) {
 			if (err) return res.apiError("database error", err);
-			if (!item) return res.apiError("not found");
+			if (!place) return res.apiError("not found");
+
+			place = place.toJSON();
+
+			place.imageThumb = cloudinaryImageToURL(place.image);
+			delete place.image;
+
+			place.imagesThumbs = [];
+			place.images.forEach(image => {
+				place.imagesThumbs.push(cloudinaryImageToURL(image));
+			});
+			delete place.images;
 
 			res.apiResponse({
-				place: item
+				place
 			});
 		});
 };
 
 /**
- * Get Post by slug
+ * Get Place by slug
  * http://localhost:3131/api/place/slug/minh-mat
  */
 exports.getSlug = function(req, res) {
 	Place.model
 		.findOne({ slug: req.params.slug })
-		.populate("foodTimes foodTypes")
-		.exec(function(err, item) {
+		.populate("foodTimes foodTypes placeAreas")
+		.exec(function(err, place) {
 			if (err) return res.apiError("database error", err);
-			if (!item) return res.apiError("not found");
+			if (!place) return res.apiError("not found");
+
+			// const parentAreasFlat = place.getParentAreas();
+
+			place = place.toJSON();
+
+			place.imageThumb = cloudinaryImageToURL(place.image);
+			delete place.image;
+
+			place.imagesThumbs = [];
+			place.images.forEach(image => {
+				place.imagesThumbs.push(cloudinaryImageToURL(image));
+			});
+			delete place.images;
 
 			res.apiResponse({
-				place: item
+				place
 			});
 		});
 };

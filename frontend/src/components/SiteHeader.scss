@@ -1,4 +1,43 @@
+@import '../_variables.scss';
+
+.SiteHeader {
+    position: relative;
+}
+
 .SiteHeader-logo {
-    max-width: 50px;
+    max-width: 110px;
     height: auto;
+}
+
+.SiteHeader-navToggler {
+    position: absolute;
+    top: 0;
+    right: 0;
+    appearance: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    line-height: 1;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.SiteHeader-navToggler-img {
+    position: relative;
+    width: 20px;
+    height: auto;;
+}
+
+.SiteHeader-navToggler-img--opened {
+    width: 20px;
+    top: -3px;
+}
+
+.SiteNav {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    background: $vegogo-color-yellow;
+    z-index: 10;
 }

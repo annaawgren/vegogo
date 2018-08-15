@@ -1,0 +1,50 @@
+@import './_variables.scss';
+
+.NewsletterSignup {
+    background-color: $vegogo-color-1;
+    font-family: 'URWGeometric-Bold', sans-serif;
+    padding: 25px;
+}
+
+.NewsletterSignup-introtext {
+    margin: 0;
+    font-size: 34px;
+}
+
+.mc-fields-row {
+    display: flex;
+    margin-top: 25px;
+}
+
+.mc-fields-col {
+    overflow: hidden;
+    font-family: 'apercu-mono', sans-serif;
+    font-size: 12px;
+
+    .signup-field {
+        appearance: none;
+        border: 0;
+        border-bottom: 2px solid #000;
+        background-color: transparent;
+        color: #fff;
+        padding: 8px;
+        width: 100%;
+    }
+    
+    .signup-button {
+        border-bottom: 2px solid #000;
+        background-color: transparent;
+        appearance: none;
+        border: 0;
+        padding: 8px;
+        color: #fff;
+    }
+}
+
+.mc-fields-col--email {
+    flex-grow: 1;
+}
+
+.mc-fields-col--submit {
+    
+}

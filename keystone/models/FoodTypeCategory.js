@@ -17,8 +17,8 @@ FoodTypeCategory.add({
 });
 
 FoodTypeCategory.relationship({
-	ref: "Place",
 	path: "places",
+	ref: "Place",
 	refPath: "foodTypes"
 });
 

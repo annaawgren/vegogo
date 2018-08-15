@@ -1,30 +1,16 @@
 var keystone = require("keystone");
 var Types = keystone.Field.Types;
-let moment = require("moment");
 var slugify = require("underscore.string/slugify");
+var cloudinary = require("cloudinary");
 
-var s3Storage = new keystone.Storage({
-	adapter: require("keystone-storage-adapter-s3"),
-	s3: {
-		path: "/places",
-		region: "eu-west-1",
-		headers: {
-			"x-amz-acl": "public-read"
-		},
-		generateFilename: function(file) {
-			let filename = moment().format("YYYYMMDD-HHmm") + "-" + file.originalname;
-			filename = slugify(filename);
+function getPlaceImage(place) {
+	let image = cloudinary.url(place.image.public_id, {
+		secure: true,
+		width: 640
+	});
 
-			// Sluggify transforms '.jpg' to '-jpg' so we undo that.
-			filename = filename.replace(/-jpg$/, ".jpg");
-			filename = filename.replace(/-jpeg$/, ".jpeg");
-			filename = filename.replace(/-png$/, ".png");
-			filename = filename.replace(/-gif$/, ".gif");
-
-			return filename;
-		}
-	}
-});
+	return image;
+}
 
 /**
  * Place Model
@@ -79,13 +65,31 @@ Place.add({
 		many: true,
 		index: true
 	},
+	placeAreas: {
+		type: Types.Relationship,
+		ref: "Area",
+		many: true,
+		index: true
+	},
+	tagline: {
+		type: Types.Textarea
+	},
 	content: {
 		brief: { type: Types.Html, wysiwyg: true, height: 100 },
 		extended: { type: Types.Html, wysiwyg: true, height: 200 }
 	},
+	/**
+	 * Some notes regarding files and thumbnails:
+	 * - https://github.com/keystonejs/keystone/pull/3397
+	 * - https://github.com/keystonejs/keystone/pull/4509
+	 */
 	image: {
-		type: Types.File,
-		storage: s3Storage
+		type: Types.CloudinaryImage,
+		thumb: true
+	},
+	images: {
+		// http://keystonejs.netlify.com/api/field/cloudinaryimages
+		type: Types.CloudinaryImages
 	}
 });
 
@@ -102,6 +106,15 @@ Place.schema.virtual("content.full").get(function() {
 	return this.content.extended || this.content.brief;
 });
 
+Place.schema.virtual("vImageThumb").get(function() {
+	return getPlaceImage(this);
+});
+
 Place.defaultColumns =
-	"name, state, content.brief, publishedDate, budget, foodTimes, foodTypes";
+	"name, state, content.brief, publishedDate, budget, foodTimes, foodTypes, placeAreas";
+
+// Place.schema.set('toJSON', {
+//     virtuals: true
+// });
+
 Place.register();
