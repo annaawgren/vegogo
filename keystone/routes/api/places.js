@@ -30,23 +30,7 @@ exports.list = function(req, res) {
 		.exec(function(err, items) {
 			if (err) return res.apiError("database error", err);
 
-			items = items.map(place => {
-				place = place.toJSON();
-
-				// Single image.
-				place.imageThumb = cloudinaryImageToURL(place.image);
-
-				delete place.image;
-
-				// Multiple images.
-				place.imagesThumbs = [];
-				place.images.forEach(image => {
-					place.imagesThumbs.push(cloudinaryImageToURL(image));
-				});
-				delete place.images;
-
-				return place;
-			});
+			items = items.map(place => makePlaceItemOurFormat(place));
 
 			res.apiResponse({
 				places: items
@@ -79,8 +63,6 @@ exports.listArea = function(req, res) {
 		.exec(function(err, item) {
 			if (err || item === null) return res.apiError("database error", err);
 
-			console.log("item yo", err, item);
-
 			// Get places that have our area id.
 			Place.model
 				.find({
@@ -88,43 +70,38 @@ exports.listArea = function(req, res) {
 						$in: [ObjectId(item._id)]
 					}
 				})
+				.populate("foodTypes foodTimes")
 				.exec((err, items) => {
-					if (err || item === null) return res.apiError("database error", err);
+					if (err || items === null) return res.apiError("database error", err);
 
-					// console.log('items', items);
+					// Make items our format.
+					items = items.map(item => makePlaceItemOurFormat(item));
 
 					res.apiResponse({
 						places: items
 					});
 				});
-
-			// return;
-
-			// if (err) return res.apiError("database error", err);
-
-			// items = items.map(place => {
-			// 	place = place.toJSON();
-			//
-			// 	// Single image.
-			// 	place.imageThumb = cloudinaryImageToURL(place.image);
-			//
-			// 	delete place.image;
-			//
-			// 	// Multiple images.
-			// 	place.imagesThumbs = [];
-			// 	place.images.forEach(image => {
-			// 		place.imagesThumbs.push(cloudinaryImageToURL(image));
-			// 	});
-			// 	delete place.images;
-			//
-			// 	return place;
-			// });
-
-			// res.apiResponse({
-			// 	places: items
-			// });
 		});
 };
+
+function makePlaceItemOurFormat(place) {
+	place = place.toJSON();
+
+	// Single image.
+	place.imageThumb = cloudinaryImageToURL(place.image);
+
+	delete place.image;
+
+	// Multiple images.
+	place.imagesThumbs = [];
+	place.images.forEach(image => {
+		place.imagesThumbs.push(cloudinaryImageToURL(image));
+	});
+
+	delete place.images;
+
+	return place;
+}
 
 /**
  * Get Place by ID
@@ -138,16 +115,7 @@ exports.getId = function(req, res) {
 			if (err) return res.apiError("database error", err);
 			if (!place) return res.apiError("not found");
 
-			place = place.toJSON();
-
-			place.imageThumb = cloudinaryImageToURL(place.image);
-			delete place.image;
-
-			place.imagesThumbs = [];
-			place.images.forEach(image => {
-				place.imagesThumbs.push(cloudinaryImageToURL(image));
-			});
-			delete place.images;
+			place = makePlaceItemOurFormat(place);
 
 			res.apiResponse({
 				place
@@ -167,18 +135,7 @@ exports.getSlug = function(req, res) {
 			if (err) return res.apiError("database error", err);
 			if (!place) return res.apiError("not found");
 
-			// const parentAreasFlat = place.getParentAreas();
-
-			place = place.toJSON();
-
-			place.imageThumb = cloudinaryImageToURL(place.image);
-			delete place.image;
-
-			place.imagesThumbs = [];
-			place.images.forEach(image => {
-				place.imagesThumbs.push(cloudinaryImageToURL(image));
-			});
-			delete place.images;
+			place = makePlaceItemOurFormat(place);
 
 			res.apiResponse({
 				place
