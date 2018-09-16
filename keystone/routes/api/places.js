@@ -186,10 +186,8 @@ exports.listGeo = function(req, res) {
 			res.apiResponse({
 				places: items
 			});
-
-			console.log("DONE");
 		})
 		.catch(function(err) {
-			console.log("catch err", err);
+			console.log("listGeo catch err", err);
 		});
 };
