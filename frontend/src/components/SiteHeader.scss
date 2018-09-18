@@ -75,10 +75,28 @@
     opacity: 0.9;
     text-align: right;
     padding-top: 50px;
+    padding-right: 20px;
     font-family: $custom-font-bold;
-    font-size: 32px;
+    font-size: 36px;
+
+}
+
+.SiteNav-navItems {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    &.SiteNav-navItems--site {
+        margin-top: 100px;
+    }
+
+    & li {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
 
     & a {
-       text-decoration: none; 
-    }
+        text-decoration: underline; 
+        text-underline-position: under; 
+     } 
 }

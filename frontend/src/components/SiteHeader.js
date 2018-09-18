@@ -9,7 +9,7 @@ import "./SiteHeader.css";
 let Navigation = function(props) {
   return (
     <nav className="SiteNav">
-      <ul>
+      <ul className="SiteNav-navItems">
         <li>
           <a href="/">A to Ö</a>
         </li>
@@ -18,7 +18,7 @@ let Navigation = function(props) {
         </li>
       </ul>
 
-      <ul>
+      <ul className="SiteNav-navItems SiteNav-navItems--site">
         <li>
           <a href="/">About</a>
         </li>
