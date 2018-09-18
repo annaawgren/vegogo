@@ -85,7 +85,10 @@ exports.listArea = function(req, res) {
 };
 
 function makePlaceItemOurFormat(place) {
-	place = place.toJSON();
+	// Aggregate functions does not return model but plain json it seems.
+	if (place.toJSON !== undefined) {
+		place = place.toJSON();
+	}
 
 	// Single image.
 	place.imageThumb = cloudinaryImageToURL(place.image);
@@ -140,5 +143,51 @@ exports.getSlug = function(req, res) {
 			res.apiResponse({
 				place
 			});
+		});
+};
+
+/**
+ * Get place by geolocation, i.e. lat and lng
+ * http://localhost:3131/api/place/list/geo/?lat=59.316&lng=18.084
+ */
+exports.listGeo = function(req, res) {
+	let { sortParam = "published", lat = undefined, lng = undefined } = req.query;
+	let sort;
+
+	switch (sortParam) {
+		case "name":
+			sort = { name: 1 };
+			break;
+		case "published":
+		default:
+			sort = { publishedDate: -1 };
+	}
+
+	// location.geo
+	// https://mongoosejs.com/docs/api.html#query_Query-near
+
+	Place.model
+		.aggregate([
+			{
+				$geoNear: {
+					near: {
+						type: "Point",
+						coordinates: [18.084, 59.316]
+					},
+					includeLocs: "location.geo",
+					maxDistance: 1000,
+					distanceField: "location.distance"
+				}
+			}
+		])
+		.then(function(items) {
+			items = items.map(place => makePlaceItemOurFormat(place));
+
+			res.apiResponse({
+				places: items
+			});
+		})
+		.catch(function(err) {
+			console.log("listGeo catch err", err);
 		});
 };
