@@ -6,11 +6,11 @@ import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import Bubble from "./Bubble";
 import SearchArea from "./SearchArea";
+import UserLocation from "./UserLocation";
 import AreaIntro from "./AreaIntro";
 import DebugAreas from "./DebugAreas";
 import "./ExampleComponents.css";
 import { Helmet } from "react-helmet";
-// import { API_URL } from "../api-config";
 
 function ExampleComponent(props) {
   let { title } = props;
@@ -46,6 +46,10 @@ class ExampleComponents extends Component {
 
         <h1>Components</h1>
         <p>This page lists all the components that we have.</p>
+
+        <ExampleComponent title="<UserMyLocation>">
+          <UserLocation />
+        </ExampleComponent>
 
         <ExampleComponent title="<SiteHeader>">
           <SiteHeader />

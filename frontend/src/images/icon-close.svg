@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="26px" height="29px" viewBox="0 0 26 29" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>Group</title>
+<svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>+ copy 7</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
-        <g id="iPhone-8" transform="translate(-323.000000, -1732.000000)" stroke="#000000" stroke-width="5">
-            <g id="Group" transform="translate(327.000000, 1736.000000)">
-                <path d="M0.391304348,0.388888889 L17.9125587,20.9130985" id="Line-2"></path>
-                <path d="M0.391304348,0.388888889 L17.9125587,20.9130985" id="Line-2-Copy" transform="translate(9.000000, 10.500000) scale(1, -1) translate(-9.000000, -10.500000) "></path>
-            </g>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Mobile-Copy-2" transform="translate(-277.000000, -17.000000)" fill="#000000">
+            <polygon id="+-copy-7" transform="translate(286.500000, 26.500000) rotate(-315.000000) translate(-286.500000, -26.500000) " points="284.324701 24.3665339 284.324701 16 288.717131 16 288.717131 24.3665339 297 24.3665339 297 28.6334661 288.717131 28.6334661 288.717131 37 284.324701 37 284.324701 28.6334661 276 28.6334661 276 24.3665339"></polygon>
         </g>
     </g>
 </svg>
