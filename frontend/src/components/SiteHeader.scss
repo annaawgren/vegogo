@@ -75,16 +75,21 @@
     opacity: 0.9;
     text-align: right;
     padding-top: 50px;
+    padding-bottom: 30px;
     padding-right: 20px;
     font-family: $custom-font-bold;
     font-size: 36px;
-
 }
 
 .SiteNav-navItems {
     list-style: none;
     margin: 0;
     padding: 0;
+
+    &.SiteNav-navItems--places li {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
 
     &.SiteNav-navItems--site {
         margin-top: 100px;
