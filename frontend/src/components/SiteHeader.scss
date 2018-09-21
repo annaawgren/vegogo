@@ -1,115 +1,116 @@
-@import '../_variables.scss';
+@import "../_variables.scss";
 
 .SiteHeader {
-    position: relative;
-    line-height: 1;
-    display: flex;
-    flex: 1 1 50%;
-    justify-content: space-between;
-    padding: 20px;
-    position: sticky;
-    top: 0;
-    background-color: rgba(255,255,255,.9);
-    border-bottom: 1px solid $vegogo-color-background-discrete;
+  position: relative;
+  line-height: 1;
+  display: flex;
+  flex: 1 1 50%;
+  justify-content: space-between;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid $vegogo-color-background-discrete;
 }
 
 .SiteHeader-title {
-    margin: 0;
-    line-height: 1;
+  margin: 0;
+  line-height: 1;
 }
 
 .SiteHeader-titleLink {
-    line-height: 1;
+  line-height: 1;
 }
 
 .SiteHeader-logo {
-    max-width: 110px;
-    height: auto;
-    display: block;
+  max-width: 110px;
+  height: auto;
+  display: block;
 }
 
 .SiteHeader-tagline {
-    display: none;
+  display: none;
 }
 
 .SiteHeader-navToggler {
-    // position: absolute;
-    // top: 6px;
-    // right: 0;
-    appearance: none;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    line-height: 0.7;
-    cursor: pointer;
-    background-color: transparent;
-    text-transform: lowercase;
-    font-size: 20px;
-    font-family: $custom-font-bold;
-    border-bottom: 2px solid black;
+  // position: absolute;
+  z-index: 10;
+  // top: 6px;
+  // right: 0;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  line-height: 0.7;
+  cursor: pointer;
+  background-color: transparent;
+  text-transform: lowercase;
+  font-size: 20px;
+  font-family: $custom-font-bold;
+  border-bottom: 2px solid black;
 }
 
 .SiteHeader-navToggler--close {
-    border: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 24px 20px 5px 30px;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 24px 20px 5px 30px;
 }
 
 .SiteHeader-navToggler-img {
-    position: relative;
-    width: 20px;
-    height: auto;
+  position: relative;
+  width: 20px;
+  height: auto;
 }
 
 .SiteHeader-navToggler-img--close {
-    width: 20px;
-    // top: 10px;
-    // right: 10px;
+  width: 20px;
+  // top: 10px;
+  // right: 10px;
 }
 
 .SiteNav {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 90%;
-    background: $vegogo-color-green;
-    z-index: 10;
-    opacity: 0.9;
-    text-align: right;
-    padding-top: 50px;
-    padding-bottom: 30px;
-    padding-right: 20px;
-    font-family: $custom-font-bold;
-    font-size: 36px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90%;
+  background: $vegogo-color-green;
+  z-index: 10;
+  opacity: 0.9;
+  text-align: right;
+  padding-top: 50px;
+  padding-bottom: 30px;
+  padding-right: 20px;
+  font-family: $custom-font-bold;
+  font-size: 36px;
 }
 
 .SiteNav-navItems {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 
-    &.SiteNav-navItems--places li {
-        margin-top: 50px;
-        margin-bottom: 50px;
-    }
+  &.SiteNav-navItems--places li {
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
 
-    &.SiteNav-navItems--site {
-        margin-top: 100px;
-    }
+  &.SiteNav-navItems--site {
+    margin-top: 100px;
+  }
 
-    & li {
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
+  & li {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 
-    & a {
-        text-decoration: underline; 
-        text-underline-position: under; 
-     } 
-    
-    & .active {
-        color: #666;
-    }
+  & a {
+    text-decoration: underline;
+    text-underline-position: under;
+  }
+
+  & .active {
+    color: #666;
+  }
 }
