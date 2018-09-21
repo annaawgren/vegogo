@@ -1,33 +1,31 @@
-@import './_variables.scss';
+@import "./_variables.scss";
 
 .SiteFooter {
-    background-color: $vegogo-color-background-discrete;
-    margin-top: 50px;
-    margin-bottom: 0;
-    padding: 20px;
-    text-align: center;
+  background-color: $vegogo-color-background-discrete;
+  padding: 20px;
+  text-align: center;
 
-    & p {
-        margin-top: 40px;
-        margin-bottom: 40px;
-    }
+  & p {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
 
-    &-logo {
-        max-width: 110px;
-        height: auto;
-        display: inline-block;
-        line-height: 1;
-    }
- 
-    &-socialLinks {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
+  &-logo {
+    max-width: 110px;
+    height: auto;
+    display: inline-block;
+    line-height: 1;
+  }
 
-    &-socialLink {
-        display: inline-block;
-        margin-left: 20px;
-        margin-right: 20px;
-    }
+  &-socialLinks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &-socialLink {
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
 }
