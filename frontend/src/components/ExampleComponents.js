@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import NewsletterSignup from "./NewsletterSignup";
 import PlacesListing from "./PlacesListing";
 import Place from "./Place";
-import SiteHeader from "./SiteHeader";
 import SiteFooter from "./SiteFooter";
 import Bubble from "./Bubble";
 import SearchArea from "./SearchArea";
@@ -13,6 +12,7 @@ import "./ExampleComponents.css";
 import { Helmet } from "react-helmet";
 import PageContainer from "../pages/PageContainer";
 
+/* 
 function ExampleComponent(props) {
   let { title } = props;
   const titleId = title.replace(/[<>]/g, "");
@@ -30,6 +30,7 @@ function ExampleComponent(props) {
     </div>
   );
 }
+*/
 
 class ExampleComponents extends Component {
   componentDidMount() {
@@ -48,52 +49,36 @@ class ExampleComponents extends Component {
         <h1>Components</h1>
         <p>This page lists all the components that we have.</p>
 
-        <ExampleComponent title="<UserMyLocation>">
-          <UserLocation />
-        </ExampleComponent>
+        <p>
+          This page is wrapped in a<code> &lt;PageContainer&gt; </code>
+          and the header is using
+          <code> &lt;SiteHeader&gt; </code>
+        </p>
 
-        <ExampleComponent title="<SiteHeader>">
-          <SiteHeader />
-        </ExampleComponent>
+        <UserLocation />
 
-        <ExampleComponent title="<AreaIntro>">
-          <AreaIntro slug="sofo" />
-        </ExampleComponent>
+        <AreaIntro slug="sofo" />
 
-        <ExampleComponent title="<SearchArea>">
-          <SearchArea />
-        </ExampleComponent>
+        <SearchArea />
 
-        <ExampleComponent title="<Place>">
-          <Place slug="mahalo" isSingleView={true} />
-        </ExampleComponent>
+        <Place slug="mahalo" isSingleView={true} />
 
-        <ExampleComponent title="<PlacesListing>">
-          <PlacesListing
-            places={places}
-            headline="Härliga ställen"
-            teaser="En massa goa ställen är detta en listning på."
-          />
-        </ExampleComponent>
+        <PlacesListing
+          places={places}
+          headline="Härliga ställen"
+          teaser="En massa goa ställen är detta en listning på."
+        />
 
-        <ExampleComponent title="<Bubble>">
-          <Bubble color="dark" text="Awesome Supertasty Another word" />
-          <Bubble color="green" />
-          <Bubble color="yellow" text="Good place with nice food" />
-          <Bubble color="red" />
-        </ExampleComponent>
+        <Bubble color="dark" text="Awesome Supertasty Another word" />
+        <Bubble color="green" />
+        <Bubble color="yellow" text="Good place with nice food" />
+        <Bubble color="red" />
 
-        <ExampleComponent title="<NewsletterSignup>">
-          <NewsletterSignup />
-        </ExampleComponent>
+        <NewsletterSignup />
 
-        <ExampleComponent title="<SiteFooter>">
-          <SiteFooter />
-        </ExampleComponent>
+        <SiteFooter />
 
-        <ExampleComponent title="<DebugAreas>">
-          <DebugAreas />
-        </ExampleComponent>
+        <DebugAreas />
       </PageContainer>
     );
   }
