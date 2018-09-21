@@ -1,17 +1,25 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import SiteHeader from "./SiteHeader";
-import SiteFooter from "./SiteFooter";
+import PageContainer from "../pages/PageContainer";
+import { Helmet } from "react-helmet";
+import "./Home.css";
+import introText from "../images/vegogo-the-new-guide-to-vegan-eating.svg";
 
 class Home extends Component {
   render() {
     return (
-      <React.Fragment>
-        <SiteHeader />
-        <SiteFooter />
+      <PageContainer>
+        <Helmet>
+          <title>Vegogo - the new guide to vegan eating</title>
+        </Helmet>
 
-        <Link to="components">Components</Link>
-      </React.Fragment>
+        <p className="Start-intro">
+          <img
+            className="Start-introText"
+            src={introText}
+            alt="The new guide to vegan eating"
+          />
+        </p>
+      </PageContainer>
     );
   }
 }
