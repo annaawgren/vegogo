@@ -2,149 +2,137 @@
 @import "./shared.scss";
 @import "node_modules/react-image-gallery/styles/scss/image-gallery.scss";
 
-
 .PlacesListing {
-    margin-top: 50px;
-    padding-top: 50px;
-    border-top: 1px solid black;
+  margin-top: 50px;
+  padding-top: 50px;
+  border-top: 1px solid black;
 }
 
-
 .PlacesListing-placeItems {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .PlacesListing-placeItem {
-    // border-bottom: 1px solid #aaa;
-    // margin-bottom: 10px;
-    // padding-bottom: 10px;
-    @include clearfix;
+  // border-bottom: 1px solid #aaa;
+  // margin-bottom: 10px;
+  // padding-bottom: 10px;
+  @include clearfix;
 }
 
 .PlaceItem-photo {
-    position: relative;
-    margin: 0;
+  position: relative;
+  margin: 0;
 
-    & .Bubble {
-        position: absolute;
-        bottom: -5px;
-        right: -10px;
-    }
+  & .Bubble {
+    position: absolute;
+    bottom: -5px;
+    right: -10px;
+  }
 }
 
 .PlaceItem-photo-img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
 
 .PlaceItem-photos {
-
 }
 
 .PlaceItem-photos-img {
-    max-width: 100%;
-    height: auto;;
+  max-width: 100%;
+  height: auto;
 }
 
 .PlaceItem-head {
-    position: relative;
+  position: relative;
 }
 
 .PlaceItem-name {
-    font-family: $custom-font-bold;
-    font-size: 36px;
-    margin: 15px 0;
-    margin-right: 60px;
-    transition: font-size .1s ease-out;
-    word-break: break-word;
+  font-family: $custom-font-bold;
+  font-size: 36px;
+  margin: 15px 0;
+  margin-right: 60px;
+  transition: font-size 0.1s ease-out;
+  word-break: break-word;
 }
 
 .PlaceItem--expanded {
-    .PlaceItem-name {
-        font-size: 64px;
-    }
+  .PlaceItem-name {
+    font-size: 64px;
+  }
 }
 
 .PlaceItem-more {
-    position: absolute;
-    top: 6px;
-    right: 0;
-    background: none;
-    appearance: none;
-    font-family: $custom-font-bold;
-    font-size: 24px;
-    margin: 0 0;
-    padding: 0;
-    border: 0;
-    line-height: 1;
-    text-decoration: underline;
+  position: absolute;
+  top: 6px;
+  right: 0;
+  background: none;
+  appearance: none;
+  font-family: $custom-font-bold;
+  font-size: 24px;
+  margin: 0 0;
+  padding: 0;
+  border: 0;
+  line-height: 1;
+  text-decoration: underline;
 }
 
 .PlaceItem-meta-item {
-    margin: .5em 0;
-}
-
-.PlaceItem-staticMap {
-
+  margin: 0.5em 0;
 }
 
 .PlacesListing-placeItem-mapImage {
-    margin-top: 1em;
-    max-width: 100%;
+  margin-top: 1em;
+  max-width: 100%;
 }
 
-
 .PlaceItem-featuresWrap {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .PlaceItem-featuresWrap > * {
-    flex: 0 0 45%;
-}
-
-.PlaceItem-features {
-
+  flex: 0 0 45%;
 }
 
 .PlaceItem-features-title {
-    font-family: $custom-font-bold;
-    font-size: 36px;
-    margin: .5em 0 0 0;
+  font-family: $custom-font-bold;
+  font-size: 36px;
+  margin: 0.5em 0 0 0;
 }
 
 .PlaceItem-features-items {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 18px;
-    font-family: 'apercu-mono', sans-serif;
-    color: #fff;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  font-family: "apercu-mono", sans-serif;
+  color: #fff;
 }
 
 .PlaceItem-features-item {
-    span {
-        background-color: $vegogo-color-red;
-        padding: 2px;
-        margin: 4px 4px;
-        display: inline-block;
-    }
+  span {
+    background-color: $vegogo-color-red;
+    padding: 2px;
+    margin: 4px 4px;
+    display: inline-block;
+  }
 }
 
 .PlaceItem-textcontent {
-    margin-top: 2em;
-    line-height: 1.5;
-    font-size: 18px;
+  margin-top: 2em;
+  line-height: 1.5;
+  font-size: 18px;
 
-    h1,
-    h2 {
-        font-family: $custom-font-bold;
-        font-size: 46px;
-        margin: 0 0;
-        line-height: 1.1;
-    }
+  h1,
+  h2 {
+    font-family: $custom-font-bold;
+    font-size: 46px;
+    margin: 0 0;
+    line-height: 1.1;
+  }
 }
 
 .PlaceItem--isSingleView {
