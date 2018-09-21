@@ -8,6 +8,17 @@ import "./SiteHeader.css";
 let Navigation = function(props) {
   return (
     <nav className="SiteNav">
+      <button
+        onClick={props.handleNavClose}
+        className="SiteHeader-navToggler SiteHeader-navToggler--close"
+      >
+        <img
+          className="SiteHeader-navToggler-img SiteHeader-navToggler-img--close"
+          src={closeImg}
+          alt="✕"
+        />
+      </button>
+
       <ul className="SiteNav-navItems SiteNav-navItems--places">
         <li>
           <NavLink onClick={props.handleNavClose} to="/sort/alpha">
@@ -38,17 +49,6 @@ let Navigation = function(props) {
           </NavLink>
         </li>
       </ul>
-
-      <button
-        onClick={props.handleNavClose}
-        className="SiteHeader-navToggler SiteHeader-navToggler--close"
-      >
-        <img
-          className="SiteHeader-navToggler-img SiteHeader-navToggler-img--close"
-          src={closeImg}
-          alt="✕"
-        />
-      </button>
     </nav>
   );
 };

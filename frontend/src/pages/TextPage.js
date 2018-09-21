@@ -21,7 +21,9 @@ let texts = {
     title: "About Vegogo",
     heroImg: {
       src:
-        "https://res.cloudinary.com/vegogo/image/upload/v1537550390/about.jpg"
+        "https://res.cloudinary.com/vegogo/image/upload/v1537550390/about.jpg",
+      width: 612,
+      height: 669
     },
     body: (
       <React.Fragment>
@@ -96,7 +98,9 @@ class TextPage extends Component {
             <p>
               <img
                 className="TextPage-Image TextPage-Image--hero"
-                src="https://res.cloudinary.com/vegogo/image/upload/v1537550390/about.jpg"
+                src={heroImg.src}
+                width={heroImg.width}
+                height={heroImg.height}
                 alt=""
               />
             </p>

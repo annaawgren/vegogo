@@ -11,6 +11,7 @@ import AreaIntro from "./AreaIntro";
 import DebugAreas from "./DebugAreas";
 import "./ExampleComponents.css";
 import { Helmet } from "react-helmet";
+import PageContainer from "../pages/PageContainer";
 
 function ExampleComponent(props) {
   let { title } = props;
@@ -39,7 +40,7 @@ class ExampleComponents extends Component {
     let { places } = this.props;
 
     return (
-      <div>
+      <PageContainer>
         <Helmet>
           <title>Example Components – Vegogo</title>
         </Helmet>
@@ -93,7 +94,7 @@ class ExampleComponents extends Component {
         <ExampleComponent title="<DebugAreas>">
           <DebugAreas />
         </ExampleComponent>
-      </div>
+      </PageContainer>
     );
   }
 }

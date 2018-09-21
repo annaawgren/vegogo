@@ -18,9 +18,17 @@ class Home extends Component {
             className="Start-introText"
             src={introTextImage}
             alt="The new guide to vegan eating"
+            width="249"
+            height="79"
           />
 
-          <img className="Start-introImage" src={introIllustration} alt="" />
+          <img
+            className="Start-introImage"
+            src={introIllustration}
+            alt=""
+            width="582"
+            height="646"
+          />
         </p>
       </PageContainer>
     );
