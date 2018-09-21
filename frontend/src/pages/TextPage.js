@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-// import Place from "../components/Place";
 import PageContainer from "../pages/PageContainer";
-// import NewsletterSignup from "../components/NewsletterSignup";
+import { Helmet } from "react-helmet";
 import "./TextPage.css";
 
 let texts = {
@@ -89,6 +88,9 @@ class TextPage extends Component {
 
     return (
       <PageContainer>
+        <Helmet>
+          <title>{text.title}</title>
+        </Helmet>
         <div className="TextPage">
           {heroImg && (
             <p>
