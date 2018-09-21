@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import ExampleComponents from "./components/ExampleComponents";
 import NotFoundPage from "./pages/NotFound";
 import PlacePage from "./pages/PlacePage";
+import TextPage from "./pages/TextPage";
 import CityPage from "./pages/CityPage";
 import { API_URL } from "./api-config";
 import ReactGA from "react-ga";
@@ -19,6 +20,7 @@ class App extends Component {
 
     this.GATrackingID = "UA-181460-40";
   }
+
   /**
    * Load places when component is mounted.
    */
@@ -65,9 +67,16 @@ class App extends Component {
 
             <Route
               exact
+              path="/page/:pageName?"
+              render={props => <TextPage page={props} />}
+            />
+
+            <Route
+              exact
               path="/place/:place?"
               render={props => <PlacePage place={props} />}
             />
+
             <Route
               path="/components"
               render={props => <ExampleComponents places={places} />}

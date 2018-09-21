@@ -104,4 +104,8 @@
         text-decoration: underline; 
         text-underline-position: under; 
      } 
+    
+    & .active {
+        color: #666;
+    }
 }

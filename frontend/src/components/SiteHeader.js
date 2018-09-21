@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logoImg from "../images/vegogo-logo.svg";
-import blockcheesenavImg from "../images/icon-blockcheesenav.svg";
 import closeImg from "../images/icon-close.svg";
 import "./SiteHeader.css";
 
@@ -11,22 +10,32 @@ let Navigation = function(props) {
     <nav className="SiteNav">
       <ul className="SiteNav-navItems SiteNav-navItems--places">
         <li>
-          <a href="/">A to Ö</a>
+          <NavLink onClick={props.handleNavClose} to="/sort/alpha">
+            A to Ö
+          </NavLink>
         </li>
         <li>
-          <a href="/">Near me</a>
+          <NavLink onClick={props.handleNavClose} to="/sort/near">
+            Near me
+          </NavLink>
         </li>
       </ul>
 
       <ul className="SiteNav-navItems SiteNav-navItems--site">
         <li>
-          <a href="/">About</a>
+          <NavLink exact onClick={props.handleNavClose} to="/page/about">
+            About
+          </NavLink>
         </li>
         <li>
-          <a href="/">Contact</a>
+          <NavLink exact onClick={props.handleNavClose} to="/page/contact">
+            Contact
+          </NavLink>
         </li>
         <li>
-          <a href="/">Home</a>
+          <NavLink exact onClick={props.handleNavClose} to="/">
+            Home
+          </NavLink>
         </li>
       </ul>
 
