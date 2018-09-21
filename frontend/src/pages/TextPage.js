@@ -26,9 +26,6 @@ let texts = {
     },
     body: (
       <React.Fragment>
-        {/* <p>
-          <img className="TextPage-Image" src="https://res.cloudinary.com/vegogo/image/upload/v1537550390/about.jpg" alt="" />
-        </p> */}
         <p>
           vegogo is the new guide for vegan eating, curated for you with &lt;3.
         </p>

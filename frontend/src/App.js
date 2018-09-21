@@ -45,6 +45,13 @@ class App extends Component {
    * https://github.com/react-ga/react-ga
    */
   initGA() {
+    const isDevelopment = process.env.NODE_ENV === "development";
+
+    // Don't track on local development.
+    if (isDevelopment) {
+      return;
+    }
+
     ReactGA.initialize(this.GATrackingID, {
       debug: true,
       titleCase: false,

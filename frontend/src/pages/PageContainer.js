@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import NewsletterSignup from "../components/NewsletterSignup";
 
 class PageContainer extends Component {
   render() {
@@ -10,6 +11,7 @@ class PageContainer extends Component {
 
         {this.props.children}
 
+        <NewsletterSignup />
         <SiteFooter />
       </React.Fragment>
     );

@@ -1,43 +1,58 @@
 @import './_variables.scss';
 
 .NewsletterSignup {
-    background-color: $vegogo-color-1;
-    font-family: 'URWGeometric-Bold', sans-serif;
-    padding: 25px;
+    background-color: $vegogo-color-green;
+    font-family: $custom-font-bold;
+    padding: 80px 25px;
+}
+
+.NewsletterSignup-inner {
+    max-width: 30rem;
+    margin: 0 auto;
 }
 
 .NewsletterSignup-introtext {
     margin: 0;
-    font-size: 34px;
+    font-size: 28px;
+    line-height: 1.5;
 }
 
 .mc-fields-row {
-    display: flex;
+    // display: flex;
     margin-top: 25px;
 }
 
 .mc-fields-col {
-    overflow: hidden;
-    font-family: 'apercu-mono', sans-serif;
-    font-size: 12px;
-
+    // overflow: hidden;
+    
     .signup-field {
         appearance: none;
         border: 0;
-        border-bottom: 2px solid #000;
-        background-color: transparent;
-        color: #fff;
-        padding: 8px;
+        background-color: #fff;
+        color: #000;
+        padding: 1rem 1rem 0.6rem 1rem;
         width: 100%;
+        line-height: 1;
+        font-family: $custom-font-regular;
+        
+        &::placeholder {
+            color: #aaa;
+        }
     }
     
     .signup-button {
-        border-bottom: 2px solid #000;
+        border: 2px solid #000;
         background-color: transparent;
         appearance: none;
-        border: 0;
-        padding: 8px;
-        color: #fff;
+        padding: .75rem 1rem;
+        width: 100%;
+        line-height: 1;
+        margin-top: 1rem;
+    }
+    
+    .signup-button,
+    .signup-field {
+        font-size: 18px;
     }
 }
 
@@ -47,4 +62,8 @@
 
 .mc-fields-col--submit {
     
+}
+
+.NewsletterSignup-weWillBehave {
+    font-family: $custom-font-regular;
 }
