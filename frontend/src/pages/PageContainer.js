@@ -7,7 +7,9 @@ class PageContainer extends Component {
     return (
       <React.Fragment>
         <SiteHeader />
+
         {this.props.children}
+
         <SiteFooter />
       </React.Fragment>
     );
