@@ -1,6 +1,6 @@
 import React from "react";
 import "./SearchArea.css";
-import pinImg from "../images/vegogo-pin.svg";
+// import pinImg from "../images/vegogo-pin.svg";
 
 export default class UserLocation extends React.Component {
   constructor(props) {

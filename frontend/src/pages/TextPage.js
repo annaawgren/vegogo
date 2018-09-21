@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 // import Place from "../components/Place";
-import SiteHeader from "../components/SiteHeader";
-import SiteFooter from "../components/SiteFooter";
+import PageContainer from "../pages/PageContainer";
 // import NewsletterSignup from "../components/NewsletterSignup";
 import "./TextPage.css";
 
@@ -21,8 +20,15 @@ let texts = {
   },
   about: {
     title: "About Vegogo",
+    heroImg: {
+      src:
+        "https://res.cloudinary.com/vegogo/image/upload/v1537550390/about.jpg"
+    },
     body: (
       <React.Fragment>
+        {/* <p>
+          <img className="TextPage-Image" src="https://res.cloudinary.com/vegogo/image/upload/v1537550390/about.jpg" alt="" />
+        </p> */}
         <p>
           vegogo is the new guide for vegan eating, curated for you with &lt;3.
         </p>
@@ -70,37 +76,36 @@ let texts = {
 };
 
 class TextPage extends Component {
-  constructor(props) {
-    super(props);
-    console.log("TextPage constructor");
-  }
-
-  componentDidMount() {
-    console.log("TextPage componentDidMount()");
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
-    console.log("TextPage render()");
-
     let pageName = this.props.page.match.params.pageName;
     let text = texts[pageName];
 
     if (!text) {
       text = texts.forOhFour;
-      // return (<p>Sorry, that page and text was not found.</p>);
     }
 
-    return (
-      <div>
-        <SiteHeader />
+    let heroImg = text.heroImg;
 
+    return (
+      <PageContainer>
         <div className="TextPage">
-          <h1>{text.title}</h1>
+          {heroImg && (
+            <p>
+              <img
+                className="TextPage-Image TextPage-Image--hero"
+                src="https://res.cloudinary.com/vegogo/image/upload/v1537550390/about.jpg"
+                alt=""
+              />
+            </p>
+          )}
+          <h1 className="TextPage-Headline">{text.title}</h1>
           {text.body}
         </div>
-
-        <SiteFooter />
-      </div>
+      </PageContainer>
     );
   }
 }
