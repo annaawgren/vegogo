@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import PageContainer from "../pages/PageContainer";
 import { Helmet } from "react-helmet";
 import "./Home.css";
-import introText from "../images/vegogo-the-new-guide-to-vegan-eating.svg";
+import introTextImage from "../images/vegogo-the-new-guide-to-vegan-eating.svg";
+import introIllustration from "../images/illustration-stockholm.png";
 
 class Home extends Component {
   render() {
@@ -15,9 +16,11 @@ class Home extends Component {
         <p className="Start-intro">
           <img
             className="Start-introText"
-            src={introText}
+            src={introTextImage}
             alt="The new guide to vegan eating"
           />
+
+          <img className="Start-introImage" src={introIllustration} alt="" />
         </p>
       </PageContainer>
     );
