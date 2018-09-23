@@ -6,45 +6,11 @@ import classnames from "classnames";
 import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
 import ImageGallery from "react-image-gallery";
+import Slider from "react-slick";
 
-function PlaceTypes({ foodTypes }) {
-  let types = foodTypes.map(type => (
-    <li key={type.key} className="PlaceItem-features-item">
-      <span>{type.name}</span>
-    </li>
-  ));
-
-  if (types && types.length) {
-    types = (
-      <div className="PlaceItem-features">
-        <h3 className="PlaceItem-features-title">Food to find</h3>
-        <ul className="PlaceItem-features-items">{types}</ul>
-      </div>
-    );
-  }
-
-  return types;
-}
-
-function PlaceTimes({ foodTimes }) {
-  let times = foodTimes.map(type => (
-    <li key={type.key} className="PlaceItem-features-item">
-      <span>{type.name}</span>
-    </li>
-  ));
-
-  if (times && times.length) {
-    times = (
-      <div className="PlaceItem-features">
-        <h3 className="PlaceItem-features-title">Great for</h3>
-        <ul className="PlaceItem-features-items">{times}</ul>
-      </div>
-    );
-  }
-
-  return times;
-}
-
+/**
+ * Adress and map.
+ */
 class PlaceLocation extends Component {
   render() {
     let { location, phone, homepage, name } = this.props;
@@ -107,6 +73,80 @@ class PlaceLocation extends Component {
 
     return locationAndMap;
   }
+}
+
+/**
+ * Images.
+ */
+function PlaceImages(props) {
+  let { imageThumb, imagesThumbs } = props;
+
+  if (!imageThumb || !imagesThumbs) {
+    return null;
+  }
+
+  let galleryImagesThumbs = [];
+
+  // Add main image as first image.
+  imageThumb && galleryImagesThumbs.push(imageThumb);
+
+  // Add the other images.
+  imagesThumbs && galleryImagesThumbs.push(...imagesThumbs);
+
+  let ImageGalleryImages = galleryImagesThumbs.map(image => {
+    // Image is like https://res.cloudinary.com/vegogo/image/upload/w_640/lrzhnjazq7h9t2k7gzn8".
+    // Replace so becomes like https://res.cloudinary.com/vegogo/image/upload/w_640,h_300,c_fit/ufwvkpfrt0ep9i9wfq9g
+    image = image.replace("/w_640/", "/w_640,h_300,c_fit/");
+
+    return {
+      original: image
+    };
+  });
+
+  console.log("ImageGalleryImages", ImageGalleryImages);
+
+  // https://github.com/akiran/react-slick
+  var settings = {
+    dots: false,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    centerMode: true,
+    centerPadding: "40px",
+    variableWidth: true,
+    adaptiveHeight: true
+  };
+
+  return (
+    <div className="Place-slickSlider">
+      <Slider {...settings}>
+        {ImageGalleryImages.map(image => {
+          return (
+            <div className="Place-slickSliderImage">
+              <img
+                className="Place-slickSliderImage-img"
+                src={image.original}
+                alt=""
+              />
+            </div>
+          );
+        })}
+      </Slider>
+      {/* <div className="PlaceItem-photos">
+          <ImageGallery
+            items={ImageGalleryImages}
+            lazyLoad={true}
+            showNav={true}
+            showThumbnails={false}
+            showFullscreenButton={false}
+            showPlayButton={false}
+            showBullets={false}
+          />
+        </div> */}
+    </div>
+  );
 }
 
 /**
@@ -205,71 +245,14 @@ class Place extends Component {
       return <p>Error loading place...</p>;
     }
 
-    let {
-      name,
-      slug,
-      location,
-      content,
-      foodTypes = [],
-      foodTimes = [],
-      imageThumb,
-      imagesThumbs,
-      phone,
-      homepage
-    } = this.state.place;
+    let { name, slug, location, content, phone, homepage } = this.state.place;
 
     let { isSingleView } = this.props;
 
     let permalink = getPlacePermalink(this.state.place);
 
-    let imageMarkup;
-    if (imageThumb) {
-      // imageMarkup = (
-      //   <div className="PlaceItem-photo">
-      //     <img src={imageThumb} alt="" className="PlaceItem-photo-img" />
-      //     {tagline && <Bubble text={tagline} color="yellow" />}
-      //   </div>
-      // );
-    }
-
-    let imagesMarkup;
-    if (imageThumb || imagesThumbs) {
-      let galleryImagesThumbs = [];
-      imageThumb && galleryImagesThumbs.push(imageThumb);
-      imagesThumbs && galleryImagesThumbs.push(...imagesThumbs);
-
-      let ImageGalleryImages = galleryImagesThumbs.map(image => {
-        return {
-          original: image
-        };
-      });
-
-      imagesMarkup = (
-        <div className="PlaceItem-photos">
-          {/* {imagesThumbs.map((image) => {
-            return (
-              <img
-                src={image}
-                key={image}
-                alt=""
-                className="PlaceItem-photos-img"
-              />
-            );
-          })} */}
-          <ImageGallery
-            items={ImageGalleryImages}
-            lazyLoad={true}
-            showThumbnails={false}
-            showFullscreenButton={false}
-            showPlayButton={false}
-            showBullets={ImageGalleryImages.length > 1}
-          />
-        </div>
-      );
-    }
-
     let placeClassNames = classnames({
-      placeItem: true,
+      PlaceItem: true,
       "PlaceItem--isSingleView": isSingleView,
       "PlaceItem--isOverview": !isSingleView,
       "PlaceItem--expanded": this.state.detailsOpen
@@ -277,7 +260,6 @@ class Place extends Component {
 
     let tease = (
       <div>
-        {imageMarkup}
         <div className="PlaceItem-head">
           <h1 className="PlaceItem-name">{name}</h1>
           {!isSingleView && (
@@ -314,6 +296,8 @@ class Place extends Component {
       );
     }
 
+    let imagesMarkup = <PlaceImages {...this.state.place} />;
+
     return (
       <article key={slug} className={placeClassNames}>
         {isSingleView && (
@@ -322,23 +306,61 @@ class Place extends Component {
           </Helmet>
         )}
 
-        {tease}
         {imagesMarkup}
 
-        {/* Details are shown on details page or when "More" link is clicked. */}
-        {this.state.detailsOpen && (
-          <div className="PlaceItem-details">
-            <div className="PlaceItem-featuresWrap">
-              <PlaceTypes foodTypes={foodTypes} />
-              <PlaceTimes foodTimes={foodTimes} />
+        <div className="PlaceItem-content">
+          {tease}
+
+          {/* Details are shown on details page or when "More" link is clicked. */}
+          {this.state.detailsOpen && (
+            <div className="PlaceItem-details">
+              <div className="PlaceItem-featuresWrap" />
+              {contentOut}
+              <PlaceLocation {...{ location, phone, name, homepage }} />
             </div>
-            {contentOut}
-            <PlaceLocation {...{ location, phone, name, homepage }} />
-          </div>
-        )}
+          )}
+        </div>
       </article>
     );
   }
 }
 
 export default Place;
+
+//function PlaceTypes({ foodTypes }) {
+//   let types = foodTypes.map(type => (
+//     <li key={type.key} className="PlaceItem-features-item">
+//       <span>{type.name}</span>
+//     </li>
+//   ));
+
+//   if (types && types.length) {
+//     types = (
+//       <div className="PlaceItem-features">
+//         <h3 className="PlaceItem-features-title">Food to find</h3>
+//         <ul className="PlaceItem-features-items">{types}</ul>
+//       </div>
+//     );
+//   }
+
+//   return types;
+// }
+
+// function PlaceTimes({ foodTimes }) {
+//   let times = foodTimes.map(type => (
+//     <li key={type.key} className="PlaceItem-features-item">
+//       <span>{type.name}</span>
+//     </li>
+//   ));
+
+//   if (times && times.length) {
+//     times = (
+//       <div className="PlaceItem-features">
+//         <h3 className="PlaceItem-features-title">Great for</h3>
+//         <ul className="PlaceItem-features-items">{times}</ul>
+//       </div>
+//     );
+//   }
+
+//   return times;
+// }

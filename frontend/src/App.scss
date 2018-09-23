@@ -1,11 +1,15 @@
-@import './_variables.scss';
+@import "./_variables.scss";
 @import "./themes/_fonts";
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box;
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -16,19 +20,17 @@ body {
   // max-width: 375px;
 }
 
-::selection { 
-  background: $vegogo-color-green; 
+::selection {
+  background: $vegogo-color-green;
 }
 
 input:focus,
 button:focus,
-a:focus,
- { 
-  outline-color: $vegogo-color-yellow; 
+a:focus {
+  outline-color: $vegogo-color-yellow;
 }
 
 a {
   text-decoration: underline;
   color: inherit;
 }
-
