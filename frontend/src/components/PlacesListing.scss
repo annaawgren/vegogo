@@ -158,15 +158,18 @@
   margin: 0;
   padding: 0;
   font-size: 18px;
-  font-family: "apercu-mono", sans-serif;
-  color: #fff;
+  // font-family: "apercu-mono", sans-serif;
+  // color: #fff;
 }
 
 .PlaceItem-features-item {
+  display: inline-block;
+  padding: 0.5rem;
+
   span {
-    background-color: $vegogo-color-red;
-    padding: 2px;
-    margin: 4px 4px;
+    // background-color: $vegogo-color-red;
+    // padding: 2px;
+    // margin: 4px 4px;
     display: inline-block;
   }
 }

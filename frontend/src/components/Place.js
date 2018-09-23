@@ -9,6 +9,28 @@ import ImageGallery from "react-image-gallery";
 import Slider from "react-slick";
 
 /**
+ * Coffe, salads, plates, rawfood
+ */
+function PlaceTypes({ foodTypes }) {
+  let types = foodTypes.map(type => (
+    <li key={type.key} className="PlaceItem-features-item">
+      {type.name}
+    </li>
+  ));
+
+  if (types && types.length) {
+    types = (
+      <div className="PlaceItem-features">
+        {/* <h3 className="PlaceItem-features-title">Food to find</h3> */}
+        <ul className="PlaceItem-features-items">{types}</ul>
+      </div>
+    );
+  }
+
+  return types;
+}
+
+/**
  * Adress and map.
  */
 class PlaceLocation extends Component {
@@ -102,8 +124,6 @@ function PlaceImages(props) {
       original: image
     };
   });
-
-  console.log("ImageGalleryImages", ImageGalleryImages);
 
   // https://github.com/akiran/react-slick
   var settings = {
@@ -245,7 +265,15 @@ class Place extends Component {
       return <p>Error loading place...</p>;
     }
 
-    let { name, slug, location, content, phone, homepage } = this.state.place;
+    let {
+      name,
+      slug,
+      location,
+      content,
+      phone,
+      homepage,
+      foodTypes = []
+    } = this.state.place;
 
     let { isSingleView } = this.props;
 
@@ -262,12 +290,15 @@ class Place extends Component {
       <div>
         <div className="PlaceItem-head">
           <h1 className="PlaceItem-name">{name}</h1>
+
           {!isSingleView && (
             <button href="/" className="PlaceItem-more">
               {this.state.detailsOpen && <img src={closeImg} alt="✖" />}
               {!this.state.detailsOpen && "more"}
             </button>
           )}
+
+          <PlaceTypes foodTypes={foodTypes} />
         </div>
       </div>
     );
@@ -326,25 +357,6 @@ class Place extends Component {
 }
 
 export default Place;
-
-//function PlaceTypes({ foodTypes }) {
-//   let types = foodTypes.map(type => (
-//     <li key={type.key} className="PlaceItem-features-item">
-//       <span>{type.name}</span>
-//     </li>
-//   ));
-
-//   if (types && types.length) {
-//     types = (
-//       <div className="PlaceItem-features">
-//         <h3 className="PlaceItem-features-title">Food to find</h3>
-//         <ul className="PlaceItem-features-items">{types}</ul>
-//       </div>
-//     );
-//   }
-
-//   return types;
-// }
 
 // function PlaceTimes({ foodTimes }) {
 //   let times = foodTimes.map(type => (
