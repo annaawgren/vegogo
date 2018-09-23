@@ -7,6 +7,7 @@ import introIllustration from "../images/illustration-stockholm.png";
 
 class Home extends Component {
   render() {
+    window.scrollTo(0, 0);
     return (
       <PageContainer>
         <Helmet>

@@ -88,6 +88,8 @@ class TextPage extends Component {
 
     let heroImg = text.heroImg;
 
+    window.scrollTo(0, 0);
+
     return (
       <PageContainer>
         <Helmet>
