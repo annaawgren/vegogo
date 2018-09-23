@@ -5,8 +5,24 @@ import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
 import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
-import ImageGallery from "react-image-gallery";
+// import ImageGallery from "react-image-gallery";
 import Slider from "react-slick";
+
+function getPlaceOpeningHours(placeId = "ChIJwXlpyed3X0YRnArSXmAPX-U") {
+  let dummyElm = document.createElement("div");
+  var service = new window.google.maps.places.PlacesService(dummyElm);
+
+  var request = {
+    placeId: placeId,
+    fields: ["opening_hours"]
+  };
+
+  return new Promise(resolve => {
+    service.getDetails(request, res => {
+      resolve(res);
+    });
+  });
+}
 
 /**
  * Coffe, salads, plates, rawfood
@@ -35,7 +51,14 @@ function PlaceTypes({ foodTypes }) {
  */
 class PlaceLocation extends Component {
   render() {
-    let { location, phone, homepage, name } = this.props;
+    let {
+      location,
+      phone,
+      homepage,
+      name,
+      openingHours,
+      handleOpeningHoursClick
+    } = this.props;
     let homepageOut = null;
     let locationAndMap = null;
     let { homepagePresentation, homepageWithProtocol } = cleanupHomepage(
@@ -71,6 +94,23 @@ class PlaceLocation extends Component {
           )}
           {homepageOut}
           {/* https://www.npmjs.com/package/react-static-google-map */}
+
+          <p>
+            <button onClick={handleOpeningHoursClick}>
+              View opening hours
+            </button>
+          </p>
+
+          {openingHours.length > 0 && (
+            <ul className="PlaceItem-openingHours">
+              {openingHours.map((dayHours, index) => (
+                <li className="PlaceItem-openingHours-dayHours" key={index}>
+                  {dayHours}
+                </li>
+              ))}
+            </ul>
+          )}
+
           <p className="PlaceItem-staticMap">
             <a href={googleLink} target="_blank" rel="noopener">
               <StaticGoogleMap
@@ -144,7 +184,7 @@ function PlaceImages(props) {
       <Slider {...settings}>
         {ImageGalleryImages.map(image => {
           return (
-            <div className="Place-slickSliderImage">
+            <div className="Place-slickSliderImage" key={image.original}>
               <img
                 className="Place-slickSliderImage-img"
                 src={image.original}
@@ -180,10 +220,20 @@ class Place extends Component {
     this.state = {
       place: {},
       detailsOpen: false,
-      isLoading: false
+      isLoading: false,
+      openingHours: []
     };
 
     this.handleMoreClick = this.handleMoreClick.bind(this);
+    this.handleOpeningHoursClick = this.handleOpeningHoursClick.bind(this);
+  }
+
+  handleOpeningHoursClick(e) {
+    getPlaceOpeningHours().then(res => {
+      this.setState({
+        openingHours: res.opening_hours.weekday_text
+      });
+    });
   }
 
   handleMoreClick(e) {
@@ -275,6 +325,8 @@ class Place extends Component {
       foodTypes = []
     } = this.state.place;
 
+    let { openingHours } = this.state;
+
     let { isSingleView } = this.props;
 
     let permalink = getPlacePermalink(this.state.place);
@@ -347,7 +399,10 @@ class Place extends Component {
             <div className="PlaceItem-details">
               <div className="PlaceItem-featuresWrap" />
               {contentOut}
-              <PlaceLocation {...{ location, phone, name, homepage }} />
+              <PlaceLocation
+                {...{ location, phone, name, homepage, openingHours }}
+                handleOpeningHoursClick={this.handleOpeningHoursClick}
+              />
             </div>
           )}
         </div>

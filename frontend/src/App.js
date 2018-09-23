@@ -29,6 +29,30 @@ class App extends Component {
     this.initGA();
   }
 
+  // loadGoogleAPIs() {
+  //   window.gapi.load('client', this.googleAPILoaded);
+  // }
+
+  // googleAPILoaded() {
+  //   console.log('google loaded');
+  //   window.gapi.client.init({
+  //     'apiKey': 'AIzaSyCYCr0ilOmynS4WcS-OSOPTcdDWfDpSMw8'
+  //   }).then(function() {
+
+  //     var restRequest = window.gapi.client.request({
+  //       //'path': 'https://people.googleapis.com/v1/people/me/connections',
+  //       'path': 'https://maps.googleapis.com/maps/api/place/details/',
+  //       'params': {'sortOrder': 'LAST_NAME_ASCENDING'}
+  //     }).then((res) => {
+  //       console.log('res', res);
+  //     })
+
+  //   });
+
+  //   // console.log('restRequest', restRequest);
+
+  // }
+
   getPlaces() {
     let placesApiUrl = `${API_URL}/place/list`;
     fetch(placesApiUrl)
