@@ -49,9 +49,26 @@ function PlaceTypes({ foodTypes }) {
 }
 
 /**
- * Adress and map.
+ * Meta data for a place:
+ * - Adress
+ * - Map
+ * - Opening hours
  */
 class PlaceLocation extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMapOpened: false
+    };
+    this.handleShowMapClick = this.handleShowMapClick.bind(this);
+  }
+
+  handleShowMapClick() {
+    this.setState({
+      isMapOpened: !this.state.isMapOpened
+    });
+  }
+
   render() {
     let {
       location,
@@ -67,7 +84,9 @@ class PlaceLocation extends Component {
     let { homepagePresentation, homepageWithProtocol } = cleanupHomepage(
       homepage
     );
+    let { isMapOpened } = this.state;
 
+    // Homepage.
     if (homepagePresentation && homepageWithProtocol) {
       homepageOut = (
         <p className="PlaceItem-meta-item">
@@ -78,6 +97,7 @@ class PlaceLocation extends Component {
       );
     }
 
+    // Location / Street address.
     if (location && location.geo) {
       let googleLink = `http://maps.google.com/?q=${name}, ${
         location.street1
@@ -90,6 +110,7 @@ class PlaceLocation extends Component {
               {location.street1}
             </a>
           </p>
+
           {phone && (
             <p className="PlaceItem-meta-item">
               <a href={`tel:${phone}`}>{phone}</a>
@@ -123,24 +144,36 @@ class PlaceLocation extends Component {
             )}
           </div>
 
-          <p className="PlaceItem-staticMap">
-            <a href={googleLink} target="_blank" rel="noopener">
-              <StaticGoogleMap
-                size="300x200"
-                zoom="15"
-                scale="2"
-                apiKey={GOOGLE_MAPS_API_KEY}
-                className="PlaceItem-meta-item PlacesListing-placeItem-mapImage"
-              >
-                <Marker
-                  location={{ lat: location.geo[1], lng: location.geo[0] }}
-                  color="green"
-                  label="V"
-                  iconURL="https://beta.vegogo.se/favicon-32x32.png"
-                />
-              </StaticGoogleMap>
-            </a>
+          <p>
+            <button
+              onClick={this.handleShowMapClick}
+              className="PlaceItem-map-viewBtn"
+            >
+              <ToggleIcon opened={isMapOpened} />
+              View on map
+            </button>
           </p>
+
+          {isMapOpened && (
+            <p className="PlaceItem-staticMap">
+              <a href={googleLink} target="_blank" rel="noopener">
+                <StaticGoogleMap
+                  size="300x200"
+                  zoom="15"
+                  scale="2"
+                  apiKey={GOOGLE_MAPS_API_KEY}
+                  className="PlaceItem-meta-item PlacesListing-placeItem-mapImage"
+                >
+                  <Marker
+                    location={{ lat: location.geo[1], lng: location.geo[0] }}
+                    color="green"
+                    label="V"
+                    iconURL="https://beta.vegogo.se/favicon-32x32.png"
+                  />
+                </StaticGoogleMap>
+              </a>
+            </p>
+          )}
         </div>
       );
     }
