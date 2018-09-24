@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { StaticGoogleMap, Marker } from "react-static-google-map";
-import { GOOGLE_MAPS_API_KEY, API_URL } from "../api-config";
+import { API_URL } from "../api-config";
 import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
-import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
+import { getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
 // import ImageGallery from "react-image-gallery";
 import "./PlacesListing.css";

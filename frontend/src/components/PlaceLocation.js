@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import ToggleIcon from "./ToggleIcon";
-import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
+import { cleanupHomepage } from "../helpers.js";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
-import { GOOGLE_MAPS_API_KEY, API_URL } from "../api-config";
+import { GOOGLE_MAPS_API_KEY } from "../api-config";
 
 /**
  * Component with meta data for a place:
