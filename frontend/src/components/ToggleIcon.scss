@@ -1,0 +1,27 @@
+@keyframes opacityPulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.ToggleIcon {
+  margin-right: 0.25rem;
+  transition: transform 0.15s ease-out;
+}
+
+.ToggleIcon--opened {
+  transform: rotate(90deg);
+}
+
+.ToggleIcon--loading {
+  opacity: 1;
+  animation: opacityPulse 1s ease-out;
+  animation-name: opacityPulse;
+  animation-iteration-count: infinite;
+}
