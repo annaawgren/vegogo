@@ -1,12 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="97px" height="101px" viewBox="0 0 97 101" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>Fill 32</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Colors-etc" transform="translate(-87.000000, -347.000000)" fill="#F0BD00">
-            <path d="M87,368.837838 C87,356.777597 96.65591,347 108.557218,347 L162.442782,347 C174.34808,347 184,356.796686 184,368.837838 L184,407.054054 C184,419.114295 174.36005,428.891892 162.442782,428.891892 L152.013801,428.891892 L135.5,448 L119.333333,428.891892 L108.567193,428.891892 C96.65591,428.891892 87,419.095206 87,407.054054 L87,368.837838 Z" id="Fill-32"></path>
-        </g>
-    </g>
-</svg>
+<svg width="97" height="101" xmlns="http://www.w3.org/2000/svg"><path d="M0 21.838C0 9.778 9.656 0 21.557 0h53.886C87.348 0 97 9.797 97 21.838v38.216c0 12.06-9.64 21.838-21.557 21.838h-10.43L48.5 101 32.333 81.892H21.567C9.656 81.892 0 72.095 0 60.054V21.838z" fill="#F0BD00" fill-rule="evenodd"/></svg>
