@@ -7,6 +7,8 @@ import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
 // import ImageGallery from "react-image-gallery";
 import Slider from "react-slick";
+import "./PlacesListing.css";
+import ToggleIcon from "./ToggleIcon";
 
 function getPlaceOpeningHours(placeId = "ChIJwXlpyed3X0YRnArSXmAPX-U") {
   let dummyElm = document.createElement("div");
@@ -57,7 +59,8 @@ class PlaceLocation extends Component {
       homepage,
       name,
       openingHours,
-      handleOpeningHoursClick
+      handleOpeningHoursClick,
+      isLoadingOpeningHours
     } = this.props;
     let homepageOut = null;
     let locationAndMap = null;
@@ -95,21 +98,30 @@ class PlaceLocation extends Component {
           {homepageOut}
           {/* https://www.npmjs.com/package/react-static-google-map */}
 
-          <p>
-            <button onClick={handleOpeningHoursClick}>
-              View opening hours
-            </button>
-          </p>
+          <div className="PlaceOpeningHours">
+            <p>
+              <button
+                onClick={handleOpeningHoursClick}
+                className="PlaceItem-openingHours-viewBtn"
+              >
+                <ToggleIcon
+                  opened={openingHours.length}
+                  loading={isLoadingOpeningHours}
+                />
+                View opening hours
+              </button>
+            </p>
 
-          {openingHours.length > 0 && (
-            <ul className="PlaceItem-openingHours">
-              {openingHours.map((dayHours, index) => (
-                <li className="PlaceItem-openingHours-dayHours" key={index}>
-                  {dayHours}
-                </li>
-              ))}
-            </ul>
-          )}
+            {openingHours.length > 0 && (
+              <ul className="PlaceItem-openingHours">
+                {openingHours.map((dayHours, index) => (
+                  <li className="PlaceItem-openingHours-dayHours" key={index}>
+                    {dayHours}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
           <p className="PlaceItem-staticMap">
             <a href={googleLink} target="_blank" rel="noopener">
@@ -221,6 +233,7 @@ class Place extends Component {
       place: {},
       detailsOpen: false,
       isLoading: false,
+      isLoadingOpeningHours: false,
       openingHours: []
     };
 
@@ -229,11 +242,19 @@ class Place extends Component {
   }
 
   handleOpeningHoursClick(e) {
-    getPlaceOpeningHours().then(res => {
+    if (this.state.openingHours.length > 0) {
       this.setState({
-        openingHours: res.opening_hours.weekday_text
+        openingHours: []
       });
-    });
+    } else {
+      this.setState({ isLoadingOpeningHours: true });
+      getPlaceOpeningHours().then(res => {
+        this.setState({
+          openingHours: res.opening_hours.weekday_text,
+          isLoadingOpeningHours: false
+        });
+      });
+    }
   }
 
   handleMoreClick(e) {
@@ -325,7 +346,7 @@ class Place extends Component {
       foodTypes = []
     } = this.state.place;
 
-    let { openingHours } = this.state;
+    let { openingHours, isLoadingOpeningHours } = this.state;
 
     let { isSingleView } = this.props;
 
@@ -400,7 +421,14 @@ class Place extends Component {
               <div className="PlaceItem-featuresWrap" />
               {contentOut}
               <PlaceLocation
-                {...{ location, phone, name, homepage, openingHours }}
+                {...{
+                  location,
+                  phone,
+                  name,
+                  homepage,
+                  openingHours,
+                  isLoadingOpeningHours
+                }}
                 handleOpeningHoursClick={this.handleOpeningHoursClick}
               />
             </div>

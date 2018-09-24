@@ -196,6 +196,18 @@
   }
 }
 
+.PlaceOpeningHours {
+  font-family: $custom-font-semibold;
+  margin-top: 40px;
+}
+
+.PlaceItem-openingHours-viewBtn {
+  appearance: none;
+  line-height: 1;
+  border: 0;
+  cursor: pointer;
+}
+
 .PlaceItem-openingHours {
   list-style-type: none;
   margin: 0;
@@ -203,4 +215,5 @@
 }
 
 .PlaceItem-openingHours-dayHours {
+  margin: 0.25rem 0;
 }
