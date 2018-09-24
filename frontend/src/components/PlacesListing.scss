@@ -201,11 +201,14 @@
   margin-top: 40px;
 }
 
-.PlaceItem-openingHours-viewBtn {
+.PlaceItem-openingHours-viewBtn,
+.PlaceItem-map-viewBtn {
   appearance: none;
   line-height: 1;
-  border: 0;
+  border: 0px dotted #fab;
   cursor: pointer;
+  padding: 0.5rem;
+  background-color: transparent;
 }
 
 .PlaceItem-openingHours {
