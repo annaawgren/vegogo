@@ -25,6 +25,13 @@ let AreaParents = props => {
   ) : null;
 };
 
+/**
+ * Show intro for an area, for example "stockholm" or the region "sofo" in Stockholm.
+ * Displays area image and area title and description.
+ *
+ * Required props:
+ *  - slug
+ */
 class AreaIntro extends React.Component {
   constructor(props) {
     super(props);

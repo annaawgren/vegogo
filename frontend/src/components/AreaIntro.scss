@@ -1,18 +1,20 @@
-@import '../_variables.scss';
+@import "../_variables.scss";
 
 .AreaIntro {
-    text-align: center;
-    color: $vegogo-color-1;
-    font-family: $custom-font-extrabold;
+  text-align: center;
+  font-family: $custom-font-extrabold;
+  width: 75%;
+  max-width: 30rem;
+  margin: 0 auto;
 }
 
 .AreaIntro-title {
-    font-size: 48px;
-    margin: 1rem 0;
+  font-size: 48px;
+  margin: 1rem 0;
 }
 
 .AreaIntro-image {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .AreaIntro-parentAreasListing {
@@ -23,5 +25,5 @@
 
 .AreaIntro-parentAreasListing-item {
   display: inline-block;
-  padding: .5rem;
+  padding: 0.5rem;
 }

@@ -162,11 +162,13 @@ exports.getSlug = function(req, res) {
 
 			const permalink = item.getPermalink();
 			const parentAreasFlat = item.getParentAreas();
+			const childAreas = item.getChildAreas();
 
 			item = item.toJSON();
 
 			item.permalink = permalink;
 			item.parentAreasFlat = parentAreasFlat;
+			item.childAreas = childAreas;
 
 			item.imageThumb = cloudinaryImageToURL(item.image);
 			delete item.image;

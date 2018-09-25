@@ -94,7 +94,7 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" render={props => <Home places={places} />} />
 
             <Route
               exact

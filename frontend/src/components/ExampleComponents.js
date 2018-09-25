@@ -3,7 +3,7 @@ import NewsletterSignup from "./NewsletterSignup";
 import PlacesListing from "./PlacesListing";
 import Place from "./Place";
 import SiteFooter from "./SiteFooter";
-import Bubble from "./Bubble";
+// import Bubble from "./Bubble";
 import SearchArea from "./SearchArea";
 import UserLocation from "./UserLocation";
 import AreaIntro from "./AreaIntro";
@@ -69,10 +69,10 @@ class ExampleComponents extends Component {
           teaser="En massa goa ställen är detta en listning på."
         />
 
-        <Bubble color="dark" text="Awesome Supertasty Another word" />
+        {/* <Bubble color="dark" text="Awesome Supertasty Another word" />
         <Bubble color="green" />
         <Bubble color="yellow" text="Good place with nice food" />
-        <Bubble color="red" />
+        <Bubble color="red" /> */}
 
         <NewsletterSignup />
 
