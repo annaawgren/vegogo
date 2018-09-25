@@ -8,28 +8,8 @@ import { Helmet } from "react-helmet";
 import "./PlacesListing.css";
 import PlaceImages from "./PlaceImages";
 import PlaceTypes from "./PlaceTypes";
-import PlaceLocation from "./PlaceLocation";
-
-/**
- * Get opening hours for a placeId from Google.
- *
- * @return Promise
- */
-function getPlaceOpeningHours(placeId = "ChIJwXlpyed3X0YRnArSXmAPX-U") {
-  let dummyElm = document.createElement("div");
-  var service = new window.google.maps.places.PlacesService(dummyElm);
-
-  var request = {
-    placeId: placeId,
-    fields: ["opening_hours"]
-  };
-
-  return new Promise(resolve => {
-    service.getDetails(request, res => {
-      resolve(res);
-    });
-  });
-}
+import PlaceDetails from "./PlaceDetails";
+import { getPlaceOpeningHours } from "../helpers.js";
 
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
@@ -186,15 +166,16 @@ class Place extends Component {
       </div>
     );
 
-    let contentOut;
-    if (content) {
-      contentOut = (
-        <div
-          className="PlaceItem-textcontent PlaceItem-textcontent--brief"
-          dangerouslySetInnerHTML={{ __html: content.brief }}
-        />
-      );
-    }
+    let contentOut = (
+      <React.Fragment>
+        {content && (
+          <div
+            className="PlaceItem-textcontent PlaceItem-textcontent--brief"
+            dangerouslySetInnerHTML={{ __html: content.brief }}
+          />
+        )}
+      </React.Fragment>
+    );
 
     if (isSingleView) {
       tease = <div className="PlaceItem-tease">{tease}</div>;
@@ -230,7 +211,7 @@ class Place extends Component {
             <div className="PlaceItem-details">
               <div className="PlaceItem-featuresWrap" />
               {contentOut}
-              <PlaceLocation
+              <PlaceDetails
                 {...{
                   location,
                   phone,

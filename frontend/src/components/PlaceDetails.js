@@ -10,7 +10,7 @@ import { GOOGLE_MAPS_API_KEY } from "../api-config";
  * - Map
  * - Opening hours
  */
-class PlaceLocation extends Component {
+class PlaceDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -59,23 +59,29 @@ class PlaceLocation extends Component {
         location.street1
       }, ${location.state}, ${location.country}`;
 
-      locationAndMap = (
-        <div className="PlaceItem-meta">
-          <p className="PlaceItem-meta-item">
-            <a target="_blank" ref="noopener" href={googleLink}>
-              {location.street1}
-            </a>
-          </p>
-          <p>
-            <button
-              onClick={this.handleShowMapClick}
-              className="PlaceItem-map-viewBtn"
-            >
-              <ToggleIcon opened={isMapOpened} />
-              View on map
-            </button>
-          </p>
+      let street = (
+        <p className="PlaceItem-meta-item">
+          <a target="_blank" ref="noopener" href={googleLink}>
+            {location.street1}
+          </a>
+        </p>
+      );
 
+      let mapButton = (
+        <p>
+          <button
+            onClick={this.handleShowMapClick}
+            className="PlaceItem-map-viewBtn"
+          >
+            <ToggleIcon opened={isMapOpened} />
+            View on map
+          </button>
+        </p>
+      );
+
+      // https://www.npmjs.com/package/react-static-google-map
+      let map = (
+        <React.Fragment>
           {isMapOpened && (
             <p className="PlaceItem-staticMap">
               <a href={googleLink} target="_blank" rel="noopener">
@@ -96,40 +102,50 @@ class PlaceLocation extends Component {
               </a>
             </p>
           )}
+        </React.Fragment>
+      );
 
-          {homepageOut}
-          {/* https://www.npmjs.com/package/react-static-google-map */}
+      let openingHoursOutput = (
+        <React.Fragment>
+          <p className="PlaceOpeningHours">
+            <button
+              onClick={handleOpeningHoursClick}
+              className="PlaceItem-openingHours-viewBtn"
+            >
+              <ToggleIcon
+                opened={openingHours.length}
+                loading={isLoadingOpeningHours}
+              />
+              Show opening hours
+            </button>
+          </p>
 
-          <div className="PlaceOpeningHours">
-            <p>
-              <button
-                onClick={handleOpeningHoursClick}
-                className="PlaceItem-openingHours-viewBtn"
-              >
-                <ToggleIcon
-                  opened={openingHours.length}
-                  loading={isLoadingOpeningHours}
-                />
-                View opening hours
-              </button>
-            </p>
-
-            {openingHours.length > 0 && (
-              <ul className="PlaceItem-openingHours">
-                {openingHours.map((dayHours, index) => (
-                  <li className="PlaceItem-openingHours-dayHours" key={index}>
-                    {dayHours}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-
-          {phone && (
-            <p className="PlaceItem-meta-item">
-              <a href={`tel:${phone}`}>{phone}</a>
-            </p>
+          {openingHours.length > 0 && (
+            <ul className="PlaceItem-openingHours">
+              {openingHours.map((dayHours, index) => (
+                <li className="PlaceItem-openingHours-dayHours" key={index}>
+                  {dayHours}
+                </li>
+              ))}
+            </ul>
           )}
+        </React.Fragment>
+      );
+
+      let phoneOutput = phone && (
+        <p className="PlaceItem-meta-item">
+          <a href={`tel:${phone}`}>{phone}</a>
+        </p>
+      );
+
+      locationAndMap = (
+        <div className="PlaceItem-meta">
+          {street}
+          {homepageOut}
+          {phoneOutput}
+          {mapButton}
+          {map}
+          {openingHoursOutput}
         </div>
       );
     }
@@ -138,4 +154,4 @@ class PlaceLocation extends Component {
   }
 }
 
-export default PlaceLocation;
+export default PlaceDetails;

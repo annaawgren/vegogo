@@ -36,3 +36,24 @@ export function cleanupHomepage(homepage) {
 export function getPlacePermalink(place) {
   return `/place/${place.slug}`;
 }
+
+/**
+ * Get opening hours for a placeId from Google.
+ *
+ * @return Promise
+ */
+export function getPlaceOpeningHours(placeId = "ChIJwXlpyed3X0YRnArSXmAPX-U") {
+  let dummyElm = document.createElement("div");
+  var service = new window.google.maps.places.PlacesService(dummyElm);
+
+  var request = {
+    placeId: placeId,
+    fields: ["opening_hours"]
+  };
+
+  return new Promise(resolve => {
+    service.getDetails(request, res => {
+      resolve(res);
+    });
+  });
+}
