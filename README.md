@@ -1,8 +1,10 @@
 # vegogo
 
-The new guide ⚡️Curated and inspirational ⚡️The best vegan places to eat ⚡️Near you
+The new guide ⚡️Curated and inspirational ⚡️The best vegan places to eat ⚡️Near you.
 
-## Start development
+The guide will launch soon at [Vegogo.se](https://vegogo.se).
+
+## Development
 
 - install and run mongodb
 - npm install in /keystone and /frontend
