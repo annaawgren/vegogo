@@ -162,20 +162,22 @@ exports.getSlug = function(req, res) {
 
 			const permalink = item.getPermalink();
 			const parentAreasFlat = item.getParentAreas();
-			const childAreas = item.getChildAreas();
 
-			item = item.toJSON();
+			item.getChildAreas().then(childsResult => {
+				console.log("childsResult", childsResult);
+				item = item.toJSON();
 
-			item.permalink = permalink;
-			item.parentAreasFlat = parentAreasFlat;
-			item.childAreas = childAreas;
+				item.permalink = permalink;
+				item.parentAreasFlat = parentAreasFlat;
+				item.childAreas = childsResult;
 
-			item.imageThumb = cloudinaryImageToURL(item.image);
-			delete item.image;
-			// delete item.parentAreas;
+				item.imageThumb = cloudinaryImageToURL(item.image);
+				delete item.image;
+				// delete item.parentAreas;
 
-			res.apiResponse({
-				area: item
+				res.apiResponse({
+					area: item
+				});
 			});
 		});
 };
