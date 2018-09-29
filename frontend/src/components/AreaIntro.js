@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./AreaIntro.css";
 import { API_URL } from "../api-config";
 
@@ -23,6 +24,32 @@ let AreaParents = props => {
       <AreaParent parentAreas={parentAreas} />
     </ul>
   ) : null;
+};
+
+let ChildAreas = props => {
+  let { childAreas } = props;
+  if (!childAreas.length) {
+    return null;
+  }
+
+  console.log(childAreas);
+
+  return (
+    <ul className="AreaIntro-childAreas">
+      {childAreas.map(area => {
+        return (
+          <li key={area._id} className="AreaIntro-childArea">
+            <Link
+              to={"/area/" + area.slug}
+              className="AreaIntro-childArea-link"
+            >
+              {area.name}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
 /**
@@ -80,7 +107,14 @@ class AreaIntro extends React.Component {
       return <p>Error getting area.</p>;
     }
 
-    const { name, tagline, imageThumb, content, parentAreas } = this.state.area;
+    const {
+      name,
+      tagline,
+      imageThumb,
+      content,
+      parentAreas,
+      childAreas
+    } = this.state.area;
     const { children } = this.props;
 
     return (
@@ -92,6 +126,8 @@ class AreaIntro extends React.Component {
         </div>
 
         <h2 className="AreaIntro-title">{name}</h2>
+
+        <ChildAreas childAreas={childAreas} />
 
         <AreaParents parentAreas={parentAreas} />
 
