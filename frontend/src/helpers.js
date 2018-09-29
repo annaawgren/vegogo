@@ -37,6 +37,10 @@ export function getPlacePermalink(place) {
   return `/place/${place.slug}`;
 }
 
+export function getAreaPermalink(area) {
+  return `/area/${area.slug}`;
+}
+
 /**
  * Get opening hours for a placeId from Google.
  *

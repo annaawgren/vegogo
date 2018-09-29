@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./AreaIntro.css";
+import { getAreaPermalink } from "../helpers.js";
 import { API_URL } from "../api-config";
+import "./AreaIntro.css";
 
 let AreaParent = props => {
   const { parentAreas } = props;
@@ -37,12 +38,11 @@ let ChildAreas = props => {
   return (
     <ul className="AreaIntro-childAreas">
       {childAreas.map(area => {
+        let permalink = getAreaPermalink(area);
+
         return (
           <li key={area._id} className="AreaIntro-childArea">
-            <Link
-              to={"/area/" + area.slug}
-              className="AreaIntro-childArea-link"
-            >
+            <Link to={permalink} className="AreaIntro-childArea-link">
               {area.name}
             </Link>
           </li>
