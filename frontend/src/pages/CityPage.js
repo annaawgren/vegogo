@@ -46,6 +46,8 @@ class CityPage extends Component {
   }
 
   render() {
+    window.scrollTo(0, 0);
+
     const { slug, places } = this.state;
 
     return (
