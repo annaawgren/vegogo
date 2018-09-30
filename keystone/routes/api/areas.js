@@ -144,8 +144,8 @@ exports.getId = function(req, res) {
 };
 
 /**
- * Get Place by slug
- * http://localhost:3131/api/place/slug/minh-mat
+ * Get Area by slug
+ * http://localhost:3131/api/area/slug/stockholm
  */
 exports.getSlug = function(req, res) {
 	Area.model
@@ -163,8 +163,12 @@ exports.getSlug = function(req, res) {
 			const permalink = item.getPermalink();
 			const parentAreasFlat = item.getParentAreas();
 
+			// let childAreas = await item.getChildAreas();
+
+			//item.childAreas = childAreas;
+
 			item.getChildAreas().then(childsResult => {
-				console.log("childsResult", childsResult);
+				// console.log("childsResult", childsResult);
 				item = item.toJSON();
 
 				item.permalink = permalink;

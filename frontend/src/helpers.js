@@ -38,6 +38,7 @@ export function getPlacePermalink(place) {
 }
 
 export function getAreaPermalink(area) {
+  console.log("getAreaPermalink for area", area);
   return `/area/${area.slug}`;
 }
 

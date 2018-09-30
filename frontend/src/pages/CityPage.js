@@ -16,13 +16,14 @@ class CityPage extends Component {
     cityArea1: "sodermalm"
     cityArea2: "sofo"
      */
+    console.log("citypage props", props);
     // console.log('city params', props.city.match.params);
-    const { params } = props.city.match;
+    const { params } = props.match;
 
     let slug = params.cityArea2 || params.cityArea1 || params.city;
 
     this.state = {
-      slug
+      places: []
     };
   }
 
@@ -50,13 +51,28 @@ class CityPage extends Component {
     console.log("CityPage render");
     window.scrollTo(0, 0);
 
-    const { slug, places } = this.state;
+    const { places } = this.state;
+
+    let { params } = this.props.match;
+
+    // Use slug from last part of url params.
+    let slug = params.cityArea2 || params.cityArea1 || params.city;
 
     return (
       <div>
         <SiteHeader />
 
         <AreaIntro slug={slug} />
+
+        <div>CityPage debug: slug: {slug}</div>
+        <div>CityPage debug: match.path: {this.props.match.path}</div>
+        <div>CityPage debug: params.city: {this.props.match.params.city}</div>
+        <div>
+          CityPage debug: params.cityArea1: {this.props.match.params.cityArea1}
+        </div>
+        <div>
+          CityPage debug: params.cityArea2: {this.props.match.params.cityArea2}
+        </div>
 
         <PlacesListing
           places={places}
