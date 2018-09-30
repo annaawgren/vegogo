@@ -116,7 +116,7 @@ class App extends Component {
             <Route
               exact
               path="/:city/:cityArea1?/:cityArea2?"
-              render={props => <CityPage city={props} />}
+              render={props => <CityPage {...props} />}
             />
 
             <Route component={NotFoundPage} />
