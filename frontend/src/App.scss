@@ -30,6 +30,11 @@ a:focus {
   outline-color: $vegogo-color-yellow;
 }
 
+// https://twitter.com/LeaVerou/status/1045768279753666562
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 a {
   text-decoration: underline;
   color: inherit;
