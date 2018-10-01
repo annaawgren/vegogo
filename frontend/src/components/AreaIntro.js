@@ -66,6 +66,9 @@ class AreaIntro extends React.Component {
     };
   }
 
+  /**
+   * Fetch area when component is mounted.
+   */
   componentDidMount() {
     this.loadArea();
   }
@@ -90,6 +93,16 @@ class AreaIntro extends React.Component {
           this.setState({ area: data.area, isLoading: false, isError: false });
         }
       });
+  }
+
+  /**
+   * https://reactjs.org/docs/react-component.html#componentdidupdate
+   */
+  componentDidUpdate(prevProps) {
+    // Fetch new area if area slug is changed.
+    if (this.props.slug !== prevProps.slug) {
+      this.loadArea();
+    }
   }
 
   render() {
