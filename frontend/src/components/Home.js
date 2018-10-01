@@ -37,8 +37,8 @@ class Home extends Component {
 
         <PlacesListing
           places={places}
-          headline="Härliga ställen"
-          teaser="En massa goa ställen är detta en listning på."
+          xheadline="Härliga ställen"
+          xteaser="En massa goa ställen är detta en listning på."
         />
       </PageContainer>
     );

@@ -1,5 +1,4 @@
 .ImageScroller {
-  // background: #fab;
   display: flex;
   overflow: hidden;
   overflow-x: auto;
@@ -7,7 +6,6 @@
 }
 
 .ImageScroller-image {
-  background: #eee;
   flex: 1 1 auto;
   margin: 0 15px;
 }
@@ -18,7 +16,6 @@
 }
 
 .ImageScroller-image-img {
-  background: lightyellow;
   display: block;
   width: auto;
   height: 40vh;

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Place from "./Place";
 import "./PlacesListing.css";
 
+/**
+ * Renders places with passed slug
+ */
 class PlacesListing extends Component {
   render() {
     let { headline, teaser, places } = this.props;

@@ -75,6 +75,9 @@ class PlaceImages extends React.Component {
     // Add the other images.
     images && galleryImages.push(...images);
 
+    // Keep only images with thumbs (some old api responses can return without thumb)
+    galleryImages = galleryImages.filter(image => image.thumb);
+
     // Make thumb our wanted size.
     let ImageGalleryImages = galleryImages.map(image => {
       // Image is like https://res.cloudinary.com/vegogo/image/upload/w_640/lrzhnjazq7h9t2k7gzn8".
@@ -94,7 +97,7 @@ class PlaceImages extends React.Component {
       return null;
     }
 
-    let ImageGalleryImages = this.getImages();
+    let ImageGalleryImages = this.state.galleryImages;
 
     let imageScrollerStyles = {
       height: imageNewHeight

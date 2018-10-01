@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { API_URL } from "../api-config";
 import "./AreaIntro.css";
 import ImageWithRatio from "../components/ImageWithRatio";
+import Loading from "../components/Loading";
 
 let AreaParent = props => {
   const { parentAreas } = props;
@@ -110,7 +111,11 @@ class AreaIntro extends React.Component {
     const { isLoading, isError } = this.state;
 
     if (isLoading) {
-      return <p>Loading area...</p>;
+      return (
+        <Loading>
+          <p>Loading area...</p>
+        </Loading>
+      );
     }
 
     if (isError) {

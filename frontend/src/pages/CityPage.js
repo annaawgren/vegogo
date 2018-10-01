@@ -28,7 +28,6 @@ class CityPage extends Component {
   }
 
   componentDidMount() {
-    console.log("CityPage componentDidMount");
     this.getPlaces();
   }
 
@@ -55,7 +54,6 @@ class CityPage extends Component {
   render() {
     console.log("CityPage render");
     window.scrollTo(0, 0);
-
     const { places } = this.state;
 
     let { params } = this.props.match;
