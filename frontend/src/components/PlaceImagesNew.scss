@@ -1,6 +1,5 @@
 .ImageScroller {
-  background: #fab;
-  //white-space: nowrap;
+  // background: #fab;
   display: flex;
   overflow: hidden;
   overflow-x: auto;
@@ -8,13 +7,19 @@
 }
 
 .ImageScroller-image {
-  //display: inline-block;
-  xwidth: 200px;
-  xheight: 200px;
-  flex: 1 0 70%;
-  margin: 0 5%;
+  background: #eee;
+  flex: 1 1 auto;
+  margin: 0 3vh;
+}
+
+.ImageScroller-image:first-child {
+  // margin-left: 10%;
 }
 
 .ImageScroller-image-img {
   background: lightyellow;
+  display: block;
+  width: auto;
+  height: 40vh;
+  margin: 0 auto;
 }

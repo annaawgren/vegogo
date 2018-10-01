@@ -20,14 +20,11 @@ function PlaceImages(props) {
   // Add the other images.
   images && galleryImages.push(...images);
 
+  // Make thumb our wanted size.
   let ImageGalleryImages = galleryImages.map(image => {
     // Image is like https://res.cloudinary.com/vegogo/image/upload/w_640/lrzhnjazq7h9t2k7gzn8".
     // Replace so becomes like https://res.cloudinary.com/vegogo/image/upload/w_640,h_300,c_fit/ufwvkpfrt0ep9i9wfq9g
-    image.secure_url = image.secure_url.replace(
-      "/w_640/",
-      "/w_640,h_300,c_fit/"
-    );
-    console.log(image);
+    image.thumb = image.thumb.replace("/w_640/", "/w_640,h_300,c_fit/");
     return image;
   });
 
@@ -52,9 +49,9 @@ function PlaceImages(props) {
         {ImageGalleryImages.map(image => {
           return (
             <div className="ImageScroller-image" key={image.public_id}>
-              <ImageWithRatio
+              <img
                 className="ImageScroller-image-img"
-                src={image.secure_url}
+                src={image.thumb}
                 width={image.width}
                 height={image.height}
                 alt=""
