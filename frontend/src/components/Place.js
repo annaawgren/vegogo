@@ -11,6 +11,7 @@ import PlaceImagesNew from "./PlaceImagesNew";
 import PlaceTypes from "./PlaceTypes";
 import PlaceDetails from "./PlaceDetails";
 import { getPlaceOpeningHours } from "../helpers.js";
+import Loading from "./Loading";
 
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
@@ -120,7 +121,11 @@ class Place extends Component {
     const { isLoading, isError } = this.state;
 
     if (isLoading) {
-      return <p>Loading...</p>;
+      return (
+        <Loading>
+          <p>Loading...</p>
+        </Loading>
+      );
     }
 
     if (isError) {
