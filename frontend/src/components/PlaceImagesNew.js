@@ -55,7 +55,6 @@ function PlaceImages(props) {
 
   return (
     <React.Fragment>
-      <hr />
       <div className="ImageScroller">
         {ImageGalleryImages.map(image => {
           return (
@@ -72,7 +71,6 @@ function PlaceImages(props) {
           );
         })}
       </div>
-      <hr />
     </React.Fragment>
   );
 }

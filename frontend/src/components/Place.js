@@ -6,7 +6,7 @@ import { getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
 // import ImageGallery from "react-image-gallery";
 import "./PlacesListing.css";
-import PlaceImages from "./PlaceImages";
+// import PlaceImages from "./PlaceImages";
 import PlaceImagesNew from "./PlaceImagesNew";
 import PlaceTypes from "./PlaceTypes";
 import PlaceDetails from "./PlaceDetails";
@@ -192,7 +192,7 @@ class Place extends Component {
       );
     }
 
-    let imagesMarkup = <PlaceImages {...this.state.place} />;
+    // let imagesMarkup = <PlaceImages {...this.state.place} />;
     let imagesMarkupNew = <PlaceImagesNew {...this.state.place} />;
 
     return (
@@ -203,7 +203,7 @@ class Place extends Component {
           </Helmet>
         )}
 
-        {imagesMarkup}
+        {/* {imagesMarkup} */}
 
         {imagesMarkupNew}
 
