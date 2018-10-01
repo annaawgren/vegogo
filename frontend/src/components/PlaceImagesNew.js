@@ -28,18 +28,29 @@ function PlaceImages(props) {
     return image;
   });
 
-  // https://github.com/akiran/react-slick
-  var settings = {
-    dots: false,
-    arrows: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    centerMode: true,
-    centerPadding: "40px",
-    variableWidth: true,
-    adaptiveHeight: true
+  // Base image size on first image, so we see part of first image and second image.
+  const firstImage = galleryImages[0];
+  const clientWidth = document.body.clientWidth;
+  const clientHeight = document.body.clientHeight;
+  console.log("firstImage", firstImage);
+  console.log("firstImage Width, height", firstImage.width, firstImage.height);
+  console.log("clientWidth, clientHeight", clientWidth, clientHeight);
+
+  // New image width = on smaller screen make it almost full width,
+  // but on larger don't let it grow to big, like half of the screen height
+  let newImageWidth = clientWidth - 50;
+
+  if (newImageWidth > clientHeight / 2) {
+    newImageWidth = clientHeight / 2;
+  }
+
+  const imageNewWidth = newImageWidth;
+  const imageNewHeight = (firstImage.height / firstImage.width) * imageNewWidth;
+  console.log("imageNewWidth", imageNewWidth);
+  console.log("imageNewHeight", imageNewHeight);
+
+  let imageScrollerStyles = {
+    height: imageNewHeight
   };
 
   return (
@@ -51,6 +62,7 @@ function PlaceImages(props) {
             <div className="ImageScroller-image" key={image.public_id}>
               <img
                 className="ImageScroller-image-img"
+                style={imageScrollerStyles}
                 src={image.thumb}
                 width={image.width}
                 height={image.height}

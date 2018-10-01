@@ -9,11 +9,12 @@
 .ImageScroller-image {
   background: #eee;
   flex: 1 1 auto;
-  margin: 0 3vh;
+  margin: 0 15px;
 }
 
 .ImageScroller-image:first-child {
   // margin-left: 10%;
+  margin-left: 0;
 }
 
 .ImageScroller-image-img {
