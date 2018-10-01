@@ -20,7 +20,7 @@ class CityPage extends Component {
     // console.log('city params', props.city.match.params);
     const { params } = props.match;
 
-    let slug = params.cityArea2 || params.cityArea1 || params.city;
+    this.slug = params.cityArea2 || params.cityArea1 || params.city;
 
     this.state = {
       places: []
@@ -36,7 +36,12 @@ class CityPage extends Component {
    * Get places for this city/area
    */
   getPlaces() {
-    const { slug } = this.state;
+    const slug = this.slug;
+
+    if (!slug) {
+      return;
+    }
+
     let apiUrl = `${API_URL}/place/list/area/${slug}`;
     fetch(apiUrl)
       .then(data => {
@@ -63,16 +68,6 @@ class CityPage extends Component {
         <SiteHeader />
 
         <AreaIntro slug={slug} />
-
-        <div>CityPage debug: slug: {slug}</div>
-        <div>CityPage debug: match.path: {this.props.match.path}</div>
-        <div>CityPage debug: params.city: {this.props.match.params.city}</div>
-        <div>
-          CityPage debug: params.cityArea1: {this.props.match.params.cityArea1}
-        </div>
-        <div>
-          CityPage debug: params.cityArea2: {this.props.match.params.cityArea2}
-        </div>
 
         <PlacesListing
           places={places}

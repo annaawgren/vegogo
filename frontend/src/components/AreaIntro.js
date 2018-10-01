@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import { getAreaPermalink } from "../helpers.js";
 import { API_URL } from "../api-config";
 import "./AreaIntro.css";
+import ImageWithRatio from "../components/ImageWithRatio";
 
 let AreaParent = props => {
   const { parentAreas } = props;
@@ -119,6 +120,7 @@ class AreaIntro extends React.Component {
     const {
       name,
       tagline,
+      image,
       imageThumb,
       content,
       parentAreas,
@@ -130,7 +132,15 @@ class AreaIntro extends React.Component {
       <div className="AreaIntro">
         <div>
           {imageThumb && (
-            <img src={imageThumb} alt="" className="AreaIntro-image" />
+            <div>
+              <ImageWithRatio
+                src={imageThumb}
+                width={image.width}
+                height={image.height}
+                alt=""
+                className="AreaIntro-image"
+              />
+            </div>
           )}
         </div>
 

@@ -41,7 +41,7 @@ exports.list = async function(req, res) {
 				// Single image.
 				area.imageThumb = cloudinaryImageToURL(area.image);
 
-				delete area.image;
+				// delete area.image;
 
 				return area;
 			});
@@ -104,7 +104,7 @@ exports.listCities = async function(req, res) {
 				// Single image.
 				area.imageThumb = cloudinaryImageToURL(area.image);
 
-				delete area.image;
+				// delete area.image;
 
 				return area;
 			});
@@ -135,7 +135,7 @@ exports.getId = function(req, res) {
 			item = item.toJSON();
 
 			item.imageThumb = cloudinaryImageToURL(item.image);
-			delete item.image;
+			// delete item.image;
 
 			res.apiResponse({
 				area: item
@@ -176,7 +176,7 @@ exports.getSlug = function(req, res) {
 				item.childAreas = childsResult;
 
 				item.imageThumb = cloudinaryImageToURL(item.image);
-				delete item.image;
+				// delete item.image;
 				// delete item.parentAreas;
 
 				res.apiResponse({

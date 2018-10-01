@@ -7,6 +7,7 @@ import { Helmet } from "react-helmet";
 // import ImageGallery from "react-image-gallery";
 import "./PlacesListing.css";
 import PlaceImages from "./PlaceImages";
+import PlaceImagesNew from "./PlaceImagesNew";
 import PlaceTypes from "./PlaceTypes";
 import PlaceDetails from "./PlaceDetails";
 import { getPlaceOpeningHours } from "../helpers.js";
@@ -192,6 +193,7 @@ class Place extends Component {
     }
 
     let imagesMarkup = <PlaceImages {...this.state.place} />;
+    let imagesMarkupNew = <PlaceImagesNew {...this.state.place} />;
 
     return (
       <article key={slug} className={placeClassNames}>
@@ -202,6 +204,8 @@ class Place extends Component {
         )}
 
         {imagesMarkup}
+
+        {imagesMarkupNew}
 
         <div className="PlaceItem-content">
           {tease}

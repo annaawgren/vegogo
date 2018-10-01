@@ -92,8 +92,7 @@ function makePlaceItemOurFormat(place) {
 
 	// Single image.
 	place.imageThumb = cloudinaryImageToURL(place.image);
-
-	delete place.image;
+	// delete place.image;
 
 	// Multiple images.
 	place.imagesThumbs = [];
@@ -101,7 +100,7 @@ function makePlaceItemOurFormat(place) {
 		place.imagesThumbs.push(cloudinaryImageToURL(image));
 	});
 
-	delete place.images;
+	// delete place.images;
 
 	return place;
 }
