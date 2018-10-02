@@ -158,6 +158,9 @@ exports.listGeo = function(req, res) {
 	let { sortParam = "published", lat = undefined, lng = undefined } = req.query;
 	let sort;
 
+	lat = parseFloat(lat);
+	lng = parseFloat(lng);
+
 	switch (sortParam) {
 		case "name":
 			sort = { name: 1 };
@@ -176,7 +179,7 @@ exports.listGeo = function(req, res) {
 				$geoNear: {
 					near: {
 						type: "Point",
-						coordinates: [18.084, 59.316]
+						coordinates: [lng, lat]
 					},
 					includeLocs: "location.geo",
 					maxDistance: 1000,
