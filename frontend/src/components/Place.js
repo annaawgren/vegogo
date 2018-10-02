@@ -1,113 +1,17 @@
 import React, { Component } from "react";
-import { StaticGoogleMap, Marker } from "react-static-google-map";
-import { GOOGLE_MAPS_API_KEY, API_URL } from "../api-config";
+import { API_URL } from "../api-config";
 import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
-import { cleanupHomepage, getPlacePermalink } from "../helpers.js";
+import { getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
-import ImageGallery from "react-image-gallery";
-
-function PlaceTypes({ foodTypes }) {
-  let types = foodTypes.map(type => (
-    <li key={type.key} className="PlaceItem-features-item">
-      <span>{type.name}</span>
-    </li>
-  ));
-
-  if (types && types.length) {
-    types = (
-      <div className="PlaceItem-features">
-        <h3 className="PlaceItem-features-title">Food to find</h3>
-        <ul className="PlaceItem-features-items">{types}</ul>
-      </div>
-    );
-  }
-
-  return types;
-}
-
-function PlaceTimes({ foodTimes }) {
-  let times = foodTimes.map(type => (
-    <li key={type.key} className="PlaceItem-features-item">
-      <span>{type.name}</span>
-    </li>
-  ));
-
-  if (times && times.length) {
-    times = (
-      <div className="PlaceItem-features">
-        <h3 className="PlaceItem-features-title">Great for</h3>
-        <ul className="PlaceItem-features-items">{times}</ul>
-      </div>
-    );
-  }
-
-  return times;
-}
-
-class PlaceLocation extends Component {
-  render() {
-    let { location, phone, homepage, name } = this.props;
-    let homepageOut = null;
-    let locationAndMap = null;
-    let { homepagePresentation, homepageWithProtocol } = cleanupHomepage(
-      homepage
-    );
-
-    if (homepagePresentation && homepageWithProtocol) {
-      homepageOut = (
-        <p className="PlaceItem-meta-item">
-          <a target="_blank" rel="noopener" href={homepageWithProtocol}>
-            {homepagePresentation}
-          </a>
-        </p>
-      );
-    }
-
-    if (location && location.geo) {
-      let googleLink = `http://maps.google.com/?q=${name}, ${
-        location.street1
-      }, ${location.state}, ${location.country}`;
-
-      locationAndMap = (
-        <div className="PlaceItem-meta">
-          <p className="PlaceItem-meta-item">
-            <a target="_blank" ref="noopener" href={googleLink}>
-              {location.street1}
-            </a>
-          </p>
-          {phone && (
-            <p className="PlaceItem-meta-item">
-              <a href={`tel:${phone}`}>{phone}</a>
-            </p>
-          )}
-          {homepageOut}
-          {/* https://www.npmjs.com/package/react-static-google-map */}
-          <p className="PlaceItem-staticMap">
-            <a href={googleLink} target="_blank" rel="noopener">
-              <StaticGoogleMap
-                size="300x200"
-                zoom="15"
-                scale="2"
-                apiKey={GOOGLE_MAPS_API_KEY}
-                className="PlaceItem-meta-item PlacesListing-placeItem-mapImage"
-              >
-                <Marker
-                  location={{ lat: location.geo[1], lng: location.geo[0] }}
-                  color="green"
-                  label="V"
-                  iconURL="https://beta.vegogo.se/favicon-32x32.png"
-                />
-              </StaticGoogleMap>
-            </a>
-          </p>
-        </div>
-      );
-    }
-
-    return locationAndMap;
-  }
-}
+// import ImageGallery from "react-image-gallery";
+import "./PlacesListing.css";
+// import PlaceImages from "./PlaceImages";
+import PlaceImagesNew from "./PlaceImagesNew";
+import PlaceTypes from "./PlaceTypes";
+import PlaceDetails from "./PlaceDetails";
+import { getPlaceOpeningHours } from "../helpers.js";
+import Loading from "./Loading";
 
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
@@ -120,10 +24,29 @@ class Place extends Component {
     this.state = {
       place: {},
       detailsOpen: false,
-      isLoading: false
+      isLoading: false,
+      isLoadingOpeningHours: false,
+      openingHours: []
     };
 
     this.handleMoreClick = this.handleMoreClick.bind(this);
+    this.handleOpeningHoursClick = this.handleOpeningHoursClick.bind(this);
+  }
+
+  handleOpeningHoursClick(e) {
+    if (this.state.openingHours.length > 0) {
+      this.setState({
+        openingHours: []
+      });
+    } else {
+      this.setState({ isLoadingOpeningHours: true });
+      getPlaceOpeningHours().then(res => {
+        this.setState({
+          openingHours: res.opening_hours.weekday_text,
+          isLoadingOpeningHours: false
+        });
+      });
+    }
   }
 
   handleMoreClick(e) {
@@ -198,7 +121,11 @@ class Place extends Component {
     const { isLoading, isError } = this.state;
 
     if (isLoading) {
-      return <p>Loading...</p>;
+      return (
+        <Loading>
+          <p>Loading...</p>
+        </Loading>
+      );
     }
 
     if (isError) {
@@ -210,66 +137,19 @@ class Place extends Component {
       slug,
       location,
       content,
-      foodTypes = [],
-      foodTimes = [],
-      imageThumb,
-      imagesThumbs,
       phone,
-      homepage
+      homepage,
+      foodTypes = []
     } = this.state.place;
+
+    let { openingHours, isLoadingOpeningHours } = this.state;
 
     let { isSingleView } = this.props;
 
     let permalink = getPlacePermalink(this.state.place);
 
-    let imageMarkup;
-    if (imageThumb) {
-      // imageMarkup = (
-      //   <div className="PlaceItem-photo">
-      //     <img src={imageThumb} alt="" className="PlaceItem-photo-img" />
-      //     {tagline && <Bubble text={tagline} color="yellow" />}
-      //   </div>
-      // );
-    }
-
-    let imagesMarkup;
-    if (imageThumb || imagesThumbs) {
-      let galleryImagesThumbs = [];
-      imageThumb && galleryImagesThumbs.push(imageThumb);
-      imagesThumbs && galleryImagesThumbs.push(...imagesThumbs);
-
-      let ImageGalleryImages = galleryImagesThumbs.map(image => {
-        return {
-          original: image
-        };
-      });
-
-      imagesMarkup = (
-        <div className="PlaceItem-photos">
-          {/* {imagesThumbs.map((image) => {
-            return (
-              <img
-                src={image}
-                key={image}
-                alt=""
-                className="PlaceItem-photos-img"
-              />
-            );
-          })} */}
-          <ImageGallery
-            items={ImageGalleryImages}
-            lazyLoad={true}
-            showThumbnails={false}
-            showFullscreenButton={false}
-            showPlayButton={false}
-            showBullets={ImageGalleryImages.length > 1}
-          />
-        </div>
-      );
-    }
-
     let placeClassNames = classnames({
-      placeItem: true,
+      PlaceItem: true,
       "PlaceItem--isSingleView": isSingleView,
       "PlaceItem--isOverview": !isSingleView,
       "PlaceItem--expanded": this.state.detailsOpen
@@ -277,28 +157,31 @@ class Place extends Component {
 
     let tease = (
       <div>
-        {imageMarkup}
         <div className="PlaceItem-head">
           <h1 className="PlaceItem-name">{name}</h1>
+
           {!isSingleView && (
             <button href="/" className="PlaceItem-more">
               {this.state.detailsOpen && <img src={closeImg} alt="✖" />}
               {!this.state.detailsOpen && "more"}
             </button>
           )}
+
+          <PlaceTypes foodTypes={foodTypes} />
         </div>
       </div>
     );
 
-    let contentOut;
-    if (content) {
-      contentOut = (
-        <div
-          className="PlaceItem-textcontent PlaceItem-textcontent--brief"
-          dangerouslySetInnerHTML={{ __html: content.brief }}
-        />
-      );
-    }
+    let contentOut = (
+      <React.Fragment>
+        {content && (
+          <div
+            className="PlaceItem-textcontent PlaceItem-textcontent--brief"
+            dangerouslySetInnerHTML={{ __html: content.brief }}
+          />
+        )}
+      </React.Fragment>
+    );
 
     if (isSingleView) {
       tease = <div className="PlaceItem-tease">{tease}</div>;
@@ -314,6 +197,9 @@ class Place extends Component {
       );
     }
 
+    // let imagesMarkup = <PlaceImages {...this.state.place} />;
+    let imagesMarkupNew = <PlaceImagesNew {...this.state.place} />;
+
     return (
       <article key={slug} className={placeClassNames}>
         {isSingleView && (
@@ -322,23 +208,54 @@ class Place extends Component {
           </Helmet>
         )}
 
-        {tease}
-        {imagesMarkup}
+        {/* {imagesMarkup} */}
 
-        {/* Details are shown on details page or when "More" link is clicked. */}
-        {this.state.detailsOpen && (
-          <div className="PlaceItem-details">
-            <div className="PlaceItem-featuresWrap">
-              <PlaceTypes foodTypes={foodTypes} />
-              <PlaceTimes foodTimes={foodTimes} />
+        {imagesMarkupNew}
+
+        <div className="PlaceItem-content">
+          {tease}
+
+          {/* Details are shown on details page or when "More" link is clicked. */}
+          {this.state.detailsOpen && (
+            <div className="PlaceItem-details">
+              <div className="PlaceItem-featuresWrap" />
+              {contentOut}
+              <PlaceDetails
+                {...{
+                  location,
+                  phone,
+                  name,
+                  homepage,
+                  openingHours,
+                  isLoadingOpeningHours
+                }}
+                handleOpeningHoursClick={this.handleOpeningHoursClick}
+              />
             </div>
-            {contentOut}
-            <PlaceLocation {...{ location, phone, name, homepage }} />
-          </div>
-        )}
+          )}
+        </div>
       </article>
     );
   }
 }
 
 export default Place;
+
+// function PlaceTimes({ foodTimes }) {
+//   let times = foodTimes.map(type => (
+//     <li key={type.key} className="PlaceItem-features-item">
+//       <span>{type.name}</span>
+//     </li>
+//   ));
+
+//   if (times && times.length) {
+//     times = (
+//       <div className="PlaceItem-features">
+//         <h3 className="PlaceItem-features-title">Great for</h3>
+//         <ul className="PlaceItem-features-items">{times}</ul>
+//       </div>
+//     );
+//   }
+
+//   return times;
+// }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import logoImg from "../images/vegogo-logo.svg";
+import iconInstagram from "../images/icon-instagram.svg";
+import iconFacebook from "../images/icon-facebook.svg";
 import "./SiteFooter.css";
 
 class SiteFooter extends Component {
@@ -9,24 +11,38 @@ class SiteFooter extends Component {
       <footer className="SiteFooter">
         <p>
           <img src={logoImg} alt="Vegogo logo" className="SiteFooter-logo" />
-          Vegogo – The new guide* to vegan eating *curated for you with
-          <span role="img" aria-labelledby="Green Heart">
-            💚
-          </span>
         </p>
-        <p>This is the site footer.</p>
-        <ul>
-          <li>
-            <Link to="/">Vegogo</Link>
+
+        <ul className="SiteFooter-socialLinks">
+          <li className="SiteFooter-socialLink">
+            <a href="https://www.instagram.com/go_vegogo/">
+              <img src={iconInstagram} alt="Follow us on Instagram" />
+            </a>
           </li>
-          <li>
-            <Link to="/components">Components</Link>
+          <li className="SiteFooter-socialLink">
+            <a href="https://www.facebook.com/pg/Vegogo-666861027033967/">
+              <img src={iconFacebook} alt="Follow us on Facebook" />
+            </a>
           </li>
-          <li>Menu?</li>
-          <li>Logo?</li>
-          <li>Tagline?</li>
-          <li>Menu?</li>
         </ul>
+
+        <p>
+          contact us at
+          <br />
+          <a href="mailto:hello@vegogo.se">hello@vegogo.se</a>
+        </p>
+
+        <p>
+          Illustrations by
+          <br />
+          <a href="http://www.christineroesch.de/">Christine Rösch</a>
+        </p>
+
+        <p>© vegogo 2018</p>
+
+        <p>
+          <Link to="/components">Components</Link>
+        </p>
       </footer>
     );
   }

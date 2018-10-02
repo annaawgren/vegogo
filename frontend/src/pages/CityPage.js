@@ -16,13 +16,14 @@ class CityPage extends Component {
     cityArea1: "sodermalm"
     cityArea2: "sofo"
      */
+    console.log("citypage props", props);
     // console.log('city params', props.city.match.params);
-    const { params } = props.city.match;
+    const { params } = props.match;
 
-    let slug = params.cityArea2 || params.cityArea1 || params.city;
+    this.slug = params.cityArea2 || params.cityArea1 || params.city;
 
     this.state = {
-      slug
+      places: []
     };
   }
 
@@ -34,7 +35,12 @@ class CityPage extends Component {
    * Get places for this city/area
    */
   getPlaces() {
-    const { slug } = this.state;
+    const slug = this.slug;
+
+    if (!slug) {
+      return;
+    }
+
     let apiUrl = `${API_URL}/place/list/area/${slug}`;
     fetch(apiUrl)
       .then(data => {
@@ -46,7 +52,14 @@ class CityPage extends Component {
   }
 
   render() {
-    const { slug, places } = this.state;
+    console.log("CityPage render");
+    window.scrollTo(0, 0);
+    const { places } = this.state;
+
+    let { params } = this.props.match;
+
+    // Use slug from last part of url params.
+    let slug = params.cityArea2 || params.cityArea1 || params.city;
 
     return (
       <div>

@@ -1,35 +1,54 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logoImg from "../images/vegogo-logo.svg";
-import blockcheesenavImg from "../images/icon-blockcheesenav.svg";
 import closeImg from "../images/icon-close.svg";
 import "./SiteHeader.css";
 
+// Opened navigation.
 let Navigation = function(props) {
   return (
     <nav className="SiteNav">
-      <h3>Vegogo Navigation</h3>
-      <ul>
-        <li>
-          <a href="/">nav item one</a>
-        </li>
-        <li>
-          <a href="/">nav item two</a>
-        </li>
-        <li>
-          <a href="/">A short one</a>
-        </li>
-        <li>
-          <a href="/">And a long one, because everything must work, right?</a>
-        </li>
-      </ul>
-      <button onClick={props.handleNavClose} className="SiteHeader-navToggler">
+      <button
+        onClick={props.handleNavClose}
+        className="SiteHeader-navToggler SiteHeader-navToggler--close"
+      >
         <img
-          className="SiteHeader-navToggler-img SiteHeader-navToggler-img--opened"
+          className="SiteHeader-navToggler-img SiteHeader-navToggler-img--close"
           src={closeImg}
           alt="✕"
         />
       </button>
+
+      <ul className="SiteNav-navItems SiteNav-navItems--places">
+        <li>
+          <NavLink onClick={props.handleNavClose} to="/sort/alpha">
+            A to Ö
+          </NavLink>
+        </li>
+        <li>
+          <NavLink onClick={props.handleNavClose} to="/sort/near">
+            Near me
+          </NavLink>
+        </li>
+      </ul>
+
+      <ul className="SiteNav-navItems SiteNav-navItems--site">
+        <li>
+          <NavLink exact onClick={props.handleNavClose} to="/page/about">
+            About
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact onClick={props.handleNavClose} to="/page/contact">
+            Contact
+          </NavLink>
+        </li>
+        <li>
+          <NavLink exact onClick={props.handleNavClose} to="/">
+            Home
+          </NavLink>
+        </li>
+      </ul>
     </nav>
   );
 };
@@ -53,23 +72,24 @@ class SiteHeader extends Component {
     return (
       <header className="SiteHeader">
         <h1 className="SiteHeader-title">
-          <Link to="/">
+          <Link to="/" className="SiteHeader-titleLink">
             <img src={logoImg} alt="Vegogo" className="SiteHeader-logo" />
           </Link>
         </h1>
-        <p>The new guide* to vegan eating *curated for you with &lt;3</p>
+
+        {/* <p className="SiteHeader-tagline">The new guide* to vegan eating *curated for you with &lt;3</p> */}
 
         <button
           onClick={this.handleNavToggleClick}
           className="SiteHeader-navToggler"
         >
-          {!this.state.navOpen && (
-            <img
-              className="SiteHeader-navToggler-img SiteHeader-navToggler-img--closed"
-              src={blockcheesenavImg}
-              alt="☰"
-            />
-          )}
+          {!this.state.navOpen &&
+            // <img
+            //   className="SiteHeader-navToggler-img SiteHeader-navToggler-img--closed"
+            //   src={blockcheesenavImg}
+            //   alt="☰"
+            // />
+            "Menu"}
         </button>
         {this.state.navOpen && (
           <Navigation handleNavClose={this.handleNavToggleClick} />

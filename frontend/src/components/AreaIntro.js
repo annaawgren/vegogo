@@ -1,6 +1,10 @@
 import React from "react";
-import "./AreaIntro.css";
+import { Link } from "react-router-dom";
+// import { getAreaPermalink } from "../helpers.js";
 import { API_URL } from "../api-config";
+import "./AreaIntro.css";
+import ImageWithRatio from "../components/ImageWithRatio";
+import Loading from "../components/Loading";
 
 let AreaParent = props => {
   const { parentAreas } = props;
@@ -25,6 +29,34 @@ let AreaParents = props => {
   ) : null;
 };
 
+let ChildAreas = props => {
+  let { childAreas } = props;
+  if (!childAreas.length) {
+    return null;
+  }
+
+  return (
+    <ul className="AreaIntro-childAreas">
+      {childAreas.map(area => {
+        return (
+          <li key={area._id} className="AreaIntro-childArea">
+            <Link to={area.permalink} className="AreaIntro-childArea-link">
+              {area.name}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+};
+
+/**
+ * Show intro for an area, for example "stockholm" or the region "sofo" in Stockholm.
+ * Displays area image and area title and description.
+ *
+ * Required props:
+ *  - slug
+ */
 class AreaIntro extends React.Component {
   constructor(props) {
     super(props);
@@ -36,6 +68,9 @@ class AreaIntro extends React.Component {
     };
   }
 
+  /**
+   * Fetch area when component is mounted.
+   */
   componentDidMount() {
     this.loadArea();
   }
@@ -62,29 +97,61 @@ class AreaIntro extends React.Component {
       });
   }
 
+  /**
+   * https://reactjs.org/docs/react-component.html#componentdidupdate
+   */
+  componentDidUpdate(prevProps) {
+    // Fetch new area if area slug is changed.
+    if (this.props.slug !== prevProps.slug) {
+      this.loadArea();
+    }
+  }
+
   render() {
     const { isLoading, isError } = this.state;
 
     if (isLoading) {
-      return <p>Loading area...</p>;
+      return (
+        <Loading>
+          <p>Loading area...</p>
+        </Loading>
+      );
     }
 
     if (isError) {
       return <p>Error getting area.</p>;
     }
 
-    const { name, tagline, imageThumb, content, parentAreas } = this.state.area;
+    const {
+      name,
+      tagline,
+      image,
+      imageThumb,
+      content,
+      parentAreas,
+      childAreas
+    } = this.state.area;
     const { children } = this.props;
 
     return (
       <div className="AreaIntro">
         <div>
           {imageThumb && (
-            <img src={imageThumb} alt="" className="AreaIntro-image" />
+            <div>
+              <ImageWithRatio
+                src={imageThumb}
+                width={image.width}
+                height={image.height}
+                alt=""
+                className="AreaIntro-image"
+              />
+            </div>
           )}
         </div>
 
         <h2 className="AreaIntro-title">{name}</h2>
+
+        <ChildAreas childAreas={childAreas} />
 
         <AreaParents parentAreas={parentAreas} />
 

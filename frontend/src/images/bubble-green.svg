@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="98px" height="101px" viewBox="0 0 98 101" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>Fill 2</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Colors-etc" transform="translate(-86.000000, -477.000000)" fill="#4FDB9D">
-            <g id="Group-6" transform="translate(86.000000, 477.000000)">
-                <path d="M0.4023,22.0625 C0.4023,10.0585 10.0823,0.3265 22.0133,0.3265 L76.0333,0.3265 C87.9683,0.3265 97.6443,10.0775 97.6443,22.0625 L97.6443,60.1005 C97.6443,72.1045 87.9803,81.8365 76.0333,81.8365 L65.5783,81.8365 L49.0233,100.8555 L32.8163,81.8365 L22.0233,81.8365 C10.0823,81.8365 0.4023,72.0855 0.4023,60.1005 L0.4023,22.0625 Z" id="Fill-2"></path>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="98" height="101" xmlns="http://www.w3.org/2000/svg"><path d="M.402 22.063C.402 10.059 10.082.326 22.013.326h54.02c11.935 0 21.611 9.75 21.611 21.736V60.1c0 12.005-9.664 21.736-21.61 21.736H65.577l-16.555 19.02-16.207-19.02H22.023c-11.94 0-21.62-9.75-21.62-21.736V22.063z" fill="#4FDB9D" fill-rule="evenodd"/></svg>

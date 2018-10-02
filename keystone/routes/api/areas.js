@@ -41,7 +41,7 @@ exports.list = async function(req, res) {
 				// Single image.
 				area.imageThumb = cloudinaryImageToURL(area.image);
 
-				delete area.image;
+				// delete area.image;
 
 				return area;
 			});
@@ -104,7 +104,7 @@ exports.listCities = async function(req, res) {
 				// Single image.
 				area.imageThumb = cloudinaryImageToURL(area.image);
 
-				delete area.image;
+				// delete area.image;
 
 				return area;
 			});
@@ -135,7 +135,7 @@ exports.getId = function(req, res) {
 			item = item.toJSON();
 
 			item.imageThumb = cloudinaryImageToURL(item.image);
-			delete item.image;
+			// delete item.image;
 
 			res.apiResponse({
 				area: item
@@ -144,8 +144,8 @@ exports.getId = function(req, res) {
 };
 
 /**
- * Get Place by slug
- * http://localhost:3131/api/place/slug/minh-mat
+ * Get Area by slug
+ * http://localhost:3131/api/area/slug/stockholm
  */
 exports.getSlug = function(req, res) {
 	Area.model
@@ -163,17 +163,25 @@ exports.getSlug = function(req, res) {
 			const permalink = item.getPermalink();
 			const parentAreasFlat = item.getParentAreas();
 
-			item = item.toJSON();
+			// let childAreas = await item.getChildAreas();
 
-			item.permalink = permalink;
-			item.parentAreasFlat = parentAreasFlat;
+			//item.childAreas = childAreas;
 
-			item.imageThumb = cloudinaryImageToURL(item.image);
-			delete item.image;
-			// delete item.parentAreas;
+			item.getChildAreas().then(childsResult => {
+				// console.log("childsResult", childsResult);
+				item = item.toJSON();
 
-			res.apiResponse({
-				area: item
+				item.permalink = permalink;
+				item.parentAreasFlat = parentAreasFlat;
+				item.childAreas = childsResult;
+
+				item.imageThumb = cloudinaryImageToURL(item.image);
+				// delete item.image;
+				// delete item.parentAreas;
+
+				res.apiResponse({
+					area: item
+				});
 			});
 		});
 };

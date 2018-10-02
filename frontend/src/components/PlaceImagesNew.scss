@@ -1,0 +1,23 @@
+.ImageScroller {
+  display: flex;
+  overflow: hidden;
+  overflow-x: auto;
+  align-items: center;
+}
+
+.ImageScroller-image {
+  flex: 1 1 auto;
+  margin: 0 15px;
+}
+
+.ImageScroller-image:first-child {
+  // margin-left: 10%;
+  margin-left: 0;
+}
+
+.ImageScroller-image-img {
+  display: block;
+  width: auto;
+  height: 40vh;
+  margin: 0 auto;
+}

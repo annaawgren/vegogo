@@ -109,11 +109,13 @@ Area.schema.methods.getParentAreas = function() {
 async function getChildAreas(area) {
 	let childAreas = [];
 
-	let areaChildAreas = await Area.model.find({
-		parentAreas: {
-			$in: [ObjectId(area._id)]
-		}
-	});
+	let areaChildAreas = await Area.model
+		.find({
+			parentAreas: {
+				$in: [ObjectId(area._id)]
+			}
+		})
+		.populate({ path: "parentAreas", populate: { path: "parentAreas" } });
 
 	// Base case.
 	if (!areaChildAreas.length) {
@@ -129,8 +131,19 @@ async function getChildAreas(area) {
 	let areaChildAreasPromises = await Promise.all(
 		childAreas.map(async childArea => {
 			let subAreaChildAreas = await getChildAreas(childArea);
+
+			/*subAreaChildAreas.map(oneSubChildArea => {
+				console.log('yo');
+				oneSubChildArea.parentAreaXXX = childArea;
+			});*/
+
+			let childPermalink = childArea.getPermalink();
+
 			childArea = childArea.toJSON();
+
+			childArea.permalink = childPermalink;
 			childArea.childAreas = subAreaChildAreas;
+
 			return childArea;
 		})
 	);
