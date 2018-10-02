@@ -8,6 +8,7 @@ function Loading(props) {
       <div className="Loading-image" />
       <div className="Loading-para" />
       <div className="Loading-para" />
+      <div className="Loading-para" />
       {props.children && <div className="Loading-text">{props.children}</div>}
     </div>
   );

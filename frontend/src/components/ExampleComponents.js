@@ -63,11 +63,7 @@ class ExampleComponents extends Component {
 
         <Place slug="mahalo" isSingleView={true} />
 
-        <PlacesListing
-          places={places}
-          headline="Härliga ställen"
-          teaser="En massa goa ställen är detta en listning på."
-        />
+        <PlacesListing places={places} />
 
         {/* <Bubble color="dark" text="Awesome Supertasty Another word" />
         <Bubble color="green" />

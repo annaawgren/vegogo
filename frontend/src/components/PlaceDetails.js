@@ -68,7 +68,7 @@ class PlaceDetails extends Component {
       );
 
       let mapButton = (
-        <p>
+        <p className="PlaceViewOnMap">
           <button
             onClick={this.handleShowMapClick}
             className="PlaceItem-map-viewBtn"

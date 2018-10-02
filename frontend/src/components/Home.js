@@ -35,11 +35,7 @@ class Home extends Component {
 
         <AreaIntro slug="stockholm" />
 
-        <PlacesListing
-          places={places}
-          xheadline="Härliga ställen"
-          xteaser="En massa goa ställen är detta en listning på."
-        />
+        <PlacesListing places={places} />
       </PageContainer>
     );
   }

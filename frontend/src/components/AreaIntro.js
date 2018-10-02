@@ -111,11 +111,7 @@ class AreaIntro extends React.Component {
     const { isLoading, isError } = this.state;
 
     if (isLoading) {
-      return (
-        <Loading>
-          <p>Loading area...</p>
-        </Loading>
-      );
+      return <Loading />;
     }
 
     if (isError) {

@@ -11,11 +11,12 @@ $background-color: #f1f1f1;
   &-para {
     min-height: 1rem;
     background: $background-color;
-    margin: 10px 0;
+    margin: 10px auto;
   }
 
   &-headline {
-    max-width: 35%;
+    max-width: 45%;
+    height: 2rem;
   }
 
   &-image {

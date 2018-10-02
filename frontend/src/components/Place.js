@@ -121,11 +121,7 @@ class Place extends Component {
     const { isLoading, isError } = this.state;
 
     if (isLoading) {
-      return (
-        <Loading>
-          <p>Loading...</p>
-        </Loading>
-      );
+      return <Loading />;
     }
 
     if (isError) {
@@ -156,39 +152,45 @@ class Place extends Component {
     });
 
     let tease = (
-      <div>
-        <div className="PlaceItem-head">
-          <h1 className="PlaceItem-name">{name}</h1>
+      <div className="PlaceItem-head">
+        <h1 className="PlaceItem-name">{name}</h1>
 
-          {!isSingleView && (
-            <button href="/" className="PlaceItem-more">
-              {this.state.detailsOpen && <img src={closeImg} alt="✖" />}
-              {!this.state.detailsOpen && "more"}
-            </button>
-          )}
+        {!isSingleView && (
+          <button href="/" className="PlaceItem-more">
+            {"+"}
+          </button>
+        )}
 
-          <PlaceTypes foodTypes={foodTypes} />
-        </div>
+        <PlaceTypes foodTypes={foodTypes} />
       </div>
     );
 
     let contentOut = (
       <React.Fragment>
-        {content && (
-          <div
-            className="PlaceItem-textcontent PlaceItem-textcontent--brief"
-            dangerouslySetInnerHTML={{ __html: content.brief }}
-          />
-        )}
+        {content &&
+          content.brief && (
+            <div
+              className="PlaceItem-textcontent PlaceItem-textcontent--brief"
+              dangerouslySetInnerHTML={{ __html: content.brief }}
+            />
+          )}
+
+        {content &&
+          content.extended && (
+            <div
+              className="PlaceItem-textcontent PlaceItem-textcontent--extended"
+              dangerouslySetInnerHTML={{ __html: content.extended }}
+            />
+          )}
       </React.Fragment>
     );
 
     if (isSingleView) {
-      tease = <div className="PlaceItem-tease">{tease}</div>;
+      tease = <div className="PlaceItem-teaser">{tease}</div>;
     } else {
       tease = (
         <a
-          className="PlaceItem-tease"
+          className="PlaceItem-teaser"
           onClick={this.handleMoreClick}
           href={permalink}
         >
@@ -218,7 +220,6 @@ class Place extends Component {
           {/* Details are shown on details page or when "More" link is clicked. */}
           {this.state.detailsOpen && (
             <div className="PlaceItem-details">
-              <div className="PlaceItem-featuresWrap" />
               {contentOut}
               <PlaceDetails
                 {...{

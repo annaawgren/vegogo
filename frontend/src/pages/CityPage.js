@@ -67,11 +67,7 @@ class CityPage extends Component {
 
         <AreaIntro slug={slug} />
 
-        <PlacesListing
-          places={places}
-          headline="Härliga ställen"
-          teaser="En massa goa ställen är detta en listning på."
-        />
+        <PlacesListing places={places} />
 
         <NewsletterSignup />
 

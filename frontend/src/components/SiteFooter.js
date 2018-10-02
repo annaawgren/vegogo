@@ -13,6 +13,12 @@ class SiteFooter extends Component {
           <img src={logoImg} alt="Vegogo logo" className="SiteFooter-logo" />
         </p>
 
+        <p>
+          The New Guide to Vegan Eating.
+          <br />
+          Curated for you with &lt;3.
+        </p>
+
         <ul className="SiteFooter-socialLinks">
           <li className="SiteFooter-socialLink">
             <a href="https://www.instagram.com/go_vegogo/">
@@ -25,6 +31,12 @@ class SiteFooter extends Component {
             </a>
           </li>
         </ul>
+
+        <p>
+          Want to collaborate and become a vegogo partner?
+          <br />
+          <Link to="">We would love to hear from you!</Link>
+        </p>
 
         <p>
           contact us at

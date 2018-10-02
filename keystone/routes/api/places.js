@@ -11,7 +11,7 @@ var ObjectId = require("mongoose").Types.ObjectId;
  * http://localhost:3131/api/area/list
  */
 exports.list = function(req, res) {
-	let sortParam = req.query.sort || "published";
+	let sortParam = req.query.sort || "name";
 	let sort;
 
 	switch (sortParam) {
@@ -92,7 +92,10 @@ function makePlaceItemOurFormat(place) {
 
 	// Single image.
 	place.imageThumb = cloudinaryImageToURL(place.image);
-	place.image.thumb = cloudinaryImageToURL(place.image);
+
+	if (place.image) {
+		place.image.thumb = cloudinaryImageToURL(place.image);
+	}
 	// delete place.image;
 
 	// Multiple images.
