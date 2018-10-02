@@ -56,17 +56,45 @@ let texts = {
     )
   },
   contact: {
-    title: "Contact Vegogo",
+    preTitle: "👋🏻",
+    title: "Say hello!",
     body: (
       <React.Fragment>
-        <p>contact us text here.</p>
-        <p>Dolor nesciunt mollitia mollitia ipsam iure error aut quibusdam.</p>
         <p>
-          Et et qui est quibusdam nam. Facilis qui et dignissimos. Illum autem
-          et molestiae in molestiae voluptatum nulla eligendi et.
+          We would love to hear from you if you have tips on awesom places to
+          eat or any feeback, or just want to get in touch and talk food.{" "}
         </p>
+
         <p>
-          <a href="mailto:hello@vegogo.se">hello@vegogo.se</a>
+          Email us <a href="mailto:hello@vegogo.se">hello@vegogo.se</a>
+        </p>
+
+        <p>Or follow us </p>
+        <p>
+          on <a href="https://www.instagram.com/go_vegogo/">instagram</a>
+        </p>
+
+        <p>
+          or{" "}
+          <a href="https://www.facebook.com/Vegogo-666861027033967">facebook</a>
+        </p>
+      </React.Fragment>
+    )
+  },
+  partner: {
+    preTitle: "😍",
+    title: "Yes, become a partner!",
+    body: (
+      <React.Fragment>
+        <p>
+          We are looking for partners who share our mission to make really good
+          vegan food accessible for everyone. Do not hesitate to contact us if
+          you see an opportunity to collaborate and shape vegogo together with
+          us!
+        </p>
+
+        <p>
+          Contact <a href="mailto:anna@vegogo.se">anna@vegogo.se</a>
         </p>
       </React.Fragment>
     )
@@ -87,6 +115,7 @@ class TextPage extends Component {
     }
 
     let heroImg = text.heroImg;
+    let preTitle = text.preTitle;
 
     window.scrollTo(0, 0);
 
@@ -95,7 +124,7 @@ class TextPage extends Component {
         <Helmet>
           <title>{text.title}</title>
         </Helmet>
-        <div className="TextPage">
+        <div className={`TextPage TextPage-${pageName}`}>
           {heroImg && (
             <p>
               <img
@@ -106,6 +135,9 @@ class TextPage extends Component {
                 alt=""
               />
             </p>
+          )}
+          {text.preTitle && (
+            <div className="TextPage-preHeadline">{preTitle}</div>
           )}
           <h1 className="TextPage-Headline">{text.title}</h1>
           {text.body}

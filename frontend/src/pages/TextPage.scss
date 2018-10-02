@@ -8,12 +8,22 @@
 
   &-Headline {
     margin-top: 2rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   &-Image {
     width: 65%;
     max-width: 440px;
     height: auto;
+  }
+}
+
+.TextPage-contact,
+.TextPage-partner {
+  .TextPage-preHeadline {
+    font-size: 40px;
+  }
+  .TextPage-Headline {
+    margin-top: 0;
   }
 }

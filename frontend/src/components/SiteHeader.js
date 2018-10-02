@@ -44,6 +44,11 @@ let Navigation = function(props) {
           </NavLink>
         </li>
         <li>
+          <NavLink exact onClick={props.handleNavClose} to="/page/partner">
+            Partner
+          </NavLink>
+        </li>
+        <li>
           <NavLink exact onClick={props.handleNavClose} to="/">
             Home
           </NavLink>
