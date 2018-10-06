@@ -41,6 +41,9 @@ Place.add({
 		type: Types.Location,
 		country: "Sweden"
 	},
+	googlePlaceId: {
+		type: String
+	},
 	homepage: {
 		type: Types.Url
 	},
