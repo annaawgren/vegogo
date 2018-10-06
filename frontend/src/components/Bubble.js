@@ -3,7 +3,7 @@ import bubbleDark from "../images/bubble-dark.svg";
 import bubbleYellow from "../images/bubble-yellow.svg";
 import bubbleGreen from "../images/bubble-green.svg";
 import bubbleRed from "../images/bubble-red.svg";
-import "./Bubble.css";
+import "./Bubble.scss";
 
 function Bubble(props) {
   let { color = "yellow", text = "" } = props;
