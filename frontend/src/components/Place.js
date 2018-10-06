@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API_URL } from "../api-config";
-import closeImg from "../images/icon-close.svg";
+// import closeImg from "../images/icon-close.svg";
 import classnames from "classnames";
 import { getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";

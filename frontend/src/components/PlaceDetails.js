@@ -46,7 +46,11 @@ class PlaceDetails extends Component {
     if (homepagePresentation && homepageWithProtocol) {
       homepageOut = (
         <p className="PlaceItem-meta-item">
-          <a target="_blank" rel="noopener" href={homepageWithProtocol}>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={homepageWithProtocol}
+          >
             {homepagePresentation}
           </a>
         </p>
@@ -61,7 +65,7 @@ class PlaceDetails extends Component {
 
       let street = (
         <p className="PlaceItem-meta-item">
-          <a target="_blank" ref="noopener" href={googleLink}>
+          <a target="_blank" rel="noopener noreferrer" href={googleLink}>
             {location.street1}
           </a>
         </p>
@@ -84,7 +88,7 @@ class PlaceDetails extends Component {
         <React.Fragment>
           {isMapOpened && (
             <p className="PlaceItem-staticMap">
-              <a href={googleLink} target="_blank" rel="noopener">
+              <a href={googleLink} target="_blank" rel="noopener noreferrer">
                 <StaticGoogleMap
                   size="300x200"
                   zoom="15"

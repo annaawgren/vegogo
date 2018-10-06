@@ -27,8 +27,10 @@ class PlacesListing extends Component {
           prevPlaceFirstChar = placeFirstChar;
         }
 
+        let fragmentKey = `${placeFirstChar}/${slug}`;
+
         return (
-          <React.Fragment>
+          <React.Fragment key={fragmentKey}>
             {charDivider}
             <li key={slug} className="PlacesListing-placeItem">
               <Place {...place} />
