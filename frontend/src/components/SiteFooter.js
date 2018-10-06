@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import logoImg from "../images/vegogo-logo.svg";
 import iconInstagram from "../images/icon-instagram.svg";
 import iconFacebook from "../images/icon-facebook.svg";
-import "./SiteFooter.css";
+import "./SiteFooter.scss";
 
 class SiteFooter extends Component {
   render() {

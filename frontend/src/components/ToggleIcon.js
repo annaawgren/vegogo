@@ -1,7 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import toggleIconImg from "../images/icon-toggle.svg";
-import "./ToggleIcon.css";
+import "./ToggleIcon.scss";
 
 function ToggleIcon(props) {
   let openingHourIconClassNames = classnames({

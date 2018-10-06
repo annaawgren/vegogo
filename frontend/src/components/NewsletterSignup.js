@@ -1,5 +1,5 @@
 import React from "react";
-import "./NewsletterSignup.css";
+import "./NewsletterSignup.scss";
 
 class NewsletterSignup extends React.Component {
   render() {

@@ -1,4 +1,5 @@
 import React from "react";
+import "../components/ImageWithRatio.scss";
 
 function ImageWithRatio(props) {
   const { className, alt, ...propsWithoutClassName } = props;

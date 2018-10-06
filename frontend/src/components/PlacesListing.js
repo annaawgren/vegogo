@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Place from "./Place";
-import "./PlacesListing.css";
+import "./PlacesListing.scss";
 
 /**
  * Renders places with passed slug

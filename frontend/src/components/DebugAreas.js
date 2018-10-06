@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { API_URL } from "../api-config";
-import "./DebugAreas.css";
+import "./DebugAreas.scss";
 
 class DebugAreas extends Component {
   constructor() {

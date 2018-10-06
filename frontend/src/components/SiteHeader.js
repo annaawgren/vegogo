@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 import logoImg from "../images/vegogo-logo.svg";
 import closeImg from "../images/icon-close.svg";
-import "./SiteHeader.css";
+import "./SiteHeader.scss";
 
 // Opened navigation.
 let Navigation = function(props) {

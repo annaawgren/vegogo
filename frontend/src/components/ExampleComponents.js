@@ -8,7 +8,7 @@ import SearchArea from "./SearchArea";
 import UserLocation from "./UserLocation";
 import AreaIntro from "./AreaIntro";
 import DebugAreas from "./DebugAreas";
-import "./ExampleComponents.css";
+import "./ExampleComponents.scss";
 import { Helmet } from "react-helmet";
 import PageContainer from "../pages/PageContainer";
 

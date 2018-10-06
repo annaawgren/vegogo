@@ -5,7 +5,7 @@ import classnames from "classnames";
 import { getPlacePermalink } from "../helpers.js";
 import { Helmet } from "react-helmet";
 // import ImageGallery from "react-image-gallery";
-import "./PlacesListing.css";
+import "./PlacesListing.scss";
 // import PlaceImages from "./PlaceImages";
 import PlaceImagesNew from "./PlaceImagesNew";
 import PlaceTypes from "./PlaceTypes";

@@ -5,7 +5,6 @@ import PageContainer from "../pages/PageContainer";
 import AreaIntro from "../components/AreaIntro";
 import PlacesListing from "../components/PlacesListing";
 import "./Home.css";
-import "../components/ImageWithRatio.css";
 import introTextImage from "../images/vegogo-the-new-guide-to-vegan-eating.svg";
 import ImageWithRatio from "../components/ImageWithRatio";
 

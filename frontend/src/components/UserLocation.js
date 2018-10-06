@@ -1,5 +1,5 @@
 import React from "react";
-import "./SearchArea.css";
+import "./SearchArea.scss";
 // import pinImg from "../images/vegogo-pin.svg";
 
 export default class UserLocation extends React.Component {

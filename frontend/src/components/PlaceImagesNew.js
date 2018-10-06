@@ -1,5 +1,5 @@
 import React from "react";
-import "./PlaceImagesNew.css";
+import "./PlaceImagesNew.scss";
 
 /**
  * Images for a place.

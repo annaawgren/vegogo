@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "normalize.css";
-import "./App.css";
+import "./App.scss";
 import Home from "./components/Home";
 import ExampleComponents from "./components/ExampleComponents";
 import NotFoundPage from "./pages/NotFound";

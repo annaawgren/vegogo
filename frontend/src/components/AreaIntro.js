@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import { getAreaPermalink } from "../helpers.js";
 import { API_URL } from "../api-config";
-import "./AreaIntro.css";
+import "./AreaIntro.scss";
 import ImageWithRatio from "../components/ImageWithRatio";
 import Loading from "../components/Loading";
 
