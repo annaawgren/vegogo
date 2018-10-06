@@ -11,3 +11,8 @@ The guide will launch soon at [Vegogo.se](https://vegogo.se).
 - npm start
 - Frontend at http://localhost:3000/
 - Backend at http://localhost:3131/
+
+## Admin
+
+- To find Google Place ID use this tool:
+  https://developers.google.com/maps/documentation/javascript/examples/places-placeid-finder
