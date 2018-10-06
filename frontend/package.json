@@ -19,6 +19,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.3",
     "react-slick": "^0.23.1",
+    "react-snap": "^1.19.0",
     "react-static-google-map": "^0.5.1",
     "react-transition-group": "^2.4.0",
     "slick-carousel": "^1.8.1",
@@ -26,7 +27,6 @@
     "underscore.string": "^3.3.4"
   },
   "scripts": {
-    "analyze": "source-map-explorer build/static/js/main.*",
     "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start-js": "react-scripts start",
@@ -34,7 +34,8 @@
     "build-js": "react-scripts build",
     "build": "npm-run-all build-css build-js",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer build/static/js/main.*"
   },
   "devDependencies": {
     "prettier": "^1.13.4"
