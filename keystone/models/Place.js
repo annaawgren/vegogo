@@ -1,6 +1,6 @@
 var keystone = require("keystone");
 var Types = keystone.Field.Types;
-var slugify = require("underscore.string/slugify");
+// var slugify = require("underscore.string/slugify");
 var cloudinary = require("cloudinary");
 
 function getPlaceImage(place) {
@@ -19,7 +19,13 @@ function getPlaceImage(place) {
 
 var Place = new keystone.List("Place", {
 	map: { name: "name" },
-	autokey: { path: "slug", from: "name", unique: true }
+	autokey: {
+		path: "slug",
+		from: "name",
+		unique: true,
+		// To change the slug edit the mongo db directly (this is better than it changing on edit)
+		fixed: true
+	}
 });
 
 Place.add({

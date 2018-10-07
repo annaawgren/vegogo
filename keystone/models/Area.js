@@ -2,7 +2,7 @@ var keystone = require("keystone");
 var Types = keystone.Field.Types;
 // var _ = require("underscore");
 // var lodash = require("lodash");
-const { dump } = require("dumper.js");
+// const { dump } = require("dumper.js");
 var { cloudinaryImageToURL } = require("../functions");
 var ObjectId = require("mongoose").Types.ObjectId;
 
@@ -13,7 +13,13 @@ var ObjectId = require("mongoose").Types.ObjectId;
 
 var Area = new keystone.List("Area", {
 	map: { name: "name" },
-	autokey: { path: "slug", from: "name", unique: true }
+	autokey: {
+		path: "slug",
+		from: "name",
+		unique: true,
+		// To change the slug edit the mongo db directly (this is better than it changing on edit)
+		fixed: true
+	}
 });
 
 Area.add({
