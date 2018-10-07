@@ -82,7 +82,7 @@ class PlaceImages extends React.Component {
     let ImageGalleryImages = galleryImages.map(image => {
       // Image is like https://res.cloudinary.com/vegogo/image/upload/w_640/lrzhnjazq7h9t2k7gzn8".
       // Replace so becomes like https://res.cloudinary.com/vegogo/image/upload/w_640,h_300,c_fit/ufwvkpfrt0ep9i9wfq9g
-      image.thumb = image.thumb.replace("/w_640/", "/w_640,h_300,c_fit/");
+      image.thumb = image.thumb.replace("/w_640/", "/w_1280,h_600,c_fit/");
       return image;
     });
 
