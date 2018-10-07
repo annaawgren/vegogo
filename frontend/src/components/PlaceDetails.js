@@ -67,7 +67,7 @@ class PlaceDetails extends Component {
             className="PlaceItem-infoToggler-button PlaceItem-map-viewBtn"
           >
             <ToggleIcon opened={isMapOpened} />
-            View on map
+            Map
           </button>
         </p>
       );
@@ -111,7 +111,7 @@ class PlaceDetails extends Component {
                 opened={isOpeningHoursOpened}
                 loading={isLoadingOpeningHours}
               />
-              Show opening hours
+              Opening hours
             </button>
           </p>
 
@@ -140,7 +140,7 @@ class PlaceDetails extends Component {
                 opened={isContactDetailsOpened}
                 loading={isLoadingContactDetails}
               />
-              Show homepage & phone number
+              Homepage & phone
             </button>
           </p>
 
