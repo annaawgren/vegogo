@@ -152,8 +152,9 @@
 }
 
 .PlacesListing-placeItem-mapImage {
-  margin-top: 1em;
+  margin: 0;
   max-width: 100%;
+  display: block;
 }
 
 .PlaceItem-featuresWrap {
@@ -197,7 +198,6 @@
 }
 
 .PlaceItem-teaser:hover {
-  // background-color: #fab;
   transition: text-decoration-color 0.15s ease-in-out;
   text-decoration-color: #666;
 }
@@ -232,24 +232,35 @@
   }
 }
 
-.PlaceViewOnMap,
-.PlaceOpeningHours {
+.Place-infoToggler {
   font-family: $custom-font-semibold;
   margin: 20px 0 0 0;
 }
 
 .PlaceViewOnMap + .PlaceOpeningHours {
-  margin-top: 0;
+  // margin-top: 0;
 }
 
-.PlaceItem-openingHours-viewBtn,
-.PlaceItem-map-viewBtn {
+.PlaceItem-infoToggler {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.PlaceItem-infoToggler-button {
   appearance: none;
   line-height: 1;
   border: 0px dotted #fab;
   cursor: pointer;
   padding: 0.5rem;
   background-color: transparent;
+}
+
+.PlaceItem-infoToggler-toggledContent {
+  margin-bottom: 1rem;
+}
+
+.PlaceItem-staticMap {
+  margin: 0;
 }
 
 .PlaceItem-openingHours {

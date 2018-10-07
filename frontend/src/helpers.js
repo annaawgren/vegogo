@@ -43,20 +43,28 @@ export function getAreaPermalink(area) {
 }
 
 /**
- * Get opening hours for a placeId from Google.
+ * Get opening hours, phone number, and website for a placeId from Google.
  *
  * @return Promise
  */
-export function getPlaceOpeningHours(placeId = "ChIJwXlpyed3X0YRnArSXmAPX-U") {
+export function getPlaceDetailsFromGoogle(
+  placeId = "ChIJwXlpyed3X0YRnArSXmAPX-U"
+) {
   let dummyElm = document.createElement("div");
   var service = new window.google.maps.places.PlacesService(dummyElm);
 
   var request = {
     placeId: placeId,
-    fields: ["opening_hours"]
+    fields: [
+      "opening_hours",
+      "formatted_phone_number",
+      "international_phone_number",
+      "website"
+    ]
   };
 
   return new Promise(resolve => {
+    // https://developers.google.com/maps/documentation/javascript/places
     service.getDetails(request, res => {
       resolve(res);
     });

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ToggleIcon from "./ToggleIcon";
-import { cleanupHomepage } from "../helpers.js";
+// import { cleanupHomepage } from "../helpers.js";
 import { StaticGoogleMap, Marker } from "react-static-google-map";
 import { GOOGLE_MAPS_API_KEY } from "../api-config";
 
@@ -13,9 +13,11 @@ import { GOOGLE_MAPS_API_KEY } from "../api-config";
 class PlaceDetails extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       isMapOpened: false
     };
+
     this.handleShowMapClick = this.handleShowMapClick.bind(this);
   }
 
@@ -28,34 +30,21 @@ class PlaceDetails extends Component {
   render() {
     let {
       location,
-      phone,
-      homepage,
+      phoneNumber,
+      website,
+      websitePresentation,
       name,
       openingHours,
       handleOpeningHoursClick,
-      isLoadingOpeningHours
+      handleContactDetailsClick,
+      isLoadingOpeningHours,
+      isLoadingContactDetails,
+      isOpeningHoursOpened,
+      isContactDetailsOpened
     } = this.props;
-    let homepageOut = null;
-    let locationAndMap = null;
-    let { homepagePresentation, homepageWithProtocol } = cleanupHomepage(
-      homepage
-    );
-    let { isMapOpened } = this.state;
 
-    // Homepage.
-    if (homepagePresentation && homepageWithProtocol) {
-      homepageOut = (
-        <p className="PlaceItem-meta-item">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={homepageWithProtocol}
-          >
-            {homepagePresentation}
-          </a>
-        </p>
-      );
-    }
+    let locationAndMap = null;
+    let { isMapOpened } = this.state;
 
     // Location / Street address.
     if (location && location.geo) {
@@ -72,10 +61,10 @@ class PlaceDetails extends Component {
       );
 
       let mapButton = (
-        <p className="PlaceViewOnMap">
+        <p className="PlaceItem-infoToggler PlaceViewOnMap">
           <button
             onClick={this.handleShowMapClick}
-            className="PlaceItem-map-viewBtn"
+            className="PlaceItem-infoToggler-button PlaceItem-map-viewBtn"
           >
             <ToggleIcon opened={isMapOpened} />
             View on map
@@ -87,66 +76,98 @@ class PlaceDetails extends Component {
       let map = (
         <React.Fragment>
           {isMapOpened && (
-            <p className="PlaceItem-staticMap">
-              <a href={googleLink} target="_blank" rel="noopener noreferrer">
-                <StaticGoogleMap
-                  size="300x200"
-                  zoom="15"
-                  scale="2"
-                  apiKey={GOOGLE_MAPS_API_KEY}
-                  className="PlaceItem-meta-item PlacesListing-placeItem-mapImage"
-                >
-                  <Marker
-                    location={{ lat: location.geo[1], lng: location.geo[0] }}
-                    color="green"
-                    label="V"
-                    iconURL="https://beta.vegogo.se/favicon-32x32.png"
-                  />
-                </StaticGoogleMap>
-              </a>
-            </p>
+            <div className="PlaceItem-infoToggler-toggledContent">
+              <p className="PlaceItem-staticMap">
+                <a href={googleLink} target="_blank" rel="noopener noreferrer">
+                  <StaticGoogleMap
+                    size="300x200"
+                    zoom="15"
+                    scale="2"
+                    apiKey={GOOGLE_MAPS_API_KEY}
+                    className="PlaceItem-meta-item PlacesListing-placeItem-mapImage"
+                  >
+                    <Marker
+                      location={{ lat: location.geo[1], lng: location.geo[0] }}
+                      color="green"
+                      label="V"
+                      iconURL="https://beta.vegogo.se/favicon-32x32.png"
+                    />
+                  </StaticGoogleMap>
+                </a>
+              </p>
+            </div>
           )}
         </React.Fragment>
       );
 
       let openingHoursOutput = (
         <React.Fragment>
-          <p className="PlaceOpeningHours">
+          <p className="PlaceItem-infoToggler PlaceOpeningHours">
             <button
               onClick={handleOpeningHoursClick}
-              className="PlaceItem-openingHours-viewBtn"
+              className="PlaceItem-infoToggler-button PlaceItem-openingHours-viewBtn"
             >
               <ToggleIcon
-                opened={openingHours.length}
+                opened={isOpeningHoursOpened}
                 loading={isLoadingOpeningHours}
               />
               Show opening hours
             </button>
           </p>
 
-          {openingHours.length > 0 && (
-            <ul className="PlaceItem-openingHours">
-              {openingHours.map((dayHours, index) => (
-                <li className="PlaceItem-openingHours-dayHours" key={index}>
-                  {dayHours}
-                </li>
-              ))}
-            </ul>
+          {isOpeningHoursOpened && (
+            <div className="PlaceItem-infoToggler-toggledContent">
+              <ul className="PlaceItem-openingHours">
+                {openingHours.map((dayHours, index) => (
+                  <li className="PlaceItem-openingHours-dayHours" key={index}>
+                    {dayHours}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </React.Fragment>
       );
 
-      let phoneOutput = phone && (
-        <p className="PlaceItem-meta-item">
-          <a href={`tel:${phone}`}>{phone}</a>
-        </p>
+      let toggleHomepageAndPhone = (
+        <React.Fragment>
+          <p className="PlaceItem-infoToggler PlaceToggleContactOptions">
+            <button
+              onClick={handleContactDetailsClick}
+              className="PlaceItem-infoToggler-button PlaceItem-map-viewBtn"
+            >
+              <ToggleIcon
+                opened={isContactDetailsOpened}
+                loading={isLoadingContactDetails}
+              />
+              Show homepage & phone number
+            </button>
+          </p>
+
+          {isContactDetailsOpened && (
+            <>
+              <div className="PlaceItem-infoToggler-toggledContent">
+                <p className="PlaceItem-meta-item">
+                  <a target="_blank" rel="noopener noreferrer" href={website}>
+                    {websitePresentation}
+                  </a>
+                </p>
+
+                <p className="PlaceItem-meta-item">
+                  <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+                </p>
+              </div>
+            </>
+          )}
+        </React.Fragment>
       );
 
       locationAndMap = (
         <div className="PlaceItem-meta">
           {street}
-          {homepageOut}
-          {phoneOutput}
+          {toggleHomepageAndPhone}
+          {/* {homepageOut}
+          {phoneOutput} */}
           {mapButton}
           {map}
           {openingHoursOutput}

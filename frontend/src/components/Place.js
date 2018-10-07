@@ -10,8 +10,9 @@ import "./PlacesListing.scss";
 import PlaceImagesNew from "./PlaceImagesNew";
 import PlaceTypes from "./PlaceTypes";
 import PlaceDetails from "./PlaceDetails";
-import { getPlaceOpeningHours } from "../helpers.js";
+import { getPlaceDetailsFromGoogle } from "../helpers.js";
 import Loading from "./Loading";
+import { cleanupHomepage } from "../helpers.js";
 
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
@@ -26,27 +27,75 @@ class Place extends Component {
       detailsOpen: false,
       isLoading: false,
       isLoadingOpeningHours: false,
-      openingHours: []
+      isLoadingContactDetails: false,
+      isContactDetailsOpened: false,
+      isOpeningHoursOpened: false,
+      openingHours: [],
+      phoneNumber: undefined,
+      website: undefined,
+      websitePresentation: undefined
     };
 
     this.handleMoreClick = this.handleMoreClick.bind(this);
     this.handleOpeningHoursClick = this.handleOpeningHoursClick.bind(this);
+    this.handleContactDetailsClick = this.handleContactDetailsClick.bind(this);
   }
 
+  // Toogle opening hours.
   handleOpeningHoursClick(e) {
-    if (this.state.openingHours.length > 0) {
-      this.setState({
-        openingHours: []
-      });
-    } else {
-      this.setState({ isLoadingOpeningHours: true });
-      getPlaceOpeningHours().then(res => {
-        this.setState({
-          openingHours: res.opening_hours.weekday_text,
-          isLoadingOpeningHours: false
-        });
-      });
+    // Hide and bail if already open.
+    if (this.state.isOpeningHoursOpened) {
+      this.setState({ isOpeningHoursOpened: false });
+      return;
     }
+
+    this.setState({ isLoadingOpeningHours: true });
+
+    this.loadDetails().then(() => {
+      this.setState({
+        isLoadingOpeningHours: false,
+        isOpeningHoursOpened: true
+      });
+    });
+  }
+
+  // Toggle contact details, i.e. homepage and phone number
+  handleContactDetailsClick(e) {
+    // Hide and bail if already open.
+    if (this.state.isContactDetailsOpened) {
+      this.setState({ isContactDetailsOpened: false });
+      return;
+    }
+
+    this.setState({ isLoadingContactDetails: true });
+
+    this.loadDetails().then(() => {
+      this.setState({
+        isLoadingContactDetails: false,
+        isContactDetailsOpened: true
+      });
+    });
+  }
+
+  loadDetails() {
+    return new Promise((resolve, reject) => {
+      let { googlePlaceId: placeId } = this.state.place;
+
+      getPlaceDetailsFromGoogle(placeId)
+        .then(res => {
+          let { homepagePresentation } = cleanupHomepage(res.website);
+          this.setState({
+            openingHours: res.opening_hours.weekday_text, // array with strings with opening hours per day
+            phoneNumber: res.international_phone_number, // "+46 8 420 565 44"
+            website: res.website, // "https://www.mahalosthlm.se/"
+            websitePresentation: homepagePresentation // "https://www.mahalosthlm.se/"
+          });
+          resolve();
+        })
+        .catch(() => {
+          reject();
+        });
+    });
   }
 
   handleMoreClick(e) {
@@ -138,7 +187,16 @@ class Place extends Component {
       foodTypes = []
     } = this.state.place;
 
-    let { openingHours, isLoadingOpeningHours } = this.state;
+    let {
+      openingHours,
+      phoneNumber,
+      website,
+      isLoadingOpeningHours,
+      isLoadingContactDetails,
+      isContactDetailsOpened,
+      isOpeningHoursOpened,
+      websitePresentation
+    } = this.state;
 
     let { isSingleView } = this.props;
 
@@ -228,9 +286,16 @@ class Place extends Component {
                   name,
                   homepage,
                   openingHours,
-                  isLoadingOpeningHours
+                  phoneNumber,
+                  website,
+                  websitePresentation,
+                  isLoadingOpeningHours,
+                  isLoadingContactDetails,
+                  isContactDetailsOpened,
+                  isOpeningHoursOpened
                 }}
                 handleOpeningHoursClick={this.handleOpeningHoursClick}
+                handleContactDetailsClick={this.handleContactDetailsClick}
               />
             </div>
           )}
