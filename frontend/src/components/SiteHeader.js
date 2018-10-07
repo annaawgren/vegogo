@@ -30,6 +30,41 @@ let Navigation = function(props) {
             Near me
           </NavLink>
         </li>
+        <li>
+          <NavLink onClick={props.handleNavClose} to="/stockholm">
+            Stockholm
+          </NavLink>
+          <ul className="SiteNav-navItems-subPlaces">
+            <li>
+              <NavLink onClick={props.handleNavClose} to="/stockholm/city">
+                City
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                onClick={props.handleNavClose}
+                to="/stockholm/kungsholmen"
+              >
+                Kungsholmen
+              </NavLink>
+            </li>
+            <li>
+              <NavLink onClick={props.handleNavClose} to="/stockholm/sodermalm">
+                Södermalm
+              </NavLink>
+            </li>
+            <li>
+              <NavLink onClick={props.handleNavClose} to="/stockholm/vasastan">
+                Vasastan
+              </NavLink>
+            </li>
+            <li>
+              <NavLink onClick={props.handleNavClose} to="/stockholm/ostermalm">
+                Östermalm
+              </NavLink>
+            </li>
+          </ul>
+        </li>
       </ul>
 
       <ul className="SiteNav-navItems SiteNav-navItems--site">

@@ -79,7 +79,7 @@
   width: 90%;
   background: $vegogo-color-green;
   z-index: 10;
-  opacity: 0.9;
+  opacity: 0.95;
   text-align: right;
   padding-top: 50px;
   padding-bottom: 30px;
@@ -94,12 +94,12 @@
   padding: 0;
 
   &.SiteNav-navItems--places li {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    // margin-top: 50px;
+    // margin-bottom: 50px;
   }
 
   &.SiteNav-navItems--site {
-    margin-top: 100px;
+    margin-top: 80px;
   }
 
   & li {
@@ -114,5 +114,15 @@
 
   & .active {
     color: #666;
+  }
+
+  &-subPlaces {
+    list-style: none;
+    font-size: 22px;
+
+    & li {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
   }
 }
