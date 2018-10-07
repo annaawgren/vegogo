@@ -93,7 +93,7 @@ class PlaceImages extends React.Component {
     let { images, image } = this.props;
     let { imageNewHeight } = this.state;
 
-    if (!images || !image) {
+    if (!images && !image) {
       return null;
     }
 
