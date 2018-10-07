@@ -168,9 +168,9 @@ class PlaceDetails extends Component {
           {toggleHomepageAndPhone}
           {/* {homepageOut}
           {phoneOutput} */}
+          {openingHoursOutput}
           {mapButton}
           {map}
-          {openingHoursOutput}
         </div>
       );
     }
