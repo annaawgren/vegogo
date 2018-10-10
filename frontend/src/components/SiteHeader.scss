@@ -73,10 +73,13 @@
 }
 
 .SiteNav {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
+  bottom: 0;
   width: 90%;
+  overflow: hidden;
+  overflow-y: scroll;
   background: $vegogo-color-green;
   z-index: 10;
   opacity: 0.95;
@@ -110,6 +113,8 @@
   & a {
     text-decoration: underline;
     text-underline-position: under;
+    display: inline-block;
+    width: 100%;
   }
 
   & .active {
@@ -119,10 +124,18 @@
   &-subPlaces {
     list-style: none;
     font-size: 22px;
+    display: inline-block;
+    max-width: 400px;
+    margin-top: 15px;
 
     & li {
-      margin-top: 15px;
-      margin-bottom: 15px;
+      display: inline-block;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    & a {
+      padding: 0.25rem 0.75rem;
     }
   }
 }
