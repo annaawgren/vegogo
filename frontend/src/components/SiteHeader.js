@@ -116,31 +116,28 @@ class SiteHeader extends Component {
 
   render() {
     return (
-      <header className="SiteHeader">
-        <h1 className="SiteHeader-title">
-          <Link to="/" className="SiteHeader-titleLink">
-            <img src={logoImg} alt="Vegogo" className="SiteHeader-logo" />
-          </Link>
-        </h1>
+      <React.Fragment>
+        <header className="SiteHeader">
+          <h1 className="SiteHeader-title">
+            <Link to="/" className="SiteHeader-titleLink">
+              <img src={logoImg} alt="Vegogo" className="SiteHeader-logo" />
+            </Link>
+          </h1>
 
-        {/* <p className="SiteHeader-tagline">The new guide* to vegan eating *curated for you with &lt;3</p> */}
+          {/* <p className="SiteHeader-tagline">The new guide* to vegan eating *curated for you with &lt;3</p> */}
 
-        <button
-          onClick={this.handleNavToggleClick}
-          className="SiteHeader-navToggler"
-        >
-          {!this.state.navOpen &&
-            // <img
-            //   className="SiteHeader-navToggler-img SiteHeader-navToggler-img--closed"
-            //   src={blockcheesenavImg}
-            //   alt="☰"
-            // />
-            "Menu"}
-        </button>
+          <button
+            onClick={this.handleNavToggleClick}
+            className="SiteHeader-navToggler"
+          >
+            {!this.state.navOpen && "Menu"}
+          </button>
+        </header>
+
         {this.state.navOpen && (
           <Navigation handleNavClose={this.handleNavToggleClick} />
         )}
-      </header>
+      </React.Fragment>
     );
   }
 }
