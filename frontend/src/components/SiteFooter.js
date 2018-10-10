@@ -35,7 +35,7 @@ class SiteFooter extends Component {
         <p>
           Want to collaborate and become a vegogo partner?
           <br />
-          <Link to="">We would love to hear from you!</Link>
+          <Link to="/page/partner">We would love to hear from you!</Link>
         </p>
 
         <p>
