@@ -14,7 +14,7 @@ let stockholmSubAreas = [
   },
 
   {
-    name: "Gamla Stan (Old Town)",
+    name: "Old Town",
     to: "/stockholm/gamla-stan"
   },
 
@@ -67,49 +67,13 @@ let Navigation = function(props) {
           <ul className="SiteNav-navItems-subPlaces">
             {stockholmSubAreas.map(subArea => {
               return (
-                <li>
+                <li key={subArea.to}>
                   <NavLink onClick={props.handleNavClose} to={subArea.to}>
                     {subArea.name}
                   </NavLink>
                 </li>
               );
             })}
-            <li>
-              <NavLink onClick={props.handleNavClose} to="/stockholm/city">
-                City
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                onClick={props.handleNavClose}
-                to="/stockholm/kungsholmen"
-              >
-                Kungsholmen
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                onClick={props.handleNavClose}
-                to="/stockholm/gamla-stan"
-              >
-                Gamla Stan
-              </NavLink>
-            </li>
-            <li>
-              <NavLink onClick={props.handleNavClose} to="/stockholm/sodermalm">
-                Södermalm
-              </NavLink>
-            </li>
-            <li>
-              <NavLink onClick={props.handleNavClose} to="/stockholm/vasastan">
-                Vasastan
-              </NavLink>
-            </li>
-            <li>
-              <NavLink onClick={props.handleNavClose} to="/stockholm/ostermalm">
-                Östermalm
-              </NavLink>
-            </li>
           </ul>
         </li>
       </ul>
