@@ -31,6 +31,7 @@ class Place extends Component {
       isContactDetailsOpened: false,
       isOpeningHoursOpened: false,
       openingHours: [],
+      openNow: undefined,
       phoneNumber: undefined,
       website: undefined,
       websitePresentation: undefined
@@ -77,6 +78,9 @@ class Place extends Component {
     });
   }
 
+  /**
+   * Load details from Google, like opening hours.
+   */
   loadDetails() {
     return new Promise((resolve, reject) => {
       let { googlePlaceId: placeId } = this.state.place;
@@ -85,6 +89,7 @@ class Place extends Component {
         .then(res => {
           let { homepagePresentation } = cleanupHomepage(res.website);
           this.setState({
+            openNow: res.opening_hours.open_now, // bool
             openingHours: res.opening_hours.weekday_text, // array with strings with opening hours per day
             phoneNumber: res.international_phone_number, // "+46 8 420 565 44"
             website: res.website, // "https://www.mahalosthlm.se/"
@@ -189,6 +194,7 @@ class Place extends Component {
 
     let {
       openingHours,
+      openNow,
       phoneNumber,
       website,
       isLoadingOpeningHours,
@@ -286,6 +292,7 @@ class Place extends Component {
                   name,
                   homepage,
                   openingHours,
+                  openNow,
                   phoneNumber,
                   website,
                   websitePresentation,

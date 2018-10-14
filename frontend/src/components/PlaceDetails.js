@@ -35,6 +35,7 @@ class PlaceDetails extends Component {
       websitePresentation,
       name,
       openingHours,
+      openNow,
       handleOpeningHoursClick,
       handleContactDetailsClick,
       isLoadingOpeningHours,
@@ -100,6 +101,12 @@ class PlaceDetails extends Component {
         </React.Fragment>
       );
 
+      let openStatus = openNow ? (
+        <p>Opened now!</p>
+      ) : (
+        <p>Closed – not opened now.</p>
+      );
+
       let openingHoursOutput = (
         <React.Fragment>
           <p className="PlaceItem-infoToggler PlaceOpeningHours">
@@ -117,6 +124,7 @@ class PlaceDetails extends Component {
 
           {isOpeningHoursOpened && (
             <div className="PlaceItem-infoToggler-toggledContent">
+              {openStatus}
               <ul className="PlaceItem-openingHours">
                 {openingHours.map((dayHours, index) => (
                   <li className="PlaceItem-openingHours-dayHours" key={index}>
