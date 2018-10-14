@@ -50,11 +50,12 @@ class PlaceImages extends React.Component {
     const clientHeight = window.innerHeight;
 
     // New image width = on smaller screen make it almost full width,
-    // but on larger don't let it grow to big, like half of the screen height
+    // but keep a bit space so we will see a bit of the next image.
+    // On larger screens don't let it grow to big, like half of the screen height.
     let newImageWidth = clientWidth - 80;
 
-    if (newImageWidth > clientHeight / 1.75) {
-      newImageWidth = clientHeight / 1.75;
+    if (newImageWidth > clientHeight / 2.75) {
+      newImageWidth = clientHeight / 2.75;
     }
 
     const imageNewWidth = newImageWidth;
