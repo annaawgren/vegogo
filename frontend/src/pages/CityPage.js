@@ -15,13 +15,7 @@ class CityPage extends Component {
     city: "stockholm"
     cityArea1: "sodermalm"
     cityArea2: "sofo"
-     */
-    console.log("citypage props", props);
-    // console.log('city params', props.city.match.params);
-    const { params } = props.match;
-
-    this.slug = params.cityArea2 || params.cityArea1 || params.city;
-
+    */
     this.state = {
       places: []
     };
@@ -31,11 +25,25 @@ class CityPage extends Component {
     this.getPlaces();
   }
 
+  componentDidUpdate(prevProps) {
+    const { params } = this.props.match;
+    const newSlug = params.cityArea2 || params.cityArea1 || params.city;
+
+    const { params: prevParams } = prevProps.match;
+    const prevSlug =
+      prevParams.cityArea2 || prevParams.cityArea1 || prevParams.city;
+
+    if (newSlug !== prevSlug) {
+      this.getPlaces();
+    }
+  }
+
   /**
-   * Get places for this city/area
+   * Get places for this city/area.
    */
   getPlaces() {
-    const slug = this.slug;
+    const { params } = this.props.match;
+    const slug = params.cityArea2 || params.cityArea1 || params.city;
 
     if (!slug) {
       return;
@@ -52,7 +60,6 @@ class CityPage extends Component {
   }
 
   render() {
-    console.log("CityPage render");
     window.scrollTo(0, 0);
     const { places } = this.state;
 
