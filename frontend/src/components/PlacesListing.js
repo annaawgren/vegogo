@@ -4,7 +4,7 @@ import Place from "./Place";
 import "./PlacesListing.scss";
 
 /**
- * Renders places with passed slug
+ * Renders places with passed places.
  */
 class PlacesListing extends Component {
   render() {
