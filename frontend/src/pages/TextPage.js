@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PageContainer from "../pages/PageContainer";
 import { Helmet } from "react-helmet";
-import "./TextPage.css";
+import "./TextPage.scss";
 import texts from "./texts.js";
 
 class TextPage extends Component {
