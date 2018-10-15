@@ -51,12 +51,12 @@ let Navigation = function(props) {
 
       <ul className="SiteNav-navItems SiteNav-navItems--places">
         <li>
-          <NavLink onClick={props.handleNavClose} to="/stockholm">
+          <NavLink onClick={props.handleNavClose} to="/">
             A to Ö
           </NavLink>
         </li>
         <li>
-          <NavLink onClick={props.handleNavClose} to="/near">
+          <NavLink onClick={props.handleNavClose} to="/nearby">
             Near me
           </NavLink>
         </li>

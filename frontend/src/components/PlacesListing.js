@@ -47,12 +47,12 @@ class PlacesListing extends Component {
       <div className="PlacesListing-NavBar">
         <ul className="PlacesListing-NavBar-items">
           <li className="PlacesListing-NavBar-item">
-            <Link className="PlacesListing-NavBar-itemLink" to="">
+            <Link className="PlacesListing-NavBar-itemLink" to="/">
               A to Ö
             </Link>
           </li>
           <li className="PlacesListing-NavBar-item">
-            <Link className="PlacesListing-NavBar-itemLink" to="">
+            <Link className="PlacesListing-NavBar-itemLink" to="/nearby">
               Near me
             </Link>
           </li>

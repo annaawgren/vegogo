@@ -8,6 +8,7 @@ import NotFoundPage from "./pages/NotFound";
 import PlacePage from "./pages/PlacePage";
 import TextPage from "./pages/TextPage";
 import CityPage from "./pages/CityPage";
+import NearbyPage from "./pages/NearbyPage";
 import ReactGA from "react-ga";
 
 class App extends Component {
@@ -91,6 +92,12 @@ class App extends Component {
             />
 
             <Route path="/components" render={props => <ExampleComponents />} />
+
+            <Route
+              exact
+              path="/nearby/"
+              render={props => <NearbyPage {...props} />}
+            />
 
             <Route
               exact
