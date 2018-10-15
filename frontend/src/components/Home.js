@@ -7,12 +7,40 @@ import PlacesListing from "../components/PlacesListing";
 import "./Home.css";
 import introTextImage from "../images/vegogo-the-new-guide-to-vegan-eating.svg";
 import ImageWithRatio from "../components/ImageWithRatio";
+import { API_URL } from "../api-config";
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: false,
+      places: []
+    };
+  }
+
+  componentDidMount() {
+    this.getPlaces();
+  }
+
+  getPlaces() {
+    let placesApiUrl = `${API_URL}/place/list`;
+
+    this.setState({ isLoadig: true });
+
+    fetch(placesApiUrl)
+      .then(data => {
+        return data.json();
+      })
+      .then(data => {
+        this.setState({ places: data.places, isLoading: false });
+      });
+  }
+
   render() {
     window.scrollTo(0, 0);
 
-    let { places } = this.props;
+    let { isLoading, places } = this.state;
 
     return (
       <PageContainer>
@@ -34,7 +62,7 @@ class Home extends Component {
 
         <AreaIntro slug="stockholm" />
 
-        <PlacesListing places={places} />
+        <PlacesListing places={places} isLoading={isLoading} />
       </PageContainer>
     );
   }

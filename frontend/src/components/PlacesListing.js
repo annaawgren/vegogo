@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Place from "./Place";
+import Loading from "./Loading";
 import "./PlacesListing.scss";
 
 /**
@@ -8,7 +9,7 @@ import "./PlacesListing.scss";
  */
 class PlacesListing extends Component {
   render() {
-    let { headline, teaser, places } = this.props;
+    let { headline, teaser, places, isLoading } = this.props;
     let placesItems;
 
     if (places) {
@@ -64,6 +65,7 @@ class PlacesListing extends Component {
         {headline && <h2>{headline}</h2>}
         {teaser && <div>{teaser}</div>}
         {navbar}
+        {isLoading && <Loading />}
         {placesItems}
       </div>
     );

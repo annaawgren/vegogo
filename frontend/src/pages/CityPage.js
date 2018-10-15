@@ -17,51 +17,56 @@ class CityPage extends Component {
     cityArea2: "sofo"
     */
     this.state = {
+      isLoading: false,
       places: []
     };
   }
 
   componentDidMount() {
-    this.getPlaces();
+    const slug = this.getSlugFromParams(this.props.match.params);
+    this.getPlaces(slug);
+  }
+
+  getSlugFromParams(params) {
+    const slug = params.cityArea2 || params.cityArea1 || params.city;
+    return slug;
   }
 
   componentDidUpdate(prevProps) {
-    const { params } = this.props.match;
-    const newSlug = params.cityArea2 || params.cityArea1 || params.city;
-
-    const { params: prevParams } = prevProps.match;
-    const prevSlug =
-      prevParams.cityArea2 || prevParams.cityArea1 || prevParams.city;
+    const newSlug = this.getSlugFromParams(this.props.match.params);
+    const prevSlug = this.getSlugFromParams(prevProps.match.params);
 
     if (newSlug !== prevSlug) {
-      this.getPlaces();
+      this.getPlaces(newSlug);
     }
   }
 
   /**
    * Get places for this city/area.
+   *
+   * @param string Slug of area to get, for example "stockholm", "sodermalm", "sofo".
    */
-  getPlaces() {
-    const { params } = this.props.match;
-    const slug = params.cityArea2 || params.cityArea1 || params.city;
-
-    if (!slug) {
+  getPlaces(citySlug) {
+    if (!citySlug) {
       return;
     }
 
-    let apiUrl = `${API_URL}/place/list/area/${slug}`;
+    this.setState({ isLoading: true });
+
+    let apiUrl = `${API_URL}/place/list/area/${citySlug}`;
+
     fetch(apiUrl)
       .then(data => {
         return data.json();
       })
       .then(data => {
-        this.setState({ places: data.places });
+        this.setState({ places: data.places, isLoading: false });
       });
   }
 
   render() {
     window.scrollTo(0, 0);
-    const { places } = this.state;
+    const { places, isLoading } = this.state;
 
     let { params } = this.props.match;
 
@@ -74,7 +79,7 @@ class CityPage extends Component {
 
         <AreaIntro slug={slug} />
 
-        <PlacesListing places={places} />
+        <PlacesListing places={places} isLoading={isLoading} />
 
         <NewsletterSignup />
 
