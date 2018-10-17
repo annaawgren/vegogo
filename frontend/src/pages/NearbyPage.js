@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import SiteHeader from "../components/SiteHeader";
+import PlacesListing from "../components/PlacesListing";
 import NewsletterSignup from "../components/NewsletterSignup";
 import SiteFooter from "../components/SiteFooter";
 import "./NearbyPage.scss";
+import { API_URL } from "../api-config";
 
 class NearbyPage extends Component {
   constructor(props) {
@@ -13,7 +15,9 @@ class NearbyPage extends Component {
       isLocating: false,
       isLocateError: false,
       isHaveTriedToGetLocation: false,
-      foundLocation: {}
+      foundLocation: {},
+      isLoadingPlaces: false,
+      places: []
     };
 
     this.handleGetLocation = this.handleGetLocation.bind(this);
@@ -62,13 +66,50 @@ class NearbyPage extends Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log("componentDidUpdate()", arguments);
+    console.log("prevState", prevState);
+
+    let prevLat = prevState.foundLocation.lat;
+    let prevLng = prevState.foundLocation.lng;
+
+    let currentLat = this.state.foundLocation.lat;
+    let currentLng = this.state.foundLocation.lng;
+
+    // If updated lat + lng then update places.
+    //console.log('prevLat prevLng currentLat currentLng', prevLat, prevLng, currentLat, currentLng);
+    if (currentLat !== prevLat || currentLng !== prevLng) {
+      console.log("position changed, get places");
+      this.getPlaces();
+    }
+  }
+
+  getPlaces() {
+    // let apuUrl = http://localhost:3131/api/place/list/geo/?lat=59.316ping&lng=18.084
+    this.setState({ isLoadingPlaces: true });
+
+    let { lat, lng } = this.state.foundLocation;
+
+    let apiUrl = `${API_URL}/place/list/geo/?lat=${lat}&lng=${lng}`;
+
+    fetch(apiUrl)
+      .then(data => {
+        return data.json();
+      })
+      .then(data => {
+        this.setState({ places: data.places, isLoadingPlaces: false });
+      });
+  }
+
   render() {
     const {
       isHaveTriedToGetLocation,
       isLocating,
       isLocateError,
       isLocationFound,
-      foundLocation
+      foundLocation,
+      isLoadingPlaces,
+      places
     } = this.state;
 
     return (
@@ -118,6 +159,8 @@ class NearbyPage extends Component {
             </p>
           </div>
         )}
+
+        <PlacesListing places={places} isLoading={isLoadingPlaces} />
 
         <NewsletterSignup />
 
