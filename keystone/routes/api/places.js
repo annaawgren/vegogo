@@ -179,9 +179,9 @@ exports.listGeo = function(req, res) {
 				$geoNear: {
 					near: {
 						type: "Point",
-						coordinates: [lng, lat],
-						spherical: true
+						coordinates: [lng, lat]
 					},
+					spherical: true,
 					includeLocs: "location.geo",
 					maxDistance: 1000,
 					distanceField: "location.distance"
