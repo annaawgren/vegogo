@@ -15,7 +15,19 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      locationIsFound: false,
+      locationIsLocating: false,
+      locationIsLocateError: false,
+      locationIsHaveTriedToGetLocation: false,
+      locationFoundLocation: {}
+    };
+
     this.GATrackingID = "UA-181460-40";
+
+    this.handleGetLocation = this.handleGetLocation.bind(this);
+    this.handleGetLocationSuccess = this.handleGetLocationSuccess.bind(this);
+    this.handleGetLocationError = this.handleGetLocationError.bind(this);
   }
 
   /**
@@ -23,6 +35,48 @@ class App extends Component {
    */
   componentDidMount() {
     this.initGA();
+  }
+
+  handleGetLocation() {
+    console.log("getLocation()");
+
+    this.setState({
+      locationIsFound: false,
+      locationIsLocating: true,
+      locationIsLocateError: false,
+      locationFoundLocation: {},
+      locationIsHaveTriedToGetLocation: true
+    });
+
+    navigator.geolocation.getCurrentPosition(
+      this.handleGetLocationSuccess,
+      this.handleGetLocationError
+    );
+  }
+
+  handleGetLocationSuccess(position) {
+    console.log("handleGetLocationSuccess()", position);
+
+    this.setState({
+      locationFoundLocation: {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        accuracy: position.coords.accuracy
+      },
+      locationIsFound: true,
+      locationIsLocating: false
+    });
+  }
+
+  handleGetLocationError(PositionError) {
+    console.log("handleGetLocationError()", PositionError);
+
+    this.setState({
+      locationFoundLocation: {},
+      locationIsFound: false,
+      locationIsLocating: false,
+      locationIsLocateError: true
+    });
   }
 
   // loadGoogleAPIs() {
@@ -73,6 +127,14 @@ class App extends Component {
   }
 
   render() {
+    let {
+      locationIsFound,
+      locationIsLocating,
+      locationIsLocateError,
+      locationFoundLocation,
+      locationIsHaveTriedToGetLocation
+    } = this.state;
+
     return (
       <BrowserRouter>
         <div className="App">
@@ -96,7 +158,21 @@ class App extends Component {
             <Route
               exact
               path="/nearby/"
-              render={props => <NearbyPage {...props} />}
+              render={props => (
+                <NearbyPage
+                  {...props}
+                  locationIsFound={locationIsFound}
+                  locationIsLocating={locationIsLocating}
+                  locationIsLocateError={locationIsLocateError}
+                  locationFoundLocation={locationFoundLocation}
+                  locationIsHaveTriedToGetLocation={
+                    locationIsHaveTriedToGetLocation
+                  }
+                  handleGetLocation={this.handleGetLocation}
+                  handleGetLocationSuccess={this.handleGetLocationSuccess}
+                  handleGetLocationError={this.handleGetLocationError}
+                />
+              )}
             />
 
             <Route
