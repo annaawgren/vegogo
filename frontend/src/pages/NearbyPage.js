@@ -32,7 +32,8 @@ class NearbyPage extends Component {
       isLocationFound: false,
       isLocating: true,
       isLocateError: false,
-      foundLocation: {}
+      foundLocation: {},
+      isHaveTriedToGetLocation: true
     });
 
     navigator.geolocation.getCurrentPosition(
@@ -118,47 +119,47 @@ class NearbyPage extends Component {
 
         {/* <PlacesListing places={places} isLoading={isLoading} /> */}
 
-        {isHaveTriedToGetLocation || (
-          <div className="NearbyPage-text">
-            <p>
-              We can show places near your current location. Your webbrowser
-              will ask for permission to do this when you click the button
-              below.
-            </p>
-            <p>
-              <button onClick={this.handleGetLocation}>
-                Show places near my location
-              </button>
-            </p>
-          </div>
-        )}
+        <div className="NearbyPage">
+          <h1>Great vegan places near you</h1>
 
-        {isLocating && (
-          <div className="NearbyPage-text">
-            <p>Hold on! We're trying to get your location...</p>
-          </div>
-        )}
+          {isHaveTriedToGetLocation || (
+            <div className="NearbyPage-text">
+              <p>
+                Allow us to use your current position and we will show you the
+                best vegan places to eat nearby!
+              </p>
+              <p>
+                <button onClick={this.handleGetLocation}>
+                  Show great vegan places nearby
+                </button>
+              </p>
+            </div>
+          )}
 
-        {isLocateError && (
-          <div className="NearbyPage-text">
-            <p>Dang! We could not locate you.</p>
-          </div>
-        )}
+          {isLocating && (
+            <div className="NearbyPage-text">
+              <p>Hold on! We're trying to get your location...</p>
+            </div>
+          )}
 
-        {isLocationFound && (
-          <div className="NearbyPage-text">
-            <p>
-              Wohoo! We got your location. Here are som great places near you:
-            </p>
-            <p>
-              lat: {foundLocation.lat}
-              <br />
-              lng: {foundLocation.lng}
-              <br />
-              accuracy: {foundLocation.accuracy}
-            </p>
-          </div>
-        )}
+          {isLocateError && (
+            <div className="NearbyPage-text">
+              <p>Dang! We could not locate you.</p>
+            </div>
+          )}
+
+          {isLocationFound && (
+            <div className="NearbyPage-text">
+              <p>
+                Nice! We got your location.{" "}
+                <button onClick={this.handleGetLocation}>
+                  Update location
+                </button>
+              </p>
+              <p>Here are som great vegan places near you.</p>
+            </div>
+          )}
+        </div>
 
         <PlacesListing places={places} isLoading={isLoadingPlaces} />
 
