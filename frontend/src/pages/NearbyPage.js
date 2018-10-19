@@ -6,6 +6,7 @@ import SiteFooter from "../components/SiteFooter";
 import VegogoButton from "../components/VegogoButton";
 import "./NearbyPage.scss";
 import { API_URL } from "../api-config";
+import locationImg from "../images/baseline-my_location-24px.svg";
 
 class NearbyPage extends Component {
   constructor(props) {
@@ -87,7 +88,10 @@ class NearbyPage extends Component {
                 best vegan places to eat nearby!
               </p>
               <p>
-                <VegogoButton onClick={this.handleGetLocation}>
+                <VegogoButton
+                  onClick={this.handleGetLocation}
+                  icon={locationImg}
+                >
                   Show great vegan places nearby
                 </VegogoButton>
               </p>

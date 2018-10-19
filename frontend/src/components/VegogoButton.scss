@@ -8,8 +8,20 @@
   line-height: 1;
   margin: 1rem auto 0 auto;
   display: block;
+  position: relative;
 }
 
 .VegogoButton:hover {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.VegogoButton--withIcon {
+  padding-left: calc(2rem + 30px);
+}
+
+.VegogoButton-icon {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translateY(-50%);
 }
