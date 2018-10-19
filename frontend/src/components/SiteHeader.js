@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logoImg from "../images/vegogo-logo.svg";
 import "./SiteHeader.scss";
 import Navigation from "./Navigation";
+import locationImg from "../images/baseline-my_location-24px.svg";
 
 class SiteHeader extends Component {
   constructor(props) {
@@ -31,12 +32,18 @@ class SiteHeader extends Component {
 
           {/* <p className="SiteHeader-tagline">The new guide* to vegan eating *curated for you with &lt;3</p> */}
 
-          <button
-            onClick={this.handleNavToggleClick}
-            className="SiteHeader-navToggler"
-          >
-            {!this.state.navOpen && "Menu"}
-          </button>
+          <div>
+            <button className="SiteHeader-nearMeButton">
+              <img src={locationImg} alt="Location icon" />
+            </button>
+
+            <button
+              onClick={this.handleNavToggleClick}
+              className="SiteHeader-navToggler"
+            >
+              {!this.state.navOpen && "Menu"}
+            </button>
+          </div>
         </header>
 
         {this.state.navOpen && (

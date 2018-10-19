@@ -34,6 +34,18 @@
   display: none;
 }
 
+.SiteHeader-nearMeButton {
+  -webkit-appearance: none;
+  line-height: 1;
+  padding: 0;
+  margin: 0 8px 0 0;
+  background: transparent;
+  border: 0;
+  position: relative;
+  top: 8px;
+  margin-right: 16px;
+}
+
 .SiteHeader-navToggler {
   // position: absolute;
   z-index: 10;
