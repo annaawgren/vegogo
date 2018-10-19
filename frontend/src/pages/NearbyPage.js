@@ -18,6 +18,13 @@ class NearbyPage extends Component {
     this.handleGetLocation = props.handleGetLocation;
   }
 
+  componentDidMount() {
+    const { locationIsFound } = this.props;
+    if (locationIsFound) {
+      this.getPlaces();
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     console.log("componentDidUpdate()", arguments);
     console.log("prevState", prevState);
