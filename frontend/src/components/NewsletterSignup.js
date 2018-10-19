@@ -1,5 +1,6 @@
 import React from "react";
 import "./NewsletterSignup.scss";
+import VegogoButton from "../components/VegogoButton";
 
 class NewsletterSignup extends React.Component {
   render() {
@@ -32,14 +33,14 @@ class NewsletterSignup extends React.Component {
                   />
                 </div>
                 <div className="mc-fields-col mc-fields-col--submit">
-                  <button
+                  <VegogoButton
                     type="submit"
                     name="subscribe"
                     id="mc-embedded-subscribe"
                     className="signup-button"
                   >
                     Yes, sign me up!
-                  </button>
+                  </VegogoButton>
                 </div>
               </div>
 

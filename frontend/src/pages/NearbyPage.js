@@ -3,6 +3,7 @@ import SiteHeader from "../components/SiteHeader";
 import PlacesListing from "../components/PlacesListing";
 import NewsletterSignup from "../components/NewsletterSignup";
 import SiteFooter from "../components/SiteFooter";
+import VegogoButton from "../components/VegogoButton";
 import "./NearbyPage.scss";
 import { API_URL } from "../api-config";
 
@@ -86,9 +87,9 @@ class NearbyPage extends Component {
                 best vegan places to eat nearby!
               </p>
               <p>
-                <button onClick={this.handleGetLocation}>
+                <VegogoButton onClick={this.handleGetLocation}>
                   Show great vegan places nearby
-                </button>
+                </VegogoButton>
               </p>
             </div>
           )}
@@ -109,9 +110,9 @@ class NearbyPage extends Component {
             <div className="NearbyPage-text">
               <p>
                 Nice! We got your location.{" "}
-                <button onClick={this.handleGetLocation}>
+                <VegogoButton onClick={this.handleGetLocation}>
                   Update location
-                </button>
+                </VegogoButton>
               </p>
               <p>Here are som great vegan places near you.</p>
             </div>
