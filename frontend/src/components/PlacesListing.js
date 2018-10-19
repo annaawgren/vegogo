@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Place from "./Place";
 import Loading from "./Loading";
 import "./PlacesListing.scss";
@@ -9,7 +9,13 @@ import "./PlacesListing.scss";
  */
 class PlacesListing extends Component {
   render() {
-    let { headline, teaser, places, isLoading } = this.props;
+    let {
+      headline,
+      teaser,
+      places,
+      isLoading,
+      showDivider = true
+    } = this.props;
     let placesItems;
 
     if (places) {
@@ -32,7 +38,7 @@ class PlacesListing extends Component {
 
         return (
           <React.Fragment key={fragmentKey}>
-            {charDivider}
+            {showDivider && charDivider}
             <li key={slug} className="PlacesListing-placeItem">
               <Place {...place} />
             </li>
@@ -43,6 +49,7 @@ class PlacesListing extends Component {
       placesItems = <ul className="PlacesListing-placeItems">{placesItems}</ul>;
     }
 
+    /*
     let navbar = (
       <div className="PlacesListing-NavBar">
         <ul className="PlacesListing-NavBar-items">
@@ -59,6 +66,7 @@ class PlacesListing extends Component {
         </ul>
       </div>
     );
+    */
 
     return (
       <div className="PlacesListing">
