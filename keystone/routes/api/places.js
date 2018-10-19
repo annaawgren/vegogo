@@ -192,6 +192,7 @@ exports.listGeo = function(req, res) {
 			items = items.map(place => makePlaceItemOurFormat(place));
 
 			res.apiResponse({
+				ver: 1,
 				places: items
 			});
 		})
