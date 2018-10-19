@@ -64,7 +64,7 @@ class PlacesListing extends Component {
       <div className="PlacesListing">
         {headline && <h2>{headline}</h2>}
         {teaser && <div>{teaser}</div>}
-        {navbar}
+        {/* {navbar} */}
         {isLoading && <Loading />}
         {placesItems}
       </div>
