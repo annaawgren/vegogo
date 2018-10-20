@@ -5,6 +5,7 @@ import { API_URL } from "../api-config";
 import "./AreaIntro.scss";
 import ImageWithRatio from "../components/ImageWithRatio";
 import Loading from "../components/Loading";
+import { Helmet } from "react-helmet";
 
 let AreaParent = props => {
   const { parentAreas } = props;
@@ -125,12 +126,28 @@ class AreaIntro extends React.Component {
       imageThumb,
       content,
       parentAreas,
+      parentAreasFlat,
       childAreas
     } = this.state.area;
+
     const { children } = this.props;
+
+    let parentAreasTitle = "";
+    parentAreasFlat.forEach(parentArea => {
+      parentAreasTitle += `${parentArea.name}, `;
+    });
+    parentAreasTitle = parentAreasTitle
+      .trim()
+      .replace(/,$/, "", parentAreasTitle);
+
+    let title = `The best vegan restaurants in ${name} (${parentAreasTitle}) - ${tagline}`;
 
     return (
       <div className="AreaIntro">
+        <Helmet>
+          <title>{title}</title>
+        </Helmet>
+
         <div>
           {imageThumb && (
             <div>

@@ -33,9 +33,13 @@ class SiteHeader extends Component {
           {/* <p className="SiteHeader-tagline">The new guide* to vegan eating *curated for you with &lt;3</p> */}
 
           <div>
-            <button className="SiteHeader-nearMeButton">
+            <Link
+              className="SiteHeader-nearMeLink"
+              to="/nearby"
+              title="Show great vegan places near you"
+            >
               <img src={locationImg} alt="Location icon" />
-            </button>
+            </Link>
 
             <button
               onClick={this.handleNavToggleClick}

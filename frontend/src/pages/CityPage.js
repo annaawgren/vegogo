@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 // import Place from "../components/Place";
-import SiteHeader from "../components/SiteHeader";
-import SiteFooter from "../components/SiteFooter";
-import NewsletterSignup from "../components/NewsletterSignup";
 import AreaIntro from "../components/AreaIntro";
 import PlacesListing from "../components/PlacesListing";
 import { API_URL } from "../api-config";
+import PageContainer from "../pages/PageContainer";
 
 class CityPage extends Component {
   constructor(props) {
@@ -74,17 +72,10 @@ class CityPage extends Component {
     let slug = params.cityArea2 || params.cityArea1 || params.city;
 
     return (
-      <div>
-        <SiteHeader />
-
+      <PageContainer>
         <AreaIntro slug={slug} />
-
         <PlacesListing places={places} isLoading={isLoading} />
-
-        <NewsletterSignup />
-
-        <SiteFooter />
-      </div>
+      </PageContainer>
     );
   }
 }

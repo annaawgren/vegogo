@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import SiteHeader from "../components/SiteHeader";
 import PlacesListing from "../components/PlacesListing";
-import NewsletterSignup from "../components/NewsletterSignup";
-import SiteFooter from "../components/SiteFooter";
 import VegogoButton from "../components/VegogoButton";
 import "./NearbyPage.scss";
 import { API_URL } from "../api-config";
 import locationImg from "../images/baseline-my_location-24px.svg";
+import PageContainer from "../pages/PageContainer";
+import { Helmet } from "react-helmet";
 
 class NearbyPage extends Component {
   constructor(props) {
@@ -72,9 +71,13 @@ class NearbyPage extends Component {
 
     const { isLoadingPlaces, places } = this.state;
 
+    window.scrollTo(0, 0);
+
     return (
-      <div>
-        <SiteHeader />
+      <PageContainer>
+        <Helmet>
+          <title>Vegan places near you</title>
+        </Helmet>
 
         {/* <PlacesListing places={places} isLoading={isLoading} /> */}
 
@@ -128,11 +131,7 @@ class NearbyPage extends Component {
           isLoading={isLoadingPlaces}
           showDivider={false}
         />
-
-        <NewsletterSignup />
-
-        <SiteFooter />
-      </div>
+      </PageContainer>
     );
   }
 }
