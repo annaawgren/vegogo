@@ -50,6 +50,10 @@ class NearbyPage extends Component {
 
     let { lat, lng } = this.props.locationFoundLocation;
 
+    if (!lat || !lng) {
+      return false;
+    }
+
     let apiUrl = `${API_URL}/place/list/geo/?lat=${lat}&lng=${lng}`;
 
     fetch(apiUrl)
@@ -110,6 +114,9 @@ class NearbyPage extends Component {
           {locationIsLocateError && (
             <div className="NearbyPage-text">
               <p>Dang! We could not locate you.</p>
+              <VegogoButton onClick={this.handleGetLocation} icon={locationImg}>
+                Try to locate me again
+              </VegogoButton>
             </div>
           )}
 
@@ -117,7 +124,10 @@ class NearbyPage extends Component {
             <div className="NearbyPage-text">
               <p>
                 Nice! We got your location.{" "}
-                <VegogoButton onClick={this.handleGetLocation}>
+                <VegogoButton
+                  onClick={this.handleGetLocation}
+                  icon={locationImg}
+                >
                   Update location
                 </VegogoButton>
               </p>
