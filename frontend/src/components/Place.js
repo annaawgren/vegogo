@@ -192,6 +192,14 @@ class Place extends Component {
       foodTypes = []
     } = this.state.place;
 
+    // Distance is in meters and be like 213.79645204214572
+    // so we round it a bit because it's not a really safe number to use.
+    let { distance: locationDistance } = { ...location };
+    if (locationDistance) {
+      // Round to closest nn meters.
+      locationDistance = Math.round(locationDistance / 50) * 50;
+    }
+
     let {
       openingHours,
       openNow,
@@ -215,9 +223,14 @@ class Place extends Component {
       "PlaceItem--expanded": this.state.detailsOpen
     });
 
+    /**
+     * Tease is the title and some sneak peek of the contents, like food types.
+     */
+
     let tease = (
       <div className="PlaceItem-head">
         <h1 className="PlaceItem-name">{name}</h1>
+        {locationDistance && <p>{locationDistance} meters away</p>}
 
         {!isSingleView && (
           <button href="/" className="PlaceItem-more">
