@@ -102,9 +102,9 @@ class PlaceDetails extends Component {
       );
 
       let openStatus = openNow ? (
-        <p>Opened now!</p>
+        <p>Open now!</p>
       ) : (
-        <p>Closed – not opened now.</p>
+        <p>Closed now – see opening hours below.</p>
       );
 
       let openingHoursOutput = (
