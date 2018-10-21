@@ -6,12 +6,13 @@ const Box = posed.div({
   visible: {
     opacity: 1,
     translateX: "-50%",
-    translateY: "-50%",
-    scale: 1
+    translateY: "-50%"
   },
-  hidden: {
+  isMovingOut: {
     opacity: 0,
-    scale: 1.2
+    // scale: 1,
+    translateX: "20%",
+    translateY: "-40%"
   }
 });
 
@@ -24,11 +25,8 @@ class StackImage extends React.Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
-    this.handlePoseComplete = this.handlePoseComplete.bind(this);
-  }
-
-  handlePoseComplete() {
-    console.log("handlePoseComplete()");
+    //this.handlePoseComplete = this.handlePoseComplete.bind(this);
+    this.handlePoseComplete = this.props.handleMovedOutComplete;
   }
 
   handleClick(e) {
@@ -39,6 +37,7 @@ class StackImage extends React.Component {
 
   render() {
     const { image, imageNewHeight } = this.props;
+    const { isMovingOut } = image;
 
     let imageWrapStyles = {
       ...image.styles
@@ -58,11 +57,11 @@ class StackImage extends React.Component {
     return (
       <Box
         className="ImageStack-image"
-        pose={this.state.isVisible ? "visible" : "hidden"}
+        pose={isMovingOut ? "isMovingOut" : "visible"}
         key={image.public_id}
         style={imageWrapStyles}
         data-landscape={landscape}
-        onClick={this.handleClick}
+        // onClick={this.handleClick}
         onPoseComplete={this.handlePoseComplete}
       >
         <img
@@ -93,9 +92,8 @@ class PlaceImagesStacked extends React.Component {
       isBoxVisible: true
     };
 
-    // this.handleResize = this.handleResize.bind(this);
-    this.handleImageClick = this.handleImageClick.bind(this);
     this.handleImageStackClick = this.handleImageStackClick.bind(this);
+    this.handleMovedOutComplete = this.handleMovedOutComplete.bind(this);
   }
 
   componentDidMount() {
@@ -116,8 +114,28 @@ class PlaceImagesStacked extends React.Component {
   //   });
   // }
 
-  handleImageClick(image, e) {
-    // console.log("handleImageClick");
+  handleMovedOutComplete(image, pose) {
+    // Image is moved out of stack.
+    // Add it to the bottom = set to lowest z index and make visible again.
+    let { galleryImages } = this.state;
+
+    let galleryImagesNew = [...galleryImages];
+    let movedImageIndex = galleryImages.findIndex(
+      img => img.public_id === image.public_id
+    );
+
+    // Find image at bottom = image with lowest zIndex.
+    let bottomImage = galleryImages.reduce(
+      (prev, current) =>
+        prev.styles.zIndex < current.styles.zIndex ? prev : current
+    );
+
+    // Move moved image to bottom of stack and make visible again.
+    galleryImagesNew[movedImageIndex].styles.zIndex =
+      bottomImage.styles.zIndex - 1;
+    galleryImagesNew[movedImageIndex].isMovingOut = false;
+
+    this.setState({ galleryImages: galleryImagesNew });
   }
 
   /**
@@ -127,7 +145,21 @@ class PlaceImagesStacked extends React.Component {
    * and now has the highest.
    */
   handleImageStackClick(e) {
-    console.log("handleImageStackClick", e);
+    // Move out topmost image.
+    let { galleryImages } = this.state;
+
+    // Topmost image = image with highest zIndex.
+    let topmostImage = galleryImages.reduce(
+      (prev, current) =>
+        prev.styles.zIndex > current.styles.zIndex ? prev : current
+    );
+
+    //let topmostImage = galleryImages.filter
+    // console.log('topmostImage', topmostImage);
+    topmostImage.isMovingOut = true;
+    this.setState({
+      galleryImages
+    });
   }
 
   calculateImageHeight() {
@@ -192,8 +224,11 @@ class PlaceImagesStacked extends React.Component {
       var randomRotateDeg = Math.floor(Math.random() * 10) + 1; // this will get a number between 1 and 99;
       randomRotateDeg *= Math.floor(Math.random() * 2) === 1 ? 1 : -1; // this will add minus sign in 50% of cases
 
+      image.isMovingOut = false;
+
       image.styles = {
         zIndex: zIndex--,
+        randomRotateDeg,
         transform: `translateX(-50%) translateY(-50%) scale(1) rotate(${randomRotateDeg}deg)`
       };
 
@@ -229,20 +264,23 @@ class PlaceImagesStacked extends React.Component {
       return {
         width: 450,
         height: 600,
-        thumb: `https://picsum.photos/450/600/?image=${imageId}&xblur`
+        thumb: `https://picsum.photos/450/600/?image=${imageId}&xblur`,
+        public_id: `dummy_img_${imageId}`
       };
     });
 
     images.push({
       width: 600,
       height: 450,
-      thumb: `https://picsum.photos/600/450/?image=429&xblur`
+      thumb: `https://picsum.photos/600/450/?image=429&xblur`,
+      public_id: `dummy_img_429`
     });
 
     images.push({
       width: 450,
       height: 600,
-      thumb: `https://picsum.photos/450/600/?image=1047&xblur`
+      thumb: `https://picsum.photos/450/600/?image=1047&xblur`,
+      public_id: `dummy_img_1047`
     });
 
     return images;
@@ -265,7 +303,10 @@ class PlaceImagesStacked extends React.Component {
             {ImageGalleryImages.map(image => {
               return (
                 <StackImage
-                  // onClick={this.handleImageClick.bind(this, image)}
+                  handleMovedOutComplete={this.handleMovedOutComplete.bind(
+                    this,
+                    image
+                  )}
                   key={image.thumb}
                   image={image}
                   imageNewHeight={imageNewHeight}
