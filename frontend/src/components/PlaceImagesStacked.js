@@ -224,7 +224,7 @@ class PlaceImagesStacked extends React.Component {
     let zIndex = ImageGalleryImages.length;
     ImageGalleryImages = ImageGalleryImages.map(image => {
       // https://stackoverflow.com/questions/13455042/random-number-between-negative-and-positive-value
-      var randomRotateDeg = Math.floor(Math.random() * 10) + 1; // this will get a number between 1 and 99;
+      var randomRotateDeg = Math.floor(Math.random() * 6) + 1; // this will get a number between 1 and 99;
       randomRotateDeg *= Math.floor(Math.random() * 2) === 1 ? 1 : -1; // this will add minus sign in 50% of cases
 
       image.isMovingOut = false;
