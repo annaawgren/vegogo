@@ -6,12 +6,15 @@ const Box = posed.div({
   visible: {
     opacity: 1,
     translateX: "-50%",
-    translateY: "-50%"
+    translateY: "-50%",
+    rotate: props => {
+      return `${props.style.randomRotateDeg}deg` || "2deg";
+    }
   },
   isMovingOut: {
-    opacity: 0,
+    opacity: 0.2,
     // scale: 1,
-    translateX: "20%",
+    translateX: "40%",
     translateY: "-40%"
   }
 });
