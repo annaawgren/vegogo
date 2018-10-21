@@ -1,6 +1,5 @@
 .ImageStack {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin: 100px 0;
 }
 
 .ImageStack-wrap {
@@ -16,7 +15,9 @@
   // transform: translateX(-50%) translateY(-50%);
   background-color: rgba(255, 255, 255, 1);
   padding: 20px;
-  box-shadow: 1px 1px 4px 0px #ccc;
+  box-shadow: 3px 3px 10px 0px #ccc;
+  border: 1px solid hsla(0, 0%, 67%, 0.2);
+  transition: all 0.5s ease-in-out;
 }
 
 .ImageStack-image-img {

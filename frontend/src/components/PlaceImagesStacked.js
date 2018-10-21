@@ -1,6 +1,51 @@
 import React from "react";
 import "./PlaceImagesStacked.scss";
 
+class StackImage extends React.Component {
+  render() {
+    const { image, imageNewHeight, onClick } = this.props;
+
+    // https://stackoverflow.com/questions/13455042/random-number-between-negative-and-positive-value
+    var randomRotateDeg = Math.floor(Math.random() * 10) + 1; // this will get a number between 1 and 99;
+    randomRotateDeg *= Math.floor(Math.random() * 2) === 1 ? 1 : -1; // this will add minus sign in 50% of cases
+
+    let imageWrapStyles = {
+      transform: `translateX(-50%) translateY(-50%) scale(1) rotate(${randomRotateDeg}deg)`,
+      ...image.styles
+    };
+
+    // Landscape or portrait.
+    const landscape = image.width / image.height > 1;
+
+    let imageScrollerStyles = {};
+
+    if (landscape) {
+      imageScrollerStyles.width = imageNewHeight;
+    } else {
+      imageScrollerStyles.height = imageNewHeight;
+    }
+
+    return (
+      <div
+        className="ImageStack-image"
+        key={image.public_id}
+        style={imageWrapStyles}
+        data-landscape={landscape}
+        onClick={onClick}
+      >
+        <img
+          className="ImageStack-image-img"
+          style={imageScrollerStyles}
+          src={image.thumb}
+          width={image.width}
+          height={image.height}
+          alt=""
+        />
+      </div>
+    );
+  }
+}
+
 /**
  * Images for a place.
  */
@@ -16,6 +61,7 @@ class PlaceImagesStacked extends React.Component {
     };
 
     // this.handleResize = this.handleResize.bind(this);
+    this.handleImageClick = this.handleImageClick.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +81,12 @@ class PlaceImagesStacked extends React.Component {
   //     imageNewHeight
   //   });
   // }
+
+  handleImageClick(image, e) {
+    console.log("handleImageClick");
+    console.log("image", image);
+    console.log("e", e);
+  }
 
   calculateImageHeight() {
     let { galleryImages } = this.state;
@@ -90,6 +142,15 @@ class PlaceImagesStacked extends React.Component {
     if (!ImageGalleryImages.length) {
       ImageGalleryImages = [...ImageGalleryImages, ...this.getDummyImages()];
     }
+
+    // Add z-indexes.
+    let zIndex = ImageGalleryImages.length;
+    ImageGalleryImages = ImageGalleryImages.map(image => {
+      image.styles = {
+        zIndex: zIndex--
+      };
+      return image;
+    });
 
     return ImageGalleryImages;
   }
@@ -154,43 +215,13 @@ class PlaceImagesStacked extends React.Component {
         <div className="ImageStack">
           <div className="ImageStack-wrap">
             {ImageGalleryImages.map(image => {
-              // https://stackoverflow.com/questions/13455042/random-number-between-negative-and-positive-value
-              var randomRotateDeg = Math.floor(Math.random() * 10) + 1; // this will get a number between 1 and 99;
-              randomRotateDeg *= Math.floor(Math.random() * 2) === 1 ? 1 : -1; // this will add minus sign in 50% of cases
-              console.log("randomRotateDeg", randomRotateDeg);
-
-              let imageWrapStyles = {
-                transform: `translateX(-50%) translateY(-50%) scale(1) rotate(${randomRotateDeg}deg)`,
-                zIndex: 10
-              };
-
-              // Landscape or portrait.
-              const landscape = image.width / image.height > 1;
-
-              let imageScrollerStyles = {};
-
-              if (landscape) {
-                imageScrollerStyles.width = imageNewHeight;
-              } else {
-                imageScrollerStyles.height = imageNewHeight;
-              }
-
               return (
-                <div
-                  className="ImageStack-image"
-                  key={image.public_id}
-                  style={imageWrapStyles}
-                  data-landscape={landscape}
-                >
-                  <img
-                    className="ImageStack-image-img"
-                    style={imageScrollerStyles}
-                    src={image.thumb}
-                    width={image.width}
-                    height={image.height}
-                    alt=""
-                  />
-                </div>
+                <StackImage
+                  onClick={this.handleImageClick.bind(this, image)}
+                  key={image.thumb}
+                  image={image}
+                  imageNewHeight={imageNewHeight}
+                />
               );
             })}
           </div>
