@@ -6,9 +6,90 @@ import iconFacebook from "../images/icon-facebook.svg";
 import "./SiteFooter.scss";
 
 class SiteFooter extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      debug: false
+    };
+
+    this.getHeights = this.getHeights.bind(this);
+  }
+
+  getWindowDimensions() {
+    const width = Math.max(
+      document.body.scrollWidth,
+      document.documentElement.scrollWidth,
+      document.body.offsetWidth,
+      document.documentElement.offsetWidth,
+      document.documentElement.clientWidth
+    );
+
+    const height = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.body.offsetHeight,
+      document.documentElement.offsetHeight,
+      document.documentElement.clientHeight
+    );
+
+    return { width, height };
+  }
+
+  getHeights() {
+    this.setState({
+      screenAvailHeight: window.screen.availHeight,
+      screenHeight: window.screen.height,
+      windowInnerHeight: window.innerHeight, // This changes depending on ios url bar visibility.
+      bodyOffsetHeight: document.body.offsetHeight,
+      bodyClientHeight: document.body.clientHeight,
+      windowDimensionsHeight: this.getWindowDimensions()["height"]
+    });
+  }
+
+  componentDidMount() {
+    // window.addEventListener('resize', this.getHeights);
+    // window.addEventListener('scroll', this.getHeights);
+    // this.getHeights();
+  }
+
+  componentWillUnmount() {
+    // window.removeEventListener('resize', this.getHeights);
+    // window.removeEventListener('scroll', this.getHeights);
+  }
+
   render() {
+    const {
+      debug,
+      screenAvailHeight,
+      screenHeight,
+      windowInnerHeight,
+      bodyOffsetHeight,
+      bodyClientHeight,
+      windowDimensionsHeight
+    } = this.state;
+
     return (
       <footer className="SiteFooter">
+        {debug && (
+          <div>
+            <p>
+              Debug: on.
+              <br />
+              screenAvailHeight: {screenAvailHeight}
+              <br />
+              screenHeight: {screenHeight}
+              <br />
+              windowInnerHeight: {windowInnerHeight}
+              <br />
+              bodyOffsetHeight: {bodyOffsetHeight}
+              <br />
+              bodyClientHeight: {bodyClientHeight}
+              <br />
+              windowDimensionsHeight: {windowDimensionsHeight}
+            </p>
+          </div>
+        )}
         <p>
           <img src={logoImg} alt="Vegogo logo" className="SiteFooter-logo" />
         </p>
