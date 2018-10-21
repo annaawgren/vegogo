@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 // import ImageGallery from "react-image-gallery";
 import "./PlacesListing.scss";
 // import PlaceImages from "./PlaceImages";
-import PlaceImagesNew from "./PlaceImagesNew";
+// import PlaceImagesNew from "./PlaceImagesNew";
 import PlaceImagesStacked from "./PlaceImagesStacked";
 import PlaceTypes from "./PlaceTypes";
 import PlaceDetails from "./PlaceDetails";
@@ -278,7 +278,7 @@ class Place extends Component {
     }
 
     // let imagesMarkup = <PlaceImages {...this.state.place} />;
-    let imagesMarkupNew = <PlaceImagesNew {...this.state.place} />;
+    //let imagesMarkupNew = <PlaceImagesNew {...this.state.place} />;
     let imagesMarkupStack = <PlaceImagesStacked {...this.state.place} />;
 
     return (
@@ -293,7 +293,7 @@ class Place extends Component {
 
         {imagesMarkupStack}
 
-        {imagesMarkupNew}
+        {/* {imagesMarkupNew} */}
 
         <div className="PlaceItem-content">
           {tease}
