@@ -183,7 +183,7 @@
 
 .PlaceItem-features-item {
   display: inline-block;
-  padding: 0.5rem;
+  padding: 0.5rem 0;
 
   span {
     // background-color: $vegogo-color-red;
@@ -191,6 +191,11 @@
     // margin: 4px 4px;
     display: inline-block;
   }
+}
+
+.PlaceItem-features-item:not(:last-child):after {
+  content: "•";
+  margin: 0 0.5rem;
 }
 
 .PlaceItem-teaser {
@@ -222,6 +227,11 @@
     margin: 0 0;
     line-height: 1.1;
   }
+}
+
+.PlaceItem-textcontent--brief {
+  font-size: 24px;
+  // color: #888;
 }
 
 .PlaceItem--isOverview {

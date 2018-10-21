@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet";
 import "./PlacesListing.scss";
 // import PlaceImages from "./PlaceImages";
 import PlaceImagesNew from "./PlaceImagesNew";
+import PlaceImagesStacked from "./PlaceImagesStacked";
 import PlaceTypes from "./PlaceTypes";
 import PlaceDetails from "./PlaceDetails";
 import { getPlaceDetailsFromGoogle } from "../helpers.js";
@@ -278,6 +279,7 @@ class Place extends Component {
 
     // let imagesMarkup = <PlaceImages {...this.state.place} />;
     let imagesMarkupNew = <PlaceImagesNew {...this.state.place} />;
+    let imagesMarkupStack = <PlaceImagesStacked {...this.state.place} />;
 
     return (
       <article key={slug} className={placeClassNames}>
@@ -288,6 +290,8 @@ class Place extends Component {
         )}
 
         {/* {imagesMarkup} */}
+
+        {imagesMarkupStack}
 
         {imagesMarkupNew}
 
