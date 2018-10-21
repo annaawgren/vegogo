@@ -87,7 +87,43 @@ class PlaceImages extends React.Component {
       return image;
     });
 
+    // If no images found lets fake some, beacuse we really want to test with some images.
+    if (!ImageGalleryImages.length) {
+      ImageGalleryImages = [...ImageGalleryImages, ...this.getDummyImages()];
+    }
+
     return ImageGalleryImages;
+  }
+
+  getDummyImages() {
+    // List of images avilable:
+    // https://picsum.photos/images
+
+    const images = [
+      835,
+      437,
+      429,
+      425,
+      946,
+      1047,
+      1059,
+      1080,
+      30,
+      42,
+      48,
+      63,
+      75,
+      163,
+      292
+    ];
+
+    return images.map(imageId => {
+      return {
+        width: 450,
+        height: 600,
+        thumb: `https://picsum.photos/450/600/?blur&image=${imageId}`
+      };
+    });
   }
 
   render() {
