@@ -1,16 +1,46 @@
 import React from "react";
+import posed from "react-pose";
 import "./PlaceImagesStacked.scss";
 
-class StackImage extends React.Component {
-  render() {
-    const { image, imageNewHeight, onClick } = this.props;
+const Box = posed.div({
+  visible: {
+    opacity: 1,
+    translateX: "-50%",
+    translateY: "-50%",
+    scale: 1
+  },
+  hidden: {
+    opacity: 0,
+    scale: 1.2
+  }
+});
 
-    // https://stackoverflow.com/questions/13455042/random-number-between-negative-and-positive-value
-    var randomRotateDeg = Math.floor(Math.random() * 10) + 1; // this will get a number between 1 and 99;
-    randomRotateDeg *= Math.floor(Math.random() * 2) === 1 ? 1 : -1; // this will add minus sign in 50% of cases
+class StackImage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isVisible: true
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handlePoseComplete = this.handlePoseComplete.bind(this);
+  }
+
+  handlePoseComplete() {
+    console.log("handlePoseComplete()");
+  }
+
+  handleClick(e) {
+    this.setState({
+      isVisible: !this.state.isVisible
+    });
+  }
+
+  render() {
+    const { image, imageNewHeight } = this.props;
 
     let imageWrapStyles = {
-      transform: `translateX(-50%) translateY(-50%) scale(1) rotate(${randomRotateDeg}deg)`,
       ...image.styles
     };
 
@@ -26,12 +56,14 @@ class StackImage extends React.Component {
     }
 
     return (
-      <div
+      <Box
         className="ImageStack-image"
+        pose={this.state.isVisible ? "visible" : "hidden"}
         key={image.public_id}
         style={imageWrapStyles}
         data-landscape={landscape}
-        onClick={onClick}
+        onClick={this.handleClick}
+        onPoseComplete={this.handlePoseComplete}
       >
         <img
           className="ImageStack-image-img"
@@ -41,7 +73,7 @@ class StackImage extends React.Component {
           height={image.height}
           alt=""
         />
-      </div>
+      </Box>
     );
   }
 }
@@ -57,11 +89,13 @@ class PlaceImagesStacked extends React.Component {
 
     this.state = {
       galleryImages: this.getImages(),
-      imageNewHeight: this.defaultImageHeight
+      imageNewHeight: this.defaultImageHeight,
+      isBoxVisible: true
     };
 
     // this.handleResize = this.handleResize.bind(this);
     this.handleImageClick = this.handleImageClick.bind(this);
+    this.handleImageStackClick = this.handleImageStackClick.bind(this);
   }
 
   componentDidMount() {
@@ -83,9 +117,17 @@ class PlaceImagesStacked extends React.Component {
   // }
 
   handleImageClick(image, e) {
-    console.log("handleImageClick");
-    console.log("image", image);
-    console.log("e", e);
+    // console.log("handleImageClick");
+  }
+
+  /**
+   * When a user clicks the image stack,
+   * we move away the topmost image (image with highest zIndex)
+   * to show the image that previosly had the next-highest index
+   * and now has the highest.
+   */
+  handleImageStackClick(e) {
+    console.log("handleImageStackClick", e);
   }
 
   calculateImageHeight() {
@@ -143,12 +185,18 @@ class PlaceImagesStacked extends React.Component {
       ImageGalleryImages = [...ImageGalleryImages, ...this.getDummyImages()];
     }
 
-    // Add z-indexes.
+    // Add styles (z-indexes and transforms).
     let zIndex = ImageGalleryImages.length;
     ImageGalleryImages = ImageGalleryImages.map(image => {
+      // https://stackoverflow.com/questions/13455042/random-number-between-negative-and-positive-value
+      var randomRotateDeg = Math.floor(Math.random() * 10) + 1; // this will get a number between 1 and 99;
+      randomRotateDeg *= Math.floor(Math.random() * 2) === 1 ? 1 : -1; // this will add minus sign in 50% of cases
+
       image.styles = {
-        zIndex: zIndex--
+        zIndex: zIndex--,
+        transform: `translateX(-50%) translateY(-50%) scale(1) rotate(${randomRotateDeg}deg)`
       };
+
       return image;
     });
 
@@ -212,12 +260,12 @@ class PlaceImagesStacked extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="ImageStack">
+        <div className="ImageStack" onClick={this.handleImageStackClick}>
           <div className="ImageStack-wrap">
             {ImageGalleryImages.map(image => {
               return (
                 <StackImage
-                  onClick={this.handleImageClick.bind(this, image)}
+                  // onClick={this.handleImageClick.bind(this, image)}
                   key={image.thumb}
                   image={image}
                   imageNewHeight={imageNewHeight}
