@@ -108,12 +108,12 @@ class PlaceImagesStacked extends React.Component {
       1059,
       // 1080,
       30,
-      42,
+      42
       // 48,
-      63,
+      // 63,
       // 75,
-      163,
-      292
+      // 163,
+      // 292
     ];
 
     return images.map(imageId => {
