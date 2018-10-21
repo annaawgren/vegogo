@@ -27,9 +27,6 @@ class NearbyPage extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("componentDidUpdate()", arguments);
-    console.log("prevState", prevState);
-
     let prevLat = prevProps.locationFoundLocation.lat;
     let prevLng = prevProps.locationFoundLocation.lng;
 
@@ -37,9 +34,7 @@ class NearbyPage extends Component {
     let currentLng = this.props.locationFoundLocation.lng;
 
     // If updated lat + lng then update places.
-    //console.log('prevLat prevLng currentLat currentLng', prevLat, prevLng, currentLat, currentLng);
     if (currentLat !== prevLat || currentLng !== prevLng) {
-      console.log("position changed, get places");
       this.getPlaces();
     }
   }
