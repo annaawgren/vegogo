@@ -98,7 +98,7 @@ class PlaceImagesStacked extends React.Component {
     // List of images avilable:
     // https://picsum.photos/images
 
-    const images = [
+    const imageIds = [
       835,
       437,
       // 429,
@@ -116,13 +116,27 @@ class PlaceImagesStacked extends React.Component {
       // 292
     ];
 
-    return images.map(imageId => {
+    let images = imageIds.map(imageId => {
       return {
         width: 450,
         height: 600,
         thumb: `https://picsum.photos/450/600/?image=${imageId}&xblur`
       };
     });
+
+    images.push({
+      width: 600,
+      height: 450,
+      thumb: `https://picsum.photos/600/450/?image=429&xblur`
+    });
+
+    images.push({
+      width: 450,
+      height: 600,
+      thumb: `https://picsum.photos/450/600/?image=1047&xblur`
+    });
+
+    return images;
   }
 
   render() {
@@ -135,10 +149,6 @@ class PlaceImagesStacked extends React.Component {
 
     let ImageGalleryImages = this.state.galleryImages;
 
-    let imageScrollerStyles = {
-      height: imageNewHeight
-    };
-
     return (
       <React.Fragment>
         <div className="ImageStack">
@@ -150,14 +160,27 @@ class PlaceImagesStacked extends React.Component {
               console.log("randomRotateDeg", randomRotateDeg);
 
               let imageWrapStyles = {
-                transform: `translateX(-50%) translateY(-50%) scale(1) rotate(${randomRotateDeg}deg)`
+                transform: `translateX(-50%) translateY(-50%) scale(1) rotate(${randomRotateDeg}deg)`,
+                zIndex: 10
               };
+
+              // Landscape or portrait.
+              const landscape = image.width / image.height > 1;
+
+              let imageScrollerStyles = {};
+
+              if (landscape) {
+                imageScrollerStyles.width = imageNewHeight;
+              } else {
+                imageScrollerStyles.height = imageNewHeight;
+              }
 
               return (
                 <div
                   className="ImageStack-image"
                   key={image.public_id}
                   style={imageWrapStyles}
+                  data-landscape={landscape}
                 >
                   <img
                     className="ImageStack-image-img"
