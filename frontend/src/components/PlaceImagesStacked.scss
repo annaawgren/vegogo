@@ -1,5 +1,5 @@
 .ImageStack {
-  padding: 60px 0;
+  padding: 60px 0 40px 0;
   overflow: hidden;
 }
 
@@ -14,10 +14,11 @@
   left: 50%;
   top: 50%;
   // transform: translateX(-50%) translateY(-50%);
-  background-color: rgba(255, 255, 255, 1);
-  padding: 20px;
-  box-shadow: 3px 3px 10px 0px #ccc;
-  border: 1px solid hsla(0, 0%, 67%, 0.2);
+  // background-color: rgba(255, 255, 255, 1);
+  // padding: 20px;
+  // box-shadow: 3px 3px 10px 0px #ccc;
+  box-shadow: 3px 3px 10px 0px rgba(72, 72, 72, 0.38);
+  // border: 1px solid hsla(0, 0%, 67%, 0.2);
   //transition: all 0.5s ease-in-out;
 }
 
@@ -25,4 +26,8 @@
   height: auto;
   width: auto;
   display: block;
+}
+
+.ImageStack + .PlaceItem-content {
+  margin-top: -10px;
 }
