@@ -3,6 +3,7 @@ import posed from "react-pose";
 import "./PlaceImagesStacked.scss";
 
 const Box = posed.div({
+  draggable: false,
   visible: {
     opacity: 1,
     translateX: "-50%",
@@ -11,6 +12,12 @@ const Box = posed.div({
       return `${props.style.randomRotateDeg}deg` || "2deg";
     }
   },
+  // drag: {
+  //   opacity: 1,
+  //   rotate: props => {
+  //     return `${props.style.randomRotateDeg}deg` || "2deg";
+  //   }
+  // },
   isMovingOut: {
     opacity: 0.2,
     // scale: 1,
