@@ -14,6 +14,20 @@ import PlaceDetails from "./PlaceDetails";
 import { getPlaceDetailsFromGoogle } from "../helpers.js";
 import Loading from "./Loading";
 import { cleanupHomepage } from "../helpers.js";
+import posed from "react-pose";
+
+const Content = posed.div({
+  closed: {
+    height: 0,
+    opacity: 0,
+    translateY: -10
+  },
+  open: {
+    height: "auto",
+    opacity: 1,
+    translateY: 0
+  }
+});
 
 /**
  * Place can get what to render from a slug + props with full place object, for example when being used in a listing
@@ -299,30 +313,31 @@ class Place extends Component {
           {tease}
 
           {/* Details are shown on details page or when "More" link is clicked. */}
-          {this.state.detailsOpen && (
-            <div className="PlaceItem-details">
-              {contentOut}
-              <PlaceDetails
-                {...{
-                  location,
-                  phone,
-                  name,
-                  homepage,
-                  openingHours,
-                  openNow,
-                  phoneNumber,
-                  website,
-                  websitePresentation,
-                  isLoadingOpeningHours,
-                  isLoadingContactDetails,
-                  isContactDetailsOpened,
-                  isOpeningHoursOpened
-                }}
-                handleOpeningHoursClick={this.handleOpeningHoursClick}
-                handleContactDetailsClick={this.handleContactDetailsClick}
-              />
-            </div>
-          )}
+          <Content
+            className="PlaceItem-details"
+            pose={this.state.detailsOpen ? "open" : "closed"}
+          >
+            {contentOut}
+            <PlaceDetails
+              {...{
+                location,
+                phone,
+                name,
+                homepage,
+                openingHours,
+                openNow,
+                phoneNumber,
+                website,
+                websitePresentation,
+                isLoadingOpeningHours,
+                isLoadingContactDetails,
+                isContactDetailsOpened,
+                isOpeningHoursOpened
+              }}
+              handleOpeningHoursClick={this.handleOpeningHoursClick}
+              handleContactDetailsClick={this.handleContactDetailsClick}
+            />
+          </Content>
         </div>
       </article>
     );
