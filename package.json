@@ -11,7 +11,8 @@
     ]
   },
   "dependencies": {
-    "concurrently": "^3.6.1"
+    "concurrently": "^3.6.1",
+    "react-swipeable": "^4.3.0"
   },
   "devDependencies": {
     "husky": "^1.0",

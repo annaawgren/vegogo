@@ -1,6 +1,7 @@
 import React from "react";
 import posed from "react-pose";
 import "./PlaceImagesStacked.scss";
+import Swipeable from "react-swipeable";
 
 const Box = posed.div({
   draggable: false,
@@ -104,6 +105,9 @@ class PlaceImagesStacked extends React.Component {
 
     this.handleImageStackClick = this.handleImageStackClick.bind(this);
     this.handleMovedOutComplete = this.handleMovedOutComplete.bind(this);
+
+    this.handleSwipedLeft = this.handleSwipedLeft.bind(this);
+    this.handleSwipedRight = this.handleSwipedLeft.bind(this);
   }
 
   componentDidMount() {
@@ -123,6 +127,21 @@ class PlaceImagesStacked extends React.Component {
   //     imageNewHeight
   //   });
   // }
+
+  handleSwipedLeft() {
+    // alert('handleSwipedLeft')
+    this.handleImageStackClick();
+  }
+
+  handleSwipedRight() {
+    // alert('handleSwipedRight')
+    this.handleImageStackClick();
+  }
+
+  handleTap() {
+    alert("handleTap");
+    // this.handleImageStackClick();
+  }
 
   handleMovedOutComplete(image, pose) {
     // Image is moved out of stack.
@@ -313,7 +332,12 @@ class PlaceImagesStacked extends React.Component {
 
     return (
       <React.Fragment>
-        <div className="ImageStack" onClick={this.handleImageStackClick}>
+        <Swipeable
+          onSwipedLeft={this.handleSwipedLeft}
+          onSwipedRight={this.handleSwipedRight}
+          onClick={this.handleImageStackClick}
+          className="ImageStack"
+        >
           <div className="ImageStack-wrap">
             {ImageGalleryImages.map(image => {
               return (
@@ -329,7 +353,7 @@ class PlaceImagesStacked extends React.Component {
               );
             })}
           </div>
-        </div>
+        </Swipeable>
       </React.Fragment>
     );
   }
