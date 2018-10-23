@@ -21,6 +21,8 @@
 }
 
 .SiteHeader-titleLink {
+  display: block;
+  padding: 3px 0;
   line-height: 1;
 }
 
@@ -35,6 +37,7 @@
 }
 
 .SiteHeader-nearMeLink {
+  display: inline-block;
   -webkit-appearance: none;
   line-height: 1;
   padding: 0;
@@ -42,14 +45,14 @@
   background: transparent;
   border: 0;
   position: relative;
-  top: 8px;
+  top: 0;
   margin-right: 16px;
 }
 
 .SiteHeader-navToggler {
-  // position: absolute;
+  position: relative;
   z-index: 10;
-  // top: 6px;
+  top: -6px;
   // right: 0;
   appearance: none;
   margin: 0;
