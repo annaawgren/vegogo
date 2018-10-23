@@ -13,6 +13,12 @@ html {
   box-sizing: inherit;
 }
 
+a,
+input,
+.ImageStack {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   font-family: $custom-font-bold;
   margin: 0 auto;
