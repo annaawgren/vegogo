@@ -112,8 +112,8 @@
 }
 
 .PlaceItem--isOverview.PlaceItem--expanded {
-  background-color: #eee;
-  transition: background-color 0.25s ease-out;
+  // background-color: #eee;
+  // transition: background-color 0.25s ease-out;
   // .PlaceItem-name {
   // font-size: 64px;
   // }
@@ -200,11 +200,12 @@
 
 .PlaceItem-teaser {
   display: block;
+  text-decoration: none;
 }
 
 .PlaceItem-teaser:hover {
-  transition: text-decoration-color 0.15s ease-in-out;
-  text-decoration-color: #666;
+  // transition: text-decoration-color 0.15s ease-in-out;
+  // text-decoration-color: #666;
 }
 
 .PlaceItem--expanded .PlaceItem-teaser {
