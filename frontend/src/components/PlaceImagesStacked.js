@@ -158,6 +158,11 @@ class PlaceImagesStacked extends React.Component {
     // Move out topmost image.
     let { galleryImages } = this.state;
 
+    // Bail if only one image.
+    if (galleryImages.length <= 1) {
+      return;
+    }
+
     // Topmost image = image with highest zIndex.
     let topmostImage = galleryImages.reduce(
       (prev, current) =>
