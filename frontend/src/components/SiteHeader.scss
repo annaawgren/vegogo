@@ -126,10 +126,10 @@
   }
 
   & a {
-    text-decoration: underline;
-    text-underline-position: under;
+    text-decoration: none;
+    border-bottom: 2px solid black;
     display: inline-block;
-    width: 100%;
+    width: auto;
   }
 
   & .active {
@@ -139,18 +139,19 @@
   &-subPlaces {
     list-style: none;
     font-size: 22px;
-    display: inline-block;
-    max-width: 400px;
+    //display: inline-block;
+    // max-width: 400px;
     margin-top: 15px;
 
     & li {
-      display: inline-block;
+      display: block;
+      width: auto;
       margin-top: 10px;
       margin-bottom: 10px;
     }
 
     & a {
-      padding: 0.25rem 0.75rem;
+      // padding: 0.25rem 0.75rem;
     }
   }
 }
