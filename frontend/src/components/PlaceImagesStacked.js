@@ -19,11 +19,23 @@ const Box = posed.div({
   //     return `${props.style.randomRotateDeg}deg` || "2deg";
   //   }
   // },
-  isMovingOut: {
+  isMovingOutRight: {
     opacity: 0.2,
     // scale: 1,
     translateX: "40%",
-    translateY: "-40%"
+    translateY: "-50%",
+    rotate: props => {
+      return `${props.style.randomRotateDeg + 8}deg` || "2deg";
+    }
+  },
+  isMovingOutLeft: {
+    opacity: 0.2,
+    // scale: 1,
+    translateX: "-100%",
+    translateY: "-50%",
+    rotate: props => {
+      return `${props.style.randomRotateDeg - 8}deg` || "2deg";
+    }
   }
 });
 
@@ -36,7 +48,6 @@ class StackImage extends React.Component {
     };
 
     this.handleClick = this.handleClick.bind(this);
-    //this.handlePoseComplete = this.handlePoseComplete.bind(this);
     this.handlePoseComplete = this.props.handleMovedOutComplete;
   }
 
@@ -48,7 +59,7 @@ class StackImage extends React.Component {
 
   render() {
     const { image, imageNewHeight } = this.props;
-    const { isMovingOut } = image;
+    const { isMovingOut, movingOutDirection } = image;
 
     let imageWrapStyles = {
       ...image.styles
@@ -65,10 +76,21 @@ class StackImage extends React.Component {
       imageScrollerStyles.height = imageNewHeight;
     }
 
+    let movingOutPose;
+
+    switch (movingOutDirection) {
+      case "left":
+        movingOutPose = "isMovingOutLeft";
+        break;
+      case "right":
+      default:
+        movingOutPose = "isMovingOutRight";
+    }
+
     return (
       <Box
         className="ImageStack-image"
-        pose={isMovingOut ? "isMovingOut" : "visible"}
+        pose={isMovingOut ? movingOutPose : "visible"}
         key={image.public_id}
         style={imageWrapStyles}
         data-landscape={landscape}
@@ -107,7 +129,7 @@ class PlaceImagesStacked extends React.Component {
     this.handleMovedOutComplete = this.handleMovedOutComplete.bind(this);
 
     this.handleSwipedLeft = this.handleSwipedLeft.bind(this);
-    this.handleSwipedRight = this.handleSwipedLeft.bind(this);
+    this.handleSwipedRight = this.handleSwipedRight.bind(this);
   }
 
   componentDidMount() {
@@ -128,19 +150,16 @@ class PlaceImagesStacked extends React.Component {
   //   });
   // }
 
-  handleSwipedLeft() {
-    // alert('handleSwipedLeft')
-    this.handleImageStackClick();
+  handleSwipedLeft(e) {
+    this.handleImageStackClick(e, {
+      direction: "left"
+    });
   }
 
-  handleSwipedRight() {
-    // alert('handleSwipedRight')
-    this.handleImageStackClick();
-  }
-
-  handleTap() {
-    alert("handleTap");
-    // this.handleImageStackClick();
+  handleSwipedRight(e) {
+    this.handleImageStackClick(e, {
+      direction: "right"
+    });
   }
 
   handleMovedOutComplete(image, pose) {
@@ -173,9 +192,10 @@ class PlaceImagesStacked extends React.Component {
    * to show the image that previosly had the next-highest index
    * and now has the highest.
    */
-  handleImageStackClick(e) {
+  handleImageStackClick(e, args = {}) {
     // Move out topmost image.
     let { galleryImages } = this.state;
+    let { direction = "right" } = args;
 
     // Bail if only one image.
     if (galleryImages.length <= 1) {
@@ -191,6 +211,8 @@ class PlaceImagesStacked extends React.Component {
     //let topmostImage = galleryImages.filter
     // console.log('topmostImage', topmostImage);
     topmostImage.isMovingOut = true;
+    topmostImage.movingOutDirection = direction;
+
     this.setState({
       galleryImages
     });
