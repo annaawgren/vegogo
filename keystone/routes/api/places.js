@@ -5,6 +5,7 @@ var Area = keystone.list("Area");
 var apiConfig = require("../../api-config");
 var { cloudinaryImageToURL } = require("../../functions");
 var ObjectId = require("mongoose").Types.ObjectId;
+var faker = require("faker");
 
 /**
  * List Places
@@ -84,6 +85,17 @@ exports.listArea = function(req, res) {
 		});
 };
 
+/**
+ * Format a place to suit our needs.
+ 
+ * It does for example:
+ * - Make it json.
+ * - Add cloudinary urls to images
+ * - Add default dummy data if missing
+ *
+ * @param place
+ * @returns place
+ */
 function makePlaceItemOurFormat(place) {
 	// Aggregate functions does not return model but plain json it seems.
 	if (place.toJSON !== undefined) {
@@ -106,8 +118,116 @@ function makePlaceItemOurFormat(place) {
 	});
 
 	// delete place.images;
+	place.fake = {
+		// name: faker.name.findName(),
+		// email: faker.internet.email(),
+		// loremWord: faker.lorem.word(),
+		// loremWords1: faker.lorem.words(1),
+		// loremWords2: faker.lorem.words(2),
+		// loremWords3: faker.lorem.words(3),
+		// loremWords5: faker.lorem.words(5),
+		// loremWords10: faker.lorem.words(10),
+		// loremWords15: faker.lorem.words(15),
+		// loremWords2: faker.lorem.words(2),
+		// loremWord3: faker.lorem.words(3),
+		// loremWord30: faker.lorem.words(30),
+		// loremWordSentence: faker.lorem.sentence(),
+		// loremWordSlug: faker.lorem.slug(),
+		loremWordParagraph: faker.lorem.paragraph(),
+		loremWordParagraph2: faker.lorem.paragraph(2),
+		loremWordParagraph22: faker.lorem.paragraph(2),
+		loremWordParagraphs: faker.lorem.paragraphs(),
+		loremWordParagraphs1: faker.lorem.paragraphs(1),
+		loremWordParagraphs2: faker.lorem.paragraphs(2),
+		loremWordParagraphs3: faker.lorem.paragraphs(3)
+		// loremWordText: faker.lorem.text(),
+		// loremWordLines: faker.lorem.lines()
+	};
+
+	if (!place.tagline) {
+		// place.tagline = faker.lorem.words(3);
+		place.tagline = faker.lorem.sentence();
+	}
+
+	if (!place.content.brief) {
+		place.content.brief = "<p>" + faker.lorem.paragraphs(1) + "</p>";
+	}
+
+	if (!place.content.extended) {
+		place.content.extended =
+			"<p>" +
+			faker.lorem
+				.paragraphs(5)
+				.split("\n")
+				.join("</p><p>") +
+			"</p>";
+	}
+
+	if (!place.homepage) {
+		place.homepage = faker.internet.url();
+	}
+
+	if (!place.phone) {
+		place.phone = faker.phone.phoneNumber();
+	}
+
+	if (!place.phone) {
+		place.phone = faker.phone.phoneNumber();
+	}
+
+	if (!place.images || !place.images.length) {
+		place.images = getDummyImages();
+	}
 
 	return place;
+}
+
+function getDummyImages() {
+	// List of images avilable:
+	// https://picsum.photos/images
+
+	const imageIds = [
+		835,
+		437,
+		// 429,
+		// 425,
+		946,
+		// 1047,
+		1059,
+		// 1080,
+		30,
+		42
+		// 48,
+		// 63,
+		// 75,
+		// 163,
+		// 292
+	];
+
+	let images = imageIds.map(imageId => {
+		return {
+			width: 450,
+			height: 600,
+			thumb: `https://picsum.photos/450/600/?image=${imageId}&xblur`,
+			public_id: `dummy_img_${imageId}`
+		};
+	});
+
+	images.push({
+		width: 600,
+		height: 450,
+		thumb: `https://picsum.photos/600/450/?image=429&xblur`,
+		public_id: `dummy_img_429`
+	});
+
+	images.push({
+		width: 450,
+		height: 600,
+		thumb: `https://picsum.photos/450/600/?image=1047&xblur`,
+		public_id: `dummy_img_1047`
+	});
+
+	return images;
 }
 
 /**

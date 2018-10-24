@@ -269,9 +269,10 @@ class PlaceImagesStacked extends React.Component {
     });
 
     // If no images found lets fake some, beacuse we really want to test with some images.
-    if (!ImageGalleryImages.length) {
-      ImageGalleryImages = [...ImageGalleryImages, ...this.getDummyImages()];
-    }
+    // if (!ImageGalleryImages.length) {
+    // ImageGalleryImages = [...ImageGalleryImages, ...this.getDummyImages()];
+    // console.warn('No place ImageGalleryImages found');
+    // }
 
     // Add styles (z-indexes and transforms).
     let zIndex = ImageGalleryImages.length;

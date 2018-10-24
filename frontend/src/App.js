@@ -38,8 +38,6 @@ class App extends Component {
   }
 
   handleGetLocation() {
-    console.log("getLocation()");
-
     this.setState({
       locationIsFound: false,
       locationIsLocating: true,
