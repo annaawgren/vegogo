@@ -118,32 +118,6 @@ function makePlaceItemOurFormat(place) {
 	});
 
 	// delete place.images;
-	place.fake = {
-		// name: faker.name.findName(),
-		// email: faker.internet.email(),
-		// loremWord: faker.lorem.word(),
-		// loremWords1: faker.lorem.words(1),
-		// loremWords2: faker.lorem.words(2),
-		// loremWords3: faker.lorem.words(3),
-		// loremWords5: faker.lorem.words(5),
-		// loremWords10: faker.lorem.words(10),
-		// loremWords15: faker.lorem.words(15),
-		// loremWords2: faker.lorem.words(2),
-		// loremWord3: faker.lorem.words(3),
-		// loremWord30: faker.lorem.words(30),
-		// loremWordSentence: faker.lorem.sentence(),
-		// loremWordSlug: faker.lorem.slug(),
-		loremWordParagraph: faker.lorem.paragraph(),
-		loremWordParagraph2: faker.lorem.paragraph(2),
-		loremWordParagraph22: faker.lorem.paragraph(2),
-		loremWordParagraphs: faker.lorem.paragraphs(),
-		loremWordParagraphs1: faker.lorem.paragraphs(1),
-		loremWordParagraphs2: faker.lorem.paragraphs(2),
-		loremWordParagraphs3: faker.lorem.paragraphs(3)
-		// loremWordText: faker.lorem.text(),
-		// loremWordLines: faker.lorem.lines()
-	};
-
 	if (!place.tagline) {
 		// place.tagline = faker.lorem.words(3);
 		place.tagline = faker.lorem.sentence();
@@ -177,6 +151,44 @@ function makePlaceItemOurFormat(place) {
 
 	if (!place.images || !place.images.length) {
 		place.images = getDummyImages();
+	}
+
+	if (!place.foodTypes || !place.foodTypes.length) {
+		place.foodTypes = [
+			{
+				key: "healthy",
+				name: "Healthy"
+			},
+			{
+				key: "bowls",
+				name: "Bowls"
+			},
+			{
+				key: "asian",
+				name: "Asian"
+			}
+		];
+	}
+
+	if (!place.foodTimes || !place.foodTimes.length) {
+		place.foodTimes = [
+			{
+				key: "coffee",
+				name: "Coffee"
+			},
+			{
+				key: "dinner",
+				name: "Dinner"
+			},
+			{
+				key: "lunch",
+				name: "Lunch"
+			}
+		];
+	}
+
+	if (!place.budget) {
+		place.budget = "midrange";
 	}
 
 	return place;
