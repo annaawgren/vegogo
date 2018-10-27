@@ -224,7 +224,8 @@ class Place extends Component {
       isLoadingContactDetails,
       isContactDetailsOpened,
       isOpeningHoursOpened,
-      websitePresentation
+      websitePresentation,
+      detailsOpen
     } = this.state;
 
     let { isSingleView } = this.props;
@@ -235,38 +236,42 @@ class Place extends Component {
       PlaceItem: true,
       "PlaceItem--isSingleView": isSingleView,
       "PlaceItem--isOverview": !isSingleView,
-      "PlaceItem--expanded": this.state.detailsOpen
+      "PlaceItem--expanded": detailsOpen
     });
 
     /**
      * Tease is the title and some sneak peek of the contents, like food types.
      */
 
+    let contentBriefOut = (
+      <>
+        {content &&
+          content.brief && (
+            <div className="PlaceItem-textcontent PlaceItem-textcontent--brief">
+              <div dangerouslySetInnerHTML={{ __html: content.brief }} />
+              {!isSingleView && (
+                <button href="/" className="PlaceItem-more">
+                  {"+"}
+                </button>
+              )}
+            </div>
+          )}
+      </>
+    );
+
     let tease = (
       <div className="PlaceItem-head">
         <h1 className="PlaceItem-name">{name}</h1>
         {locationDistance && <p>{locationDistance} meters away</p>}
 
-        {!isSingleView && (
-          <button href="/" className="PlaceItem-more">
-            {"+"}
-          </button>
-        )}
-
         <PlaceTypes foodTypes={foodTypes} />
+
+        {contentBriefOut}
       </div>
     );
 
-    let contentOut = (
-      <React.Fragment>
-        {content &&
-          content.brief && (
-            <div
-              className="PlaceItem-textcontent PlaceItem-textcontent--brief"
-              dangerouslySetInnerHTML={{ __html: content.brief }}
-            />
-          )}
-
+    let contentExtendedOut = (
+      <>
         {content &&
           content.extended && (
             <div
@@ -274,7 +279,7 @@ class Place extends Component {
               dangerouslySetInnerHTML={{ __html: content.extended }}
             />
           )}
-      </React.Fragment>
+      </>
     );
 
     if (isSingleView) {
@@ -315,9 +320,9 @@ class Place extends Component {
           {/* Details are shown on details page or when "More" link is clicked. */}
           <Content
             className="PlaceItem-details"
-            pose={this.state.detailsOpen ? "open" : "closed"}
+            pose={detailsOpen ? "open" : "closed"}
           >
-            {contentOut}
+            {contentExtendedOut}
             <PlaceDetails
               {...{
                 location,

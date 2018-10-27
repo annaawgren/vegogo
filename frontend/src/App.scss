@@ -30,15 +30,16 @@ body {
   background: $vegogo-color-green;
 }
 
-input:focus,
-button:focus,
-a:focus {
-  outline-color: $vegogo-color-yellow;
+input,
+button,
+a {
+  outline-color: transparent;
+  outline-width: 0;
 }
 
 // https://twitter.com/LeaVerou/status/1045768279753666562
 :focus:not(:focus-visible) {
-  outline: none;
+  outline-color: transparent;
 }
 
 a {
