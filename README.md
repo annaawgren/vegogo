@@ -8,6 +8,7 @@ The guide will launch soon at [Vegogo.se](https://vegogo.se).
 
 - install and run mongodb
 - npm install in /keystone and /frontend
+- add an `.env` file in /frontend/. See `.env-example`.
 - npm start
 - Frontend at http://localhost:3000/
 - Backend at http://localhost:3131/
