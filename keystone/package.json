@@ -10,7 +10,7 @@
     "faker": "^4.1.0",
     "keystone": "4.0.0",
     "keystone-storage-adapter-s3": "^1.1.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "moment": "^2.22.2",
     "nodemon": "^1.18.3",
     "pug": "2.0.0-beta11",
