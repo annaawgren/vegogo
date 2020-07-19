@@ -1,3 +1,7 @@
+This is an old repo. New and current repo is 👉 https://github.com/vegogo-se/.
+
+---
+
 # Vegogo 🥕🥑🍔
 
 The new guide ⚡️Curated and inspirational ⚡️The best vegan places to eat ⚡️Near you.
