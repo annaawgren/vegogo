@@ -1,4 +1,4 @@
-This is an old repo. New and current repo is 👉 https://github.com/vegogo-se/.
+This is an old repo. New and current repo is 👉 https://github.com/vegogo-se/vegogo.se.
 
 ---
 
